@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA ContenderScore Analysis Report</title>
+    <!-- Load Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#4b5563',
+                        'accent-green': '#10b981',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-gray-800 bg-white p-4 sm:p-8">
+    <div class="max-w-4xl mx-auto">
+        
+        <header class="pb-6 mb-8 border-b border-gray-200">
+            <!-- Link back to the main portfolio index.html -->
+            <a href="../../index.html" class="text-sm text-gray-600 hover:text-accent-green font-medium transition duration-200 flex items-center mb-2">
+                &larr; Back to Portfolio Log
+            </a>
+            <h1 class="text-4xl font-extrabold text-primary-dark mt-2">NBA ContenderScore Analysis</h1>
+            <p class="text-lg text-gray-700 mt-2">
+                I recently ran a data analysis project testing a fan metric used to gauge NBA championship potential: the **ContenderScore**, which combines Offensive (OffRank) and Defensive (DefRank) efficiency rankings.
+            </p>
+        </header>
+
+        <!-- HYPOTHESIS SECTION -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3 border-l-4 border-accent-green pl-3">🧠 The Hypothesis</h2>
+            <p class="text-lg text-gray-700">
+                The core question was: Does the ContenderScore accurately predict a team's probability of being a true contender (Conference Finals or better)?
+            </p>
+        </section>
+
+        <!-- DATA & MODEL SECTION -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3 border-l-4 border-accent-green pl-3">📊 The Data & Model</h2>
+            
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 space-y-4">
+                <div class="text-gray-700">
+                    <p><strong class="text-primary-dark">Data Set:</strong> Every NBA team from the 2005 season through 2018 (the 30-team era available in the dataset).</p>
+                    <p><strong class="text-primary-dark">Model:</strong> Logistic Regression, designed to predict the probability of a binary outcome (Contender = 1, Not Contender = 0).</p>
+                </div>
+                
+                <h3 class="text-xl font-semibold text-gray-800 pt-2">Metric Tested: ContenderScore</h3>
+                <div class="overflow-x-auto">
+                    <div class="text-center bg-white p-4 rounded-lg border border-gray-300 shadow-inner">
+                        <p class="text-2xl font-mono text-primary-dark">
+                            $$\text{ContenderScore} = 10 \times \left( \frac{(30 - \text{OffRank}) + (30 - \text{DefRank})}{60} \right)$$
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESULTS SECTION -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3 border-l-4 border-accent-green pl-3">✅ The Results: High Accuracy, Conservative Predictions</h2>
+            <ul class="list-disc text-lg text-gray-700 space-y-3 pl-6">
+                <li>The model found that the **ContenderScore** is a highly significant and powerful single predictor of playoff success. The relationship is not random; the score is a statistically valid predictor. <strong class="text-accent-green">(P < 0.001)</strong>.</li>
+                <li>The model correctly classified **89.5%** of all 420 teams (contenders and non-contenders).</li>
+                <li>For every 1-unit increase in the score, the odds of making the Conference Finals increase by over **3.3 times**.</li>
+                <li>When the model predicted a team was a contender, it was right nearly **two-thirds** of the time.</li>
+            </ul>
+        </section>
+
+        <!-- KEY TAKEAWAY SECTION -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3 border-l-4 border-accent-green pl-3">🔍 Key Takeaway on Prediction</h2>
+            <p class="text-lg text-gray-700 mb-4">
+                The model is incredibly effective at identifying non-contenders (357 teams correctly predicted to fall short). However, it is very conservative:
+            </p>
+            <ul class="list-disc text-lg text-gray-700 space-y-3 pl-6 mb-6">
+                <li>It only correctly identified **36.5%** (19 out of 52) of the teams that actually reached the Conference Finals or better.</li>
+                <li>This is highly precise when it predicts a contender, but it misses a lot of the actual contenders who snuck through with lower scores.</li>
+            </ul>
+            <p class="text-xl font-bold text-primary-dark mt-4 border-t pt-4">
+                Bottom Line: The formula is great at ruling teams out and is a powerful signal for who the true top-tier threats are.
+            </p>
+        </section>
+
+        <!-- FOLLOW UP SECTION -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3 border-l-4 border-accent-green pl-3">Potential Follow Up Analysis</h2>
+            <ul class="list-disc text-lg text-gray-700 space-y-2 pl-6">
+                <li>Is an increase in **OffRank** or **DefRank** more impactful?</li>
+                <li>Is there a point in the season where this score has a higher probability of accuracy?</li>
+                <li>How do other factors outside the team's performance factor in? (e.g., injury, change of coach)</li>
+            </ul>
+        </section>
+        
+        <footer class="text-center mt-12 border-t pt-6 text-gray-600">
+            <p class="text-lg font-semibold mb-2">Dive Deeper</p>
+            <!-- Link to the Python code file -->
+            <a href="./contender_score.ipynb" target="_blank" class="text-accent-green hover:underline font-semibold text-xl">
+                View the full Python code and methodology here &rarr;
+            </a>
+            <p class="text-sm mt-4">This report uses KaTeX for math rendering. Code visualization relies on GitHub's native .ipynb rendering.</p>
+        </footer>
+    </div>
+    <!-- Script for KaTeX (Math Rendering) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" xintegrity="sha384-wns0f/Q/K1738v8G52p3qHn5W/4x3g1I9H2I63R+1q/Kz4Y8yL8h+8q01z/8L9q" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" xintegrity="sha384-yBv/Q/P7Ff2T3W2J8tS08w+2yB1K9x+v2RjX/F2w8Y2zW40L4K13e1j+8L8g+w8t" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" xintegrity="sha384-pEM8R8sB4H8S+Vz9L2XzW2s6/Jt/m8kE/o8I3t1M/H2K2y8yL8h+8G40jX47t/8" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+</body>
+</html>
