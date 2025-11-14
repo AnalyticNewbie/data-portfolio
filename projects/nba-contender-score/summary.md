@@ -1,27 +1,36 @@
-NBA ContenderScore Analysis
+I recently ran a  data analysis project testing a fan metric used to gauge NBA championship potential: the *ContenderScore*, which combines Offensive (*OffRank*) and Defensive (*DefRank*) efficiency rankings.
 
-🎯 Goal & Hypothesis
+🧠 The Hypothesis
 
-Goal: To move beyond simple win/loss records and create a single, predictive metric ("ContenderScore") that more accurately ranks the current readiness of NBA teams for deep playoff success.
+The core question was: Does the *ContenderScore* accurately predict a team's probability of being a true contender (Conference Finals or better)?
 
-Hypothesis: A weighted score combining Offensive Efficiency and Defensive Efficiency will be a more accurate predictor of a team's championship potential than standard metrics like Net Rating or Win Percentage.
+📊 The Data & Model
 
-🛠️ Methodology & Data
++ Data Set: Every NBA team from the 2005 season through 2018 (the 30-team era available in the dataset)
 
-Data Source: Scraping or extracting publicly available data for all 30 NBA teams, focusing on the current season's performance metrics.
++ Metric Tested: $\text{ContenderScore} = 10 \times \left( \frac{(30 – \text{OffRank}) + (30 – \text{DefRank})}{60} \right)$
 
-Core Metrics Used: Offensive Rating, Defensive Rating, Net Rating, and Strength of Schedule (SoS).
++ Model: **Logistic Regression**, designed to predict the probability of a binary outcome (Contender = 1, Not Contender = 0).
 
-ContenderScore Calculation: A custom weighted formula was applied, giving 50% weight to Defensive Rating (as defense wins championships) and 30% to Offensive Rating, with the remaining 20% distributed across advanced metrics.
+✅ The Results: High Accuracy, Conservative Predictions
 
-Tools: Python (Pandas for data cleaning and manipulation, NumPy for array calculations).
++ The model found that the *ContenderScore* is a highly significant and powerful single predictor of playoff success.
++ The relationship is not random; the score is a statistically valid predictor. (**P < 0.001**)
++ The model correctly classified **89.5%** of all 420 teams (contenders and non-contenders).
++ For every 1-unit increase in the score, the odds of making the Conference Finals increase by over **3.3 times**.
++ When the model predicted a team was a contender, it was right nearly **two-thirds** of the time.
 
-📊 Key Findings
+🔍 Key Takeaway on Prediction
 
-The ContenderScore identified [Insert Team A] as the true title favorite, despite their modest Win/Loss record, due to their elite Defensive Efficiency.
+The model is incredibly effective at identifying non-contenders (357 teams correctly predicted to fall short).
+However, it is very conservative:
++ It only correctly identified **36.5%** (19 out of 52) of the teams that actually reached the Conference Finals or better.
++ This is highly precise when it predicts a contender, but it misses a lot of the actual contenders who snuck through with lower scores.
 
-Teams with a high score but a poor Strength of Schedule (SoS) often regress later in the season, proving the metric's reliability.
+Bottom Line: The formula is great at ruling teams out and is a powerful signal for who the true top-tier threats
 
-The final model suggests that a minimum ContenderScore of 0.78 is typically required to be considered a legitimate top-4 title threat.
+Potential Follow Up Analysis
 
-View the full Python code, visualizations, and data cleaning process here.
++ Is an increase in *OffRank* or *DefRank* more impactful
++ Is there a point in the season where this score has a higher probability of accuracy?
++ How do other factors outside the teams performance factor in? e.g. injury, change of coach
