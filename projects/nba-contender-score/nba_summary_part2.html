@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Contender Score Analysis: Part II</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+        }
+        .container-shadow {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .bg-gradient-offense {
+            background-image: linear-gradient(to right, #f97316, #ea580c);
+        }
+        .bg-gradient-defense {
+            background-image: linear-gradient(to right, #1d4ed8, #2563eb);
+        }
+        .bg-gradient-refined {
+            background-image: linear-gradient(to right, #059669, #10b981);
+        }
+        .stat-card {
+            border-radius: 0.5rem;
+            padding: 1rem;
+            color: white;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+        }
+        .code-block {
+            background-color: #e2e8f0;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            border-radius: 0.375rem;
+            font-family: monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin-top: 1rem;
+        }
+        .table-custom th {
+            background-color: #1f2937;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        .table-custom td {
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-10 rounded-xl container-shadow">
+
+        <header class="mb-8">
+            <a href="nba_summary.html" class="text-blue-600 hover:text-blue-800 text-sm">← Back to Part I Summary</a>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-2 border-b-2 pb-2">
+                NBA Contender Score Analysis: Part II
+            </h1>
+            <p class="text-gray-500 mt-2">
+                **Focus:** Structural model testing, optimizing predictive strength, and resolving the Offensive vs. Defensive impact debate.
+            </p>
+        </header>
+
+        <!-- HYPOTHESIS 2: OFFENSE VS. DEFENSE -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="mr-3 text-3xl">⚔️</span> Hypothesis 2: Offense vs. Defense – Which Predicts Better?
+            </h2>
+            <p class="text-gray-700 mb-6">
+                We separated the $\text{ContenderScore}$ components to run two independent Logistic Regression models using the continuous Relative Ratings ($\text{Rel\_ORtg}$ and $\text{Rel\_DRtg}$). This tested which side of the ball—Offense or Defense—is the **stronger single predictor** of reaching the Conference Finals or better (2005–2018 data).
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                <!-- Offense Model Card -->
+                <div class="stat-card bg-gradient-offense">
+                    <p class="text-lg font-semibold mb-1">Model A: Offense ($\text{Rel\_ORtg}$)</p>
+                    <p class="text-4xl font-extrabold">20.22%</p>
+                    <p class="text-sm mt-1 opacity-80">Pseudo R-squared</p>
+                </div>
+
+                <!-- Defense Model Card -->
+                <div class="stat-card bg-gradient-defense">
+                    <p class="text-lg font-semibold mb-1">Model B: Defense ($\text{Rel\_DRtg}$)</p>
+                    <p class="text-4xl font-extrabold">21.61%</p>
+                    <p class="text-sm mt-1 opacity-80">Pseudo R-squared</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 border-b pb-1">Conclusion: Defense is a Stronger Predictor</h3>
+            <ul class="list-disc list-inside text-gray-700 mt-3 space-y-2">
+                <li>**Superior Fit:** The model using **Defense ($\text{Rel\_DRtg}$)** achieved a higher $\text{Pseudo R-squared}$ ($\mathbf{0.2161}$ vs. $0.2022$), meaning defensive efficiency explains more of the variability in predicting contender status than offensive efficiency alone.</li>
+                <li>**Higher Impact:** The coefficient for Defense was slightly larger in magnitude, confirming that a unit of improvement in defense yields a greater boost to a team's odds of reaching the Conference Finals.</li>
+            </ul>
+        </section>
+
+        <!-- HYPOTHESIS 3: MODEL REFINEMENT & ACCURACY -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <span class="mr-3 text-3xl">🚀</span> Hypothesis 3: Improving Recall (The Non-Linear Fix)
+            </h2>
+            <p class="text-gray-700 mb-4">
+                The original $\text{ContenderScore}$ model had low **Recall** ($\mathbf{36.5\%}$), meaning it missed two-thirds of actual contenders due to its rigid, linear nature. We tested two solutions to improve model structure and capture "sneaky" contenders.
+            </p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 border-b pb-1">Test 1: Unconstrained Two-Way Model (Structural Fix)</h3>
+            <p class="text-gray-700 mt-3">
+                We ran a Logistic Regression using **$\text{Rel\_ORtg}$ and $\text{Rel\_DRtg}$ simultaneously** as separate predictors (unconstrained model).
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="font-semibold text-gray-700">Pseudo R-squared (Fit):</p>
+                    <p class="text-2xl font-bold text-blue-700">0.4277</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="font-semibold text-gray-700">Recall Score:</p>
+                    <p class="text-2xl font-bold text-blue-700">0.4423</p>
+                </div>
+            </div>
+            <p class="text-gray-700 italic mt-3">
+                This model achieved the **highest statistical fit** ($\mathbf{0.4277}$) among all single-metric and dual-metric linear models, confirming the unconstrained structure is superior to the original $\text{ContenderScore}$ metric.
+            </p>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 border-b pb-1">Test 2: Random Forest (The Ultimate Solution)</h3>
+            <p class="text-gray-700 mt-3">
+                To truly solve the low Recall problem (i.e., reducing False Negatives), we switched to a non-linear, ensemble model (Random Forest) and implemented **class weighting** to counter the severe $7:1$ class imbalance (non-contenders vs. contenders).
+            </p>
+
+            <div class="stat-card bg-gradient-refined mt-4">
+                <p class="text-lg font-semibold mb-1">Balanced Random Forest Final Recall:</p>
+                <p class="text-4xl font-extrabold">62.50%</p>
+                <p class="text-sm mt-1 opacity-80">Successfully reduced False Negatives by two-thirds.</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mt-6 border-b pb-1">Final Model Performance Comparison</h3>
+            <div class="overflow-x-auto mt-4">
+                <table class="table-custom w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Accuracy (Overall)</th>
+                            <th>Recall (Contender ID)</th>
+                            <th>Precision (Confidence)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Original LogReg (Linear)</td>
+                            <td>$0.8952$</td>
+                            <td>$0.3650$</td>
+                            <td>$0.6330$</td>
+                        </tr>
+                        <tr>
+                            <td>**Unconstrained LogReg**</td>
+                            <td>$0.8976$</td>
+                            <td>$0.4423$</td>
+                            <td>$0.6216$</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Balanced Random Forest</td>
+                            <td>$0.8730$</td>
+                            <td class="font-bold text-green-700">$0.6250$</td>
+                            <td>$0.5000$</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-gray-700 mt-4 font-bold">
+                Conclusion: The **Balanced Random Forest** is the most effective predictive tool for identifying the maximum number of potential contenders, achieving near-double the Recall of the original metric.
+            </p>
+
+        </section>
+
+    </div>
+
+</body>
+</html>
