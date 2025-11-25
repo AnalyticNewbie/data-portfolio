@@ -17,8 +17,6 @@ This log is managed by **Joe Chen**, an evolving data analyst dedicated to trans
 **View my current projects and analyses here:**
 [https://analyticseeker.github.io/data-portfolio/](https://www.google.com/search?q=https://analyticseeker.github.io/data-portfolio/)
 
-(Note: Please replace the link above with your actual GitHub Pages URL once it's live!)
-
 ## 🛠️ Skills and Tools in Focus
 
 I am actively building proficiency in the following areas, and all projects reflect this progress:
