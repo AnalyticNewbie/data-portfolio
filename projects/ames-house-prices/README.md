@@ -54,4 +54,70 @@ Residual plots and row-level inspection were used to understand model failure mo
 Several intuitive feature ideas were tested (e.g. neighbourhood encodings, binary “hook” flags).
 
 > **Key learning:**  
-> Although these features appeared reasonable, they **reduced generalisation** and degraded l
+> Although these features appeared reasonable, they **reduced generalisation** and degraded leaderboard performance by increasing variance. They were intentionally removed.
+
+Residual analysis was used diagnostically, not prescriptively.
+
+---
+
+### 4. Hyperparameter Optimisation (Main Performance Gain)
+
+The largest improvement came from **targeted regularisation**, not new features.
+
+Using **Optuna**, CatBoost was tuned with:
+- frozen CV folds,
+- early stopping,
+- Bayesian bootstrap,
+- explicit control of tree depth, regularisation, and randomness.
+
+Key outcomes:
+- Shallow trees (`depth = 4`)
+- Moderate `l2_leaf_reg`
+- Bayesian bagging with tuned `bagging_temperature`
+- Controlled `random_strength`
+
+This reduced tail volatility and aligned CV with leaderboard performance.
+
+---
+
+## Final Model
+
+- **Model:** CatBoost Regressor  
+- **Target:** `log1p(SalePrice)`  
+- **Validation:** 5-fold frozen CV  
+- **Tuning:** Optuna (OOF RMSE objective)  
+- **Submission:** Single model (no stacking)
+
+### Results
+- **Best CV RMSE:** ~`0.112`
+- **Public score:** `0.12425`
+- **Rank:** ~`935`
+
+This outperformed:
+- stacked ensembles,
+- feature-heavy variants,
+- neighbourhood target-encoding approaches.
+
+---
+
+## Key Learnings
+
+- **Regularisation beats feature churn** on small tabular datasets  
+- **Residual analysis is diagnostic**, not every pattern should become a feature  
+- **CV ↔ leaderboard divergence is a warning sign**, not a signal  
+- **Well-tuned single models** can outperform complex ensembles  
+
+---
+
+## Repository Structure
+
+```text
+ames-house-prices/
+├── README.md
+├── notebooks/
+│   ├── 01_eda.ipynb
+│   ├── 02_feature_engineering.ipynb
+│   ├── 03_modeling.ipynb
+│   └── 04_optuna_tuning.ipynb
+├── images/
+└── submissions/
