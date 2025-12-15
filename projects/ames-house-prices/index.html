@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ames Housing Price Prediction | Data Portfolio</title>
+  <meta name="description" content="Kaggle House Prices project write-up: preprocessing, residual analysis, Optuna tuning with CatBoost, and lessons learned." />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#111827;
+      --muted:#6b7280;
+      --border:#e5e7eb;
+      --card:#f9fafb;
+      --accent:#2563eb;
+      --codebg:#0b1020;
+      --codefg:#e5e7eb;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      line-height:1.6;
+      color:var(--text);
+      background:var(--bg);
+    }
+
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    header{
+      margin-bottom: 24px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .breadcrumbs{
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+    .breadcrumbs a{ color: var(--muted); text-decoration: none; }
+    .breadcrumbs a:hover{ text-decoration: underline; }
+
+    h1{
+      font-size: 2.0rem;
+      line-height: 1.2;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle{
+      color: var(--muted);
+      margin: 0;
+      max-width: 80ch;
+    }
+
+    .badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 16px;
+    }
+    .badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 999px;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .badge b{ font-weight: 600; }
+
+    main{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    section{
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      background: #fff;
+    }
+
+    section h2{
+      margin: 0 0 12px 0;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    p{ margin: 10px 0; }
+    ul{ margin: 10px 0 0 18px; }
+    li{ margin: 6px 0; }
+
+    .callout{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 12px;
+    }
+
+    .kpi-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .kpi{
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .kpi .label{
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 6px;
+    }
+    .kpi .value{
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    pre{
+      background: var(--codebg);
+      color: var(--codefg);
+      padding: 14px 16px;
+      border-radius: 12px;
+      overflow:auto;
+      margin: 12px 0 0 0;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 0.95rem;
+    }
+
+    a{
+      color: var(--accent);
+      text-decoration: none;
+    }
+    a:hover{ text-decoration: underline; }
+
+    footer{
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="breadcrumbs">
+        <a href="../../index.html">Home</a> / <a href="../">Projects</a> / Ames Housing Price Prediction
+      </div>
+
+      <h1>Ames Housing Price Prediction</h1>
+      <p class="subtitle">
+        Kaggle “House Prices: Advanced Regression Techniques” — a validation-first approach focused on robust preprocessing,
+        residual analysis, and Optuna-tuned CatBoost regularisation.
+      </p>
+
+      <div class="badges">
+        <div class="badge"><b>Model:</b> CatBoost</div>
+        <div class="badge"><b>Metric:</b> RMSLE (log-target)</div>
+        <div class="badge"><b>Public Score:</b> 0.12425</div>
+        <div class="badge"><b>Rank:</b> ~935</div>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <h2>Overview</h2>
+        <p>
+          This project solves the Kaggle <em>House Prices: Advanced Regression Techniques</em> task using a disciplined
+          validation-first workflow. Instead of relying on feature churn or leaderboard-specific tricks, the focus was on
+          building a generalisable pipeline and improving performance through targeted model regularisation.
+        </p>
+
+        <div class="kpi-grid">
+          <div class="kpi">
+            <div class="label">Final public score</div>
+            <div class="value">0.12425</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Approach</div>
+            <div class="value">Optuna-tuned CatBoost</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Validation</div>
+            <div class="value">Frozen 5-fold CV</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Problem framing</h2>
+        <p>
+          The dataset contains ~1,460 training rows with mixed numerical and categorical features, a skewed target distribution,
+          and a small number of extreme outliers. The RMSLE metric makes tail behaviour and generalisation more important than
+          raw in-sample fit.
+        </p>
+      </section>
+
+      <section>
+        <h2>Approach</h2>
+        <ul>
+          <li><b>Preprocessing:</b> domain-aware imputation, log1p target transform, skewness correction, ordinal encoding, and conservative outlier handling.</li>
+          <li><b>Validation discipline:</b> consistent 5-fold CV with frozen splits; decisions based on out-of-fold performance.</li>
+          <li><b>Residual-driven analysis:</b> used to diagnose failure modes and avoid adding high-variance features that reduce generalisation.</li>
+          <li><b>Hyperparameter optimisation:</b> Optuna tuning of CatBoost regularisation and stochasticity (Bayesian bootstrap + early stopping).</li>
+        </ul>
+
+        <div class="callout">
+          <b>Key outcome:</b> the biggest improvement came from tuning regularisation, not adding more features.
+          Feature-heavy variants (e.g., neighbourhood target encodings) improved CV but degraded public LB — a clear generalisation warning.
+        </div>
+      </section>
+
+      <section>
+        <h2>Final model</h2>
+        <p>
+          A single CatBoost model with Optuna-tuned hyperparameters. Tuning used frozen folds and early stopping to minimise
+          overfitting and stabilise tail predictions.
+        </p>
+
+        <div class="callout">
+          <b>Best tuned parameters (high-level):</b>
+          shallow trees (depth=4), moderate L2 regularisation, Bayesian bagging with tuned bagging temperature, and controlled split randomness.
+        </div>
+      </section>
+
+      <section>
+        <h2>Key learnings</h2>
+        <ul>
+          <li><b>Regularisation beats feature churn</b> on small, mixed-type tabular datasets.</li>
+          <li><b>Residual analysis is diagnostic</b> — not every pattern should become a feature.</li>
+          <li><b>CV ↔ LB divergence is a trap</b>; frozen folds and conservative changes prevent chasing noise.</li>
+          <li><b>Simpler models can generalise better</b> than stacked ensembles if they are well-tuned.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Repository structure</h2>
+        <pre><code>projects/
+  ames-house-prices/
+    index.html
+    README.md
+    notebooks/
+    images/
+</code></pre>
+      </section>
+
+      <section>
+        <h2>Next steps (optional)</h2>
+        <ul>
+          <li>Run a disciplined Optuna tune for XGBoost using the same frozen folds.</li>
+          <li>Test a light blend (e.g., 80% tuned CatBoost / 20% tuned XGB) if additional improvement is needed.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Back to <a href="../../index.html">portfolio home</a>.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
