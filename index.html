@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joe Chen | Learning Data Analyst</title>
+    <title>Joe Chen | Data Analytics Portfolio</title>
+
     <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,10 +12,10 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary-dark': '#4b5563', // Gray/Slate for a humbler look
-                        'primary-light': '#6b7280', 
-                        'accent-green': '#10b981', // Green for fresh/growth
-                        'background-light': '#ffffff', // Pure white
+                        'primary-dark': '#4b5563',
+                        'primary-light': '#6b7280',
+                        'accent-green': '#10b981',
+                        'background-light': '#ffffff',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -23,100 +24,142 @@
             }
         }
     </script>
+
     <style>
-        /* Minimalist Card Styling */
         .analysis-entry {
             transition: background-color 0.2s;
         }
         .analysis-entry:hover {
-            background-color: #f3f4f6; /* Subtle hover effect */
+            background-color: #f3f4f6;
         }
     </style>
 </head>
+
 <body class="font-sans text-gray-800 bg-background-light min-h-screen p-4 sm:p-8">
 
-    <!-- Header & Simple Introduction -->
+    <!-- Header -->
     <header class="max-w-4xl mx-auto py-8 border-b border-gray-200">
-        <h1 class="text-3xl font-extrabold text-primary-dark tracking-wide">Joe's Learning Log</h1>
+        <h1 class="text-3xl font-extrabold text-primary-dark tracking-wide">
+            Joe Chen — Data Analytics Portfolio
+        </h1>
     </header>
 
     <main class="max-w-4xl mx-auto mt-8">
-        <!-- About Section - Humble Beginning -->
+
+        <!-- About -->
         <section id="about" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-l-4 border-accent-green pl-3">My Data Journey So Far</h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-l-4 border-accent-green pl-3">
+                About
+            </h2>
             <p class="text-lg text-gray-700">
-                Welcome! This portfolio tracks my initial steps into data analysis. Every project here represents a new skill I've learned, from my first projects through the Google Advanced Data Analytics course through to some ad hoc analyses. I'm focused on learning by doing, and I believe transparency is key. Feel free to explore my analyses and provide feedback!
+                This portfolio documents my hands-on work in data analysis, with a focus on building
+                robust, well-validated models and learning through real projects. I prioritise
+                generalisation, interpretability, and understanding <em>why</em> models succeed or fail,
+                rather than chasing surface-level metrics.
             </p>
         </section>
 
-        <!-- Analysis Log Section (The Core) -->
+        <!-- Projects -->
         <section id="analyses" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 border-l-4 border-accent-green pl-3">Recent Analyses & Projects</h2>
-            
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 border-l-4 border-accent-green pl-3">
+                Selected Analyses & Projects
+            </h2>
+
             <div class="space-y-4">
-                
-                <!-- Analysis Entry 1: NBA ContenderScore Analysis (The only active project) -->
+
+                <!-- Ames Housing (Kaggle) -->
                 <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-1">NBA ContenderScore Analysis</h3>
-                        <p class="text-sm text-gray-500">Goal: Investigated a custom weighted metric (ContenderScore) to rank NBA teams using efficiency and advanced statistics.</p>
-                        <p class="text-xs mt-1 text-gray-600">Tools: <span class="font-medium text-accent-green">Python (Pandas, NumPy, Matplotlib)</span></p>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
+                            Ames Housing Price Prediction (Kaggle)
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Goal: Developed a robust regression model for housing prices using disciplined
+                            cross-validation, residual analysis, and Optuna-tuned CatBoost. Emphasis was placed
+                            on generalisation over leaderboard-driven feature churn.
+                        </p>
+                        <p class="text-xs mt-1 text-gray-600">
+                            Tools:
+                            <span class="font-medium text-accent-green">
+                                Python (Pandas, NumPy, scikit-learn, CatBoost, Optuna)
+                            </span>
+                        </p>
+                        <p class="text-xs mt-1 text-gray-600">
+                            Result:
+                            <span class="font-medium text-gray-800">
+                                Public score 0.12425 (Top ~10–15%)
+                            </span>
+                        </p>
                     </div>
-                    <a href="./projects/nba-contender-score/nba_summary.html" target="_blank" class="mt-3 sm:mt-0 px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
+                    <a href="./projects/ames-house-prices/"
+                       class="mt-3 sm:mt-0 px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
+                        View Project &rarr;
+                    </a>
+                </div>
+
+                <!-- NBA ContenderScore -->
+                <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
+                            NBA ContenderScore Analysis
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Goal: Designed and evaluated a custom weighted metric (ContenderScore) to rank NBA
+                            teams using efficiency metrics and advanced statistics, with a focus on interpretability.
+                        </p>
+                        <p class="text-xs mt-1 text-gray-600">
+                            Tools:
+                            <span class="font-medium text-accent-green">
+                                Python (Pandas, NumPy, Matplotlib)
+                            </span>
+                        </p>
+                    </div>
+                    <a href="./projects/nba-contender-score/nba_summary.html"
+                       target="_blank"
+                       class="mt-3 sm:mt-0 px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
                         View Analysis &rarr;
                     </a>
                 </div>
 
-                <!-- Analysis Entry 2: NBA ContenderScore Analysis Part 2 (The only active project) -->
+                <!-- NBA ContenderScore Part 2 -->
                 <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-1">NBA ContenderScore Analysis Part 2</h3>
-                        <p class="text-sm text-gray-500">Goal: Advanced modeling to test the underlying structural assumptions of the ContenderScore metric, address model bias, and maximize the model's ability to identify true contenders..</p>
-                        <p class="text-xs mt-1 text-gray-600">Tools: <span class="font-medium text-accent-green">Python (Pandas, NumPy, Matplotlib, statsmodels, scikit-learn)</span></p>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
+                            NBA ContenderScore Analysis — Model Validation
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Goal: Extended the ContenderScore analysis by testing structural assumptions,
+                            addressing model bias, and evaluating predictive stability using statistical
+                            modelling techniques.
+                        </p>
+                        <p class="text-xs mt-1 text-gray-600">
+                            Tools:
+                            <span class="font-medium text-accent-green">
+                                Python (Pandas, NumPy, statsmodels, scikit-learn)
+                            </span>
+                        </p>
                     </div>
-                    <a href="./projects/nba-contender-score/nba_summary_part2.html" target="_blank" class="mt-3 sm:mt-0 px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
+                    <a href="./projects/nba-contender-score/nba_summary_part2.html"
+                       target="_blank"
+                       class="mt-3 sm:mt-0 px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
                         View Analysis &rarr;
                     </a>
                 </div>
-                
-                <!-- Template for future projects 
-                <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center opacity-50">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-1">[New Project Title Here]</h3>
-                        <p class="text-sm text-gray-500">Goal: [Describe what the analysis attempts to answer]</p>
-                        <p class="text-xs mt-1 text-gray-600">Tools: <span class="font-medium text-accent-green">[List specific tools]</span></p>
-                    </div>
-                    <a href="#" class="mt-3 sm:mt-0 px-4 py-2 bg-gray-400 text-white font-medium rounded-full text-sm cursor-not-allowed">
-                        Link Here
-                    </a>
-                </div> -->
-                
+
             </div>
         </section>
 
-        <!-- Simple Footer/Contact -->
+        <!-- Footer -->
         <footer class="text-center py-6 border-t border-gray-200 mt-10">
-            <p class="text-gray-600 text-sm">Connect with me on this journey: <a href="mailto:analyticsnewbie@gmail.com" class="text-primary-dark hover:text-accent-green font-medium">analyticsnewbie@gmail.com</a></p>
+            <p class="text-gray-600 text-sm">
+                Get in touch:
+                <a href="mailto:analyticsnewbie@gmail.com"
+                   class="text-primary-dark hover:text-accent-green font-medium">
+                    analyticsnewbie@gmail.com
+                </a>
+            </p>
         </footer>
+
     </main>
-
-    <!-- JavaScript for smooth scrolling (kept for clean navigation) -->
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
-
 </html>
-
-
-
-
-
-
