@@ -1,0 +1,176 @@
+
+---
+
+# 2) `index.html` (copy/paste)
+
+Create: `nba-predictor/index.html`
+
+This is a portfolio-ready page that can be hosted as-is (GitHub Pages or embedded in your website).
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NBA Game Prediction System — Win% + Score + 95% Intervals</title>
+
+  <!-- Tailwind CDN for quick styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="bg-white text-slate-900 font-sans">
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+    <header class="mb-8">
+      <p class="text-sm text-slate-600">Portfolio Project</p>
+      <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight mt-1">
+        NBA Game Prediction System
+      </h1>
+      <p class="text-lg text-slate-700 mt-3">
+        An end-to-end NBA forecasting pipeline that predicts <strong>win probability</strong>,
+        <strong>home/away scores</strong>, and <strong>simulation-based 95% prediction intervals</strong>,
+        refreshed daily with ET-correct ingestion.
+      </p>
+
+      <div class="flex flex-wrap gap-2 mt-5">
+        <span class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700">Python 3.13</span>
+        <span class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700">Postgres 16</span>
+        <span class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700">Docker</span>
+        <span class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700">nba_api</span>
+        <span class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700">SQL Feature Store</span>
+        <span class="px-3 py-1 text-xs rounded-full bg-slate-100 text-slate-700">Uncertainty / Intervals</span>
+      </div>
+    </header>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold">What it does</h2>
+      <ul class="mt-3 space-y-2 text-slate-700 list-disc pl-5">
+        <li>Ingests NBA schedule and final results daily, aligned to <strong>NBA Eastern Time (ET)</strong>.</li>
+        <li>Stores game/team data in <strong>PostgreSQL</strong> (Docker) and materialises engineered features for each scheduled game.</li>
+        <li>Trains baseline models for:
+          <ul class="list-disc pl-5 mt-2 space-y-1">
+            <li><strong>Win probability</strong> (logistic regression)</li>
+            <li><strong>Score margin</strong> and <strong>total points</strong> (gradient boosting regressors)</li>
+          </ul>
+        </li>
+        <li>Produces <strong>home/away score means</strong> and <strong>95% prediction intervals</strong> using simulation.</li>
+      </ul>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold">Architecture</h2>
+      <div class="mt-4 rounded-xl border border-slate-200 p-4 bg-slate-50 text-slate-800">
+        <pre class="whitespace-pre-wrap text-sm leading-6">
+NBA API
+  ├─ Schedule (future games)
+  └─ LeagueGameLog (completed games)
+        ↓
+Python ingestion (ET-correct)
+        ↓
+Postgres (Docker) + SQL feature engineering
+        ↓
+Training views (3-year time-decay weighting)
+        ↓
+Python models (win%, margin, total)
+        ↓
+Daily predictions + simulation-based 95% intervals
+        </pre>
+      </div>
+      <p class="text-slate-700 mt-3">
+        Time zones are handled explicitly: ET is canonical in the database (<code>game_date_et</code>), while
+        user input dates (e.g., AEDT) are converted to ET for querying.
+      </p>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold">Feature engineering (baseline)</h2>
+      <div class="mt-4 grid sm:grid-cols-2 gap-4">
+        <div class="rounded-xl border border-slate-200 p-4">
+          <h3 class="font-semibold">Recent form</h3>
+          <p class="text-slate-700 mt-2 text-sm">
+            Rolling point differential over 5 and 10 games (materialised onto scheduled games).
+          </p>
+        </div>
+        <div class="rounded-xl border border-slate-200 p-4">
+          <h3 class="font-semibold">Fatigue / rest context</h3>
+          <p class="text-slate-700 mt-2 text-sm">
+            Rest days per team based on the most recent <em>final</em> game prior to the scheduled game.
+            Back-to-backs are detected as 0 rest days.
+          </p>
+        </div>
+        <div class="rounded-xl border border-slate-200 p-4">
+          <h3 class="font-semibold">Home advantage</h3>
+          <p class="text-slate-700 mt-2 text-sm">
+            Simple home indicator (baseline), designed to be extended with richer context.
+          </p>
+        </div>
+        <div class="rounded-xl border border-slate-200 p-4">
+          <h3 class="font-semibold">Time-decay weighting</h3>
+          <p class="text-slate-700 mt-2 text-sm">
+            Training data covers the last 3 seasons with recency weighting to reflect modern play style.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold">Uncertainty (95% prediction intervals)</h2>
+      <p class="text-slate-700 mt-3">
+        Score intervals are simulation-based rather than simple error bounds. The system estimates residual
+        uncertainty from a time-split validation set and simulates thousands of outcomes per game to compute
+        the 2.5th and 97.5th percentiles for home and away scores.
+      </p>
+      <div class="mt-4 rounded-xl border border-slate-200 p-4 bg-slate-50 text-sm text-slate-800">
+        <pre class="whitespace-pre-wrap leading-6">
+margin ~ Normal(μ_margin, σ_margin)
+total  ~ Normal(μ_total,  σ_total)
+
+home = (total + margin)/2
+away = (total - margin)/2
+
+95% PI = percentile(home, [2.5, 97.5]) and percentile(away, [2.5, 97.5])
+        </pre>
+      </div>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="text-xl font-semibold">Project evolution</h2>
+      <ol class="mt-3 space-y-2 text-slate-700 list-decimal pl-5">
+        <li>Baseline win model + ET-correct ingestion pipeline</li>
+        <li>Score prediction via margin + total models</li>
+        <li>SQL materialised feature store (rolling form, rest days)</li>
+        <li>3-season training set with time-decay weighting</li>
+        <li>Simulation-based 95% prediction intervals</li>
+        <li class="text-slate-600">Next: performance monitoring, correlated simulation, feature-dependent uncertainty</li>
+      </ol>
+    </section>
+
+    <section class="mb-12">
+      <h2 class="text-xl font-semibold">Links</h2>
+      <ul class="mt-3 space-y-2 text-slate-700 list-disc pl-5">
+        <li>
+          <span class="text-slate-600">Repository:</span>
+          <span class="text-slate-500">(add your GitHub link here)</span>
+        </li>
+        <li>
+          <span class="text-slate-600">Technical notes:</span>
+          <span class="text-slate-500">(optional: docs/PROJECT.md)</span>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="border-t border-slate-200 pt-6 text-sm text-slate-600">
+      <p>Built as an applied ML system: ingestion → feature store → training → prediction → uncertainty.</p>
+    </footer>
+  </main>
+</body>
+</html>
