@@ -3,54 +3,188 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v2.1: The Sunday Fix - #justcurious</title>
+    <title>v2.1 The Sunday Fix | #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
-        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .code-window { background: #0f172a; border-radius: 0.5rem; border: 1px solid #334155; }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .code-window {
+            background: #0f172a;
+            border-radius: 0.5rem;
+            border: 1px solid #334155;
+            font-family: monospace;
+        }
+        .tech-pill {
+            background: rgba(45, 212, 191, 0.1);
+            color: #2dd4bf;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(45, 212, 191, 0.2);
+        }
+        .status-dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; }
+        .status-dot.live { background-color: #10b981; box-shadow: 0 0 8px #10b981; }
+
+        .c-keyword { color: #c084fc; }
+        .c-func { color: #2dd4bf; }
+        .c-str { color: #f472b6; }
+        .c-comment { color: #64748b; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-sans antialiased">
+<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
 
     <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="index.html" class="font-bold text-xl tracking-tighter text-teal-400">#justcurious</a>
-                <a href="nba-project-hub.html" class="text-slate-300 hover:text-white text-sm font-medium">Back to Hub</a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="nba-project-hub.html" class="text-white bg-slate-800 px-3 py-2 rounded-md text-sm font-medium">NBA Project</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="pt-32 pb-20 max-w-4xl mx-auto px-4">
-        <div class="border-b border-slate-700 pb-8 mb-12">
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">RELEASED: DEC 14, 2025</div>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">v2.1: The Sunday Fix</h1>
-            <p class="text-xl text-slate-400">Debugging Timezones and "Rest Disadvantage."</p>
-        </div>
+    <div class="relative pt-32 pb-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="nba-project-hub.html" class="inline-flex items-center text-slate-400 hover:text-white mb-8 transition-colors text-sm font-medium">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Timeline
+            </a>
+            
+            <div class="flex items-center space-x-4 mb-6">
+                <span class="tech-pill border-slate-600 text-slate-300 bg-slate-800/50">Released: December 14, 2025</span>
+                <span class="tech-pill text-teal-400 border-teal-500/20 bg-teal-500/10">Refinement</span>
+            </div>
 
-        <div class="space-y-12">
-            <section>
-                <h2 class="text-2xl font-bold text-white mb-4">The Anomaly</h2>
-                <p class="text-slate-300 text-lg mb-6">
-                    The model was performing well on Tue-Sat, but failing miserably on Sunday/Monday games. It turned out to be a <strong>Timezone Bug</strong>. Games played Sunday night in NY were being logged as Monday morning in my database, breaking the "Days of Rest" calculation.
-                </p>
-                <div class="code-window p-6 text-sm font-mono text-slate-300 overflow-x-auto">
-<pre class="whitespace-pre text-red-300"># The Fix: Forcing US/Eastern Time
-dt_utc = datetime.strptime(game_date, "%Y-%m-%dT%H:%M:%S")
-dt_et = dt_utc.astimezone(timezone('US/Eastern'))
-# Now 'Rest Days' aligns with reality</pre>
-                </div>
-            </section>
-
-            <section>
-                <h2 class="text-2xl font-bold text-white mb-4">The Impact</h2>
-                <div class="glass-panel p-6 rounded-xl">
-                    <p class="text-slate-400">
-                        Once fixed, the model correctly identified teams on "Back-to-Backs" (playing 2 nights in a row). This immediately stabilized the volatility metrics and prepared the groundwork for the v2.2 "Physics" update.
-                    </p>
-                </div>
-            </section>
+            <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">
+                v2.1: The Sunday Fix
+            </h1>
+            <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">
+                Post-migration stabilization. Addressing "Silent Failures" in the pipeline and the critical Timezone ingestion error that skewed weekend predictions.
+            </p>
         </div>
     </div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="glass-panel p-8 rounded-2xl">
+                <h2 class="text-teal-400 text-xs font-bold uppercase tracking-widest mb-4">The Objective</h2>
+                <h3 class="text-2xl font-bold text-white mb-4">Stabilization</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                    Real-world usage of v2.0 exposed a bottleneck: Saturday night games were bleeding into Sunday morning data frames due to UTC offsets, causing the model to miscalculate "Rest Days."
+                </p>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-center text-slate-300"><span class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2"></span> Implement UTC to EST normalization</li>
+                    <li class="flex items-center text-slate-300"><span class="w-1.5 h-1.5 bg-teal-500 rounded-full mr-2"></span> Create "Safe State" fallbacks for API timeouts</li>
+                </ul>
+            </div>
+            <div class="glass-panel p-8 rounded-2xl">
+                <h2 class="text-teal-400 text-xs font-bold uppercase tracking-widest mb-4">The Strategy</h2>
+                <h3 class="text-2xl font-bold text-white mb-4">Surgical Refactoring</h3>
+                <p class="text-slate-400 text-sm leading-relaxed mb-6">
+                    Unlike the v2.0 overhaul, this update was targeted. We used a "Strangler" approach to refactor only the failing date-utility modules without risking the entire ingestion engine.
+                </p>
+                <div class="p-4 bg-slate-900/50 rounded-lg border border-slate-700">
+                    <div class="text-xs text-slate-500 mb-1">Success Metric</div>
+                    <div class="text-xl font-mono text-emerald-400">0% Missing Games</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-12 mb-20">
+            <h2 class="text-2xl font-bold text-white mb-8 border-l-4 border-teal-500 pl-4">The "Sunday Bug"</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-300 mb-4">The Problem</h3>
+                    <p class="text-slate-400 mb-6 text-sm">
+                        The API returned UTC timestamps. A 10 PM game in LA on Saturday was recorded as Sunday 1 AM. This caused our "Rest Disadvantage" feature to falsely think teams had zero days off.
+                    </p>
+                    <div class="code-window p-4 text-xs">
+                        <div class="text-red-400 mb-2 font-bold">// Hacky v2.0 code (Bad)</div>
+                        <code class="text-slate-500">
+                            df['game_date'] = pd.to_datetime(df['GAME_DATE'])<br>
+                            # Fails on West Coast games...
+                        </code>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-emerald-400 mb-4">The Solution</h3>
+                    <p class="text-slate-400 mb-6 text-sm">
+                        Implemented localized timezone aware objects. We now "snap" all games to the arena's local timezone before calculating the rest-delta.
+                    </p>
+                    <div class="code-window p-4 text-xs">
+                        <div class="text-teal-400 mb-2 font-bold">// Refined v2.1 code (Surgical)</div>
+                        <code class="text-slate-300">
+                            <span class="c-keyword">def</span> <span class="c-func">localize_date</span>(row):<br>
+                            &nbsp;&nbsp;utc_dt = <span class="c-func">to_utc</span>(row['date'])<br>
+                            &nbsp;&nbsp;<span class="c-keyword">return</span> utc_dt.<span class="c-func">astimezone</span>(<span class="c-str">'US/Eastern'</span>)
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-20">
+            <h2 class="text-2xl font-bold text-white mb-8">Launch Retrospective</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-6 rounded-xl">
+                    <div class="text-red-400 font-bold text-xs uppercase mb-3">User Confusion</div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        Moving to a dashboard made users miss the raw data tables. v2.1 added "View Source" buttons for every prediction to build trust.
+                    </p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl">
+                    <div class="text-teal-400 font-bold text-xs uppercase mb-3">Silent Failures</div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        The API integration failed silently on timeouts. We implemented "Loading Skeletons" and error boundaries to prevent a white-screen crash.
+                    </p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl">
+                    <div class="text-slate-300 font-bold text-xs uppercase mb-3">Mobile Breakage</div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        The new AUC charts didn't scale well on small viewports (iPhone SE). Refactored charts to be responsive and touch-friendly.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-800/40 border border-slate-700 rounded-2xl p-8">
+            <h2 class="text-xl font-bold text-white mb-6">Immediate Next Steps</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div class="flex items-start space-x-3">
+                    <div class="w-6 h-6 rounded bg-teal-500/20 flex items-center justify-center text-teal-400 shrink-0 mt-0.5">1</div>
+                    <p class="text-slate-300"><span class="text-white font-bold">Performance Audit:</span> Run Lighthouse on the dashboard and identify slow SQL View re-renders.</p>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="w-6 h-6 rounded bg-teal-500/20 flex items-center justify-center text-teal-400 shrink-0 mt-0.5">2</div>
+                    <p class="text-slate-300"><span class="text-white font-bold">UI Polish:</span> Build empty states for "No Games Scheduled" days to avoid blank screens.</p>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-700 flex justify-end">
+                <a href="nba-v2-2.html" class="group text-white font-bold flex items-center hover:text-teal-400 transition-colors">
+                    Jump to v2.2: Physics & Psychology 
+                    <svg class="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-slate-800 py-12 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">&copy; 2025 #justcurious. All rights reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
