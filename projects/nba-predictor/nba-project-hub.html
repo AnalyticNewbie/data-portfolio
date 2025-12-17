@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA Prediction System - Evolution | Joe Chen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-dark': '#4b5563',
+                        'accent-green': '#10b981',
+                        'background-light': '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans text-gray-800 bg-background-light min-h-screen p-4 sm:p-8">
+
+    <header class="max-w-4xl mx-auto py-8 border-b border-gray-200 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+            <h1 class="text-3xl font-extrabold text-primary-dark tracking-wide">
+                NBA Prediction System
+            </h1>
+            <p class="text-gray-500 mt-1">The evolution of an end-to-end ML pipeline.</p>
+        </div>
+        <a href="../../index.html" class="text-accent-green font-medium hover:underline">
+            &larr; Back to Portfolio
+        </a>
+    </header>
+
+    <main class="max-w-4xl mx-auto space-y-8">
+        
+        <section>
+            <p class="text-lg text-gray-700 leading-relaxed">
+                This project documents my journey building a production-ready sports prediction engine. 
+                What started as a simple Python script has evolved into a SQL-backed system running 
+                gradient boosting models with context-aware uncertainty.
+            </p>
+        </section>
+
+        
+
+        <section class="space-y-6">
+            <h2 class="text-2xl font-bold text-gray-900 border-l-4 border-accent-green pl-3">
+                Project Timeline
+            </h2>
+
+            <div class="bg-white p-6 rounded-lg border-2 border-accent-green shadow-md hover:shadow-lg transition">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3">
+                    <h3 class="text-xl font-bold text-gray-900">
+                        <a href="nba-v2-1.html" class="hover:text-accent-green transition">v2.1: Context-Aware Volatility</a>
+                    </h3>
+                    <span class="bg-accent-green text-white text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider mt-2 sm:mt-0">
+                        Current Version
+                    </span>
+                </div>
+                <p class="text-gray-600 mb-4">
+                    Introduced "Composite Sigma" to dynamically adjust confidence intervals based on Game Pace and Defensive Ratings. Added real-time "Risk Flags" for Overtime likelihood and Form Trajectory (Heating Up/Slumping).
+                </p>
+                <a href="nba-v2-1.html" class="text-accent-green font-medium hover:underline">Read Analysis &rarr;</a>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    <a href="nba-v2.html" class="hover:text-accent-green transition">v2.0: SQL Features & Machine Learning</a>
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    The major shift to a database-first architecture. Migrated feature engineering to PostgreSQL Views and implemented Weighted Logistic Regression and HistGradientBoosting models.
+                </p>
+                <a href="nba-v2.html" class="text-accent-green font-medium hover:underline">Read Analysis &rarr;</a>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition opacity-80 hover:opacity-100">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">
+                    <a href="nba-v1.html" class="hover:text-accent-green transition">v1.0: The Baseline Model</a>
+                </h3>
+                <p class="text-gray-600 mb-4">
+                    The Proof of Concept. A statistical Z-Score model based on Net Ratings and static Home Court Advantage constants.
+                </p>
+                <a href="nba-v1.html" class="text-accent-green font-medium hover:underline">Read Analysis &rarr;</a>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 border-t border-gray-200 mt-12 text-sm text-gray-500">
+        &copy; 2025 Joe Chen
+    </footer>
+
+</body>
+</html>
