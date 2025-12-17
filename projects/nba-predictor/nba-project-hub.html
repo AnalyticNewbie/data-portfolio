@@ -48,7 +48,7 @@
                     <span class="text-teal-400 text-sm font-mono uppercase tracking-wider">System Operational</span>
                 </div>
                 <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
-                    NBA Predictor <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-500">v4.1</span>
+                    NBA Predictor <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-500">v2.2</span>
                 </h1>
                 <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">
                     An automated end-to-end Machine Learning pipeline that ingests daily NBA data, models team physics (Pace/Rebounding), and identifies value edge against Vegas betting lines.
@@ -63,7 +63,7 @@
             <div class="md:col-span-2 space-y-6">
                 <h2 class="text-2xl font-bold text-white">The Hypothesis</h2>
                 <p class="text-slate-400 leading-relaxed">
-                    My hypothesis is that by modeling more than just pure stats of a game, we might find other influences to predict outcomes with higher accuracy than the market consensus.
+                    My hypothesis is that by modeling more than just raw game stats, we can predict outcomes with higher accuracy than the market consensus.
                 </p>
                 <p class="text-slate-400 leading-relaxed">
                     This project is a <strong>self-correcting system</strong>. It runs daily, bets "virtually," tracks its own errors, and allows me to iterate on the features (Engineering) rather than the prediction (Guessing).
@@ -183,4 +183,56 @@
 
             <div class="glass-panel rounded-xl p-8 border-l-4 border-slate-700 relative overflow-hidden group hover:bg-slate-800/50 transition-all duration-300">
                 <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <svg class="w-24 h-24 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4
+                    <svg class="w-24 h-24 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-2xl font-bold text-slate-300">v2.0: The Migration</h3>
+                            <p class="text-slate-500 text-sm mt-1">December 01, 2025</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-6">
+                        The "Big Rewire." Moved from CSVs to PostgreSQL, replaced Linear Regression with Gradient Boosting, and established the automated daily pipeline.
+                    </p>
+                    <a href="nba-v2.html" class="text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-6 py-2 rounded-lg text-sm font-medium transition-colors inline-block">View Architecture</a>
+                </div>
+            </div>
+
+            <div class="glass-panel rounded-xl p-8 border-l-4 border-slate-700 relative overflow-hidden group hover:bg-slate-800/50 transition-all duration-300 opacity-75">
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-400">v1.0: MVP Launch</h3>
+                            <p class="text-slate-500 text-sm mt-1">November 2025</p>
+                        </div>
+                        <span class="text-slate-600 font-mono text-sm uppercase">Baseline</span>
+                    </div>
+                    <p class="text-slate-500 mb-4">
+                        The Proof of Concept. Simple Python scripts, CSV storage, and basic rolling averages.
+                    </p>
+                    <a href="nba-v1.html" class="text-slate-500 hover:text-white text-sm font-medium transition-colors flex items-center">
+                        View Concept <span class="ml-1">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+    <div class="border border-yellow-500/20 bg-yellow-500/5 rounded-lg p-4 flex items-center justify-center text-center">
+        <p class="text-yellow-200/80 text-sm">
+            <strong>Note:</strong> This project is just for fun. All findings and predictions found here are experimental and not guaranteed.
+        </p>
+    </div>
+</div>
+    
+    <footer class="border-t border-slate-800 py-12 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">&copy; 2025 #justcurious. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
