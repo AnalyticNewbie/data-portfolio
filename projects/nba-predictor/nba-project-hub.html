@@ -29,8 +29,7 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="index.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                        <a href="#" class="bg-slate-800 text-white px-3 py-2 rounded-md text-sm font-medium">NBA Project</a>
-                        <a href="#" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="nba-project-hub.html" class="bg-slate-800 text-white px-3 py-2 rounded-md text-sm font-medium">NBA Project</a>
                     </div>
                 </div>
             </div>
@@ -116,16 +115,10 @@
                         <span class="text-teal-500 font-mono text-xl font-bold">AUC: 0.725</span>
                     </div>
                     <p class="text-slate-300 mb-6">
-                        A major leap forward. We identified the "Monday Anomaly" (Home Court Advantage disappears on Mondays) and integrated Physics engines for Pace and Rebounding. This allows the model to differentiate between "Track Meets" and "Grindfests," improving Total Score accuracy by ~15%.
+                        A major leap forward. We identified the "Monday Anomaly" and integrated Physics engines for Pace and Rebounding to predict Total Scores with 15% greater accuracy.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="nba-v2-2.html" class="text-white bg-teal-600 hover:bg-teal-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                            Read Case Study
-                        </a>
-                        <a href="#" class="text-slate-300 hover:text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center">
-                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
-                            View Diff
-                        </a>
+                        <a href="nba-v2-2.html" class="text-white bg-teal-600 hover:bg-teal-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Read Case Study</a>
                     </div>
                 </div>
             </div>
@@ -143,8 +136,11 @@
                         <span class="text-slate-500 font-mono text-xl font-bold">AUC: 0.680</span>
                     </div>
                     <p class="text-slate-400 mb-6">
-                        Corrected a data ingestion error where "Sunday Travel" games were mislabeled. This update stabilized the volatility metrics and introduced the first version of the "Rest Disadvantage" feature.
+                        Corrected a data ingestion error regarding "Sunday Travel" and introduced "Rest Disadvantage" features.
                     </p>
+                    <div class="flex space-x-4">
+                        <a href="nba-v2-1.html" class="text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">View Log</a>
+                    </div>
                 </div>
             </div>
 
@@ -161,8 +157,11 @@
                         <span class="text-slate-500 font-mono text-xl font-bold">AUC: 0.645</span>
                     </div>
                     <p class="text-slate-400 mb-6">
-                        Moved from simple linear regression to Gradient Boosting Classifiers. Established the PostgreSQL database schema and automated the daily data ingestion pipeline from the NBA API.
+                        Moved from simple linear regression to Gradient Boosting. Established PostgreSQL Schema and automated pipelines.
                     </p>
+                    <div class="flex space-x-4">
+                        <a href="nba-v2.html" class="text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">View Architecture</a>
+                    </div>
                 </div>
             </div>
 
@@ -175,9 +174,12 @@
                         </div>
                         <span class="text-slate-600 font-mono text-lg">Baseline</span>
                     </div>
-                    <p class="text-slate-500">
-                        Initial proof of concept using basic rolling averages to predict game winners. Proved that automated data collection was viable.
+                    <p class="text-slate-500 mb-4">
+                        Initial proof of concept using basic rolling averages to predict game winners.
                     </p>
+                    <div class="flex space-x-4">
+                        <a href="nba-v1.html" class="text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">View Concept</a>
+                    </div>
                 </div>
             </div>
 
