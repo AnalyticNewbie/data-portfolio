@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joe Chen | Data Analytics Portfolio</title>
 
-    <!-- Load Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -37,7 +36,6 @@
 
 <body class="font-sans text-gray-800 bg-background-light min-h-screen p-4 sm:p-8">
 
-    <!-- Header -->
     <header class="max-w-4xl mx-auto py-8 border-b border-gray-200">
         <h1 class="text-3xl font-extrabold text-primary-dark tracking-wide">
             Joe Chen — Data Analytics Portfolio
@@ -46,7 +44,6 @@
 
     <main class="max-w-4xl mx-auto mt-8">
 
-        <!-- About -->
         <section id="about" class="mb-12">
             <h2 class="text-2xl font-bold text-gray-900 mb-4 border-l-4 border-accent-green pl-3">
                 About
@@ -59,7 +56,6 @@
             </p>
         </section>
 
-        <!-- Projects -->
         <section id="analyses" class="mb-12">
             <h2 class="text-2xl font-bold text-gray-900 mb-6 border-l-4 border-accent-green pl-3">
                 Selected Analyses & Projects
@@ -67,37 +63,36 @@
 
             <div class="space-y-4">
             
-                <!-- NBA Game Prediction System -->
-                    <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <div>
-                            <h3 class="text-xl font-semibold text-gray-900 mb-1">
-                                NBA Game Prediction System
-                            </h3>
-                            <p class="text-sm text-gray-500">
-                                Goal: Built an end-to-end NBA forecasting system covering data ingestion, SQL-based feature
-                                engineering, model training, and daily predictions. Outputs include home win probability,
-                                predicted scores, and simulation-based 95% prediction intervals.
-                            </p>
-                            <p class="text-xs mt-1 text-gray-600">
-                                Tools:
-                                <span class="font-medium text-accent-green">
-                                    Python, PostgreSQL, Docker, SQL, scikit-learn, nba_api
-                                </span>
-                            </p>
-                            <p class="text-xs mt-1 text-gray-600">
-                                Focus:
-                                <span class="font-medium text-gray-800">
-                                    Time-aware features, uncertainty estimation, production-style pipelines
-                                </span>
-                            </p>
-                        </div>
-                    
-                        <a href="./projects/nba-predictor/index.html"
-                           class="flex-shrink-0 min-w-[160px] text-center px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
-                            View Project &rarr;
-                        </a>
+                <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
+                            NBA Game Prediction System
+                        </h3>
+                        <p class="text-sm text-gray-500">
+                            Goal: Built an end-to-end forecasting system that evolved from a simple statistical baseline (v1) 
+                            to a complex Machine Learning pipeline (v2.1). Features include SQL-based feature engineering, 
+                            context-aware volatility (Pace/Defense adjustments), and automated risk flagging.
+                        </p>
+                        <p class="text-xs mt-1 text-gray-600">
+                            Tools:
+                            <span class="font-medium text-accent-green">
+                                Python, PostgreSQL, Docker, SQL Window Functions, scikit-learn, nba_api
+                            </span>
+                        </p>
+                        <p class="text-xs mt-1 text-gray-600">
+                            Focus:
+                            <span class="font-medium text-gray-800">
+                                Dynamic Uncertainty, Data Engineering, "The Truth Loop" (Auto-grading)
+                            </span>
+                        </p>
                     </div>
-                <!-- Ames Housing (Kaggle) -->
+                
+                    <a href="./projects/nba-predictor/nba-project-hub.html"
+                       class="flex-shrink-0 min-w-[160px] text-center px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
+                        View Project Evolution &rarr;
+                    </a>
+                </div>
+
                 <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-1">
@@ -127,7 +122,6 @@
                     </a>
                 </div>
 
-                <!-- NBA ContenderScore -->
                 <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-1">
@@ -151,7 +145,6 @@
                     </a>
                 </div>
 
-                <!-- NBA ContenderScore Part 2 -->
                 <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
                     <div>
                         <h3 class="text-xl font-semibold text-gray-900 mb-1">
@@ -179,7 +172,6 @@
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="text-center py-6 border-t border-gray-200 mt-10">
             <p class="text-gray-600 text-sm">
                 Get in touch:
@@ -193,4 +185,3 @@
     </main>
 </body>
 </html>
-
