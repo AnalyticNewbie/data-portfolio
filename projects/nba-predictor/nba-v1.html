@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v1.0: MVP Launch - #justcurious</title>
+    <title>v1.0: MVP - #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .code-window { background: #0f172a; border-radius: 0.5rem; border: 1px solid #334155; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
+<body class="bg-slate-900 text-slate-200 font-sans antialiased">
 
     <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,42 +23,54 @@
 
     <div class="pt-32 pb-20 max-w-4xl mx-auto px-4">
         <div class="border-b border-slate-700 pb-8 mb-12">
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">
-                RELEASED: NOV 2025
-            </div>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">v1.0: MVP Launch</h1>
-            <p class="text-xl text-slate-400">The hypothesis: Can I automate value detection in NBA betting?</p>
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">RELEASED: NOV 2025</div>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">v1.0: The Proof of Concept</h1>
+            <p class="text-xl text-slate-400">Can a simple script beat a random guess?</p>
         </div>
 
         <div class="space-y-12">
             <section>
-                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
-                    <span class="w-2 h-8 bg-teal-500 mr-4 rounded-sm"></span>
-                    The Hypothesis
-                </h2>
-                <p class="text-slate-300 text-lg leading-relaxed mb-6">
-                    I wanted to see if a simple Python script could fetch data from the NBA API and identify basic value discrepancies against Vegas lines.
+                <h2 class="text-2xl font-bold text-white mb-4">The Baseline</h2>
+                <p class="text-slate-300 text-lg mb-6">
+                    Before building complex databases, I needed to prove I could access the data. I wrote a Python script using <code>nba_api</code> to fetch game logs and save them to a local CSV file.
                 </p>
+                
+                <div class="glass-panel p-6 rounded-xl mb-8">
+                    <h3 class="text-teal-400 font-bold mb-4">Architecture v1</h3>
+                    <div class="flex items-center justify-between text-sm text-slate-400 font-mono bg-slate-800/50 p-4 rounded-lg">
+                        <span>NBA API</span>
+                        <span class="text-slate-600">---></span>
+                        <span>fetch_games.py</span>
+                        <span class="text-slate-600">---></span>
+                        <span>games.csv</span>
+                        <span class="text-slate-600">---></span>
+                        <span>Pandas Linear Reg</span>
+                    </div>
+                </div>
+
+                <div class="code-window p-6 text-sm font-mono text-slate-300 overflow-x-auto">
+<pre class="whitespace-pre text-teal-300"># The Code that started it all
+def get_season_games():
+    # Simple fetch loop
+    logs = leaguegamelog.LeagueGameLog(season='2024-25')
+    df = logs.get_data_frames()[0]
+    df.to_csv("data/raw_games.csv")
+    print("CSV Updated.")</pre>
+                </div>
             </section>
 
             <section>
-                <div class="glass-panel p-8 rounded-xl border-l-4 border-slate-600">
-                    <h3 class="text-white font-bold text-xl mb-4">The Baseline Architecture</h3>
-                    <ul class="space-y-3 text-slate-400">
-                        <li class="flex items-center">
-                            <span class="w-2 h-2 bg-teal-500 rounded-full mr-3"></span>
-                            Python script fetching <code>LeagueGameLog</code>
-                        </li>
-                        <li class="flex items-center">
-                            <span class="w-2 h-2 bg-teal-500 rounded-full mr-3"></span>
-                            Storage: Simple CSV files
-                        </li>
-                        <li class="flex items-center">
-                            <span class="w-2 h-2 bg-teal-500 rounded-full mr-3"></span>
-                            Model: Rolling 5-game averages (Linear Regression)
-                        </li>
-                    </ul>
-                </div>
+                <h2 class="text-2xl font-bold text-white mb-4">The Limitations</h2>
+                <ul class="space-y-4 text-slate-400">
+                    <li class="flex items-start">
+                        <span class="text-red-400 mr-2">✖</span>
+                        <strong>No Memory:</strong> The model recalculated everything from scratch every time.
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-red-400 mr-2">✖</span>
+                        <strong>Simple Math:</strong> It only looked at "Points Scored," ignoring Pace, Defense, or Injuries.
+                    </li>
+                </ul>
             </section>
         </div>
     </div>
