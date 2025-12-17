@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v2.0: The Migration - #justcurious</title>
+    <title>v2.0: Architecture - #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .code-window { background: #0f172a; border-radius: 0.5rem; border: 1px solid #334155; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
+<body class="bg-slate-900 text-slate-200 font-sans antialiased">
 
     <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -26,37 +23,47 @@
 
     <div class="pt-32 pb-20 max-w-4xl mx-auto px-4">
         <div class="border-b border-slate-700 pb-8 mb-12">
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">
-                RELEASED: DEC 01, 2025
-            </div>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">v2.0: SQL & ML Architecture</h1>
-            <p class="text-xl text-slate-400">Moving from heuristics to trained Gradient Boosting models.</p>
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">RELEASED: DEC 01, 2025</div>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">v2.0: The Great Migration</h1>
+            <p class="text-xl text-slate-400">From CSVs to SQL and Linear Regression to Gradient Boosting.</p>
         </div>
 
         <div class="space-y-12">
             <section>
-                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
-                    <span class="w-2 h-8 bg-teal-500 mr-4 rounded-sm"></span>
-                    The Shift
-                </h2>
-                <p class="text-slate-300 text-lg leading-relaxed mb-6">
-                    v1.0 was a proof of concept, but it couldn't account for complex interactions like "Strength of Schedule." In v2.0, I moved the entire feature engineering pipeline into <strong>PostgreSQL</strong> and implemented <strong>scikit-learn</strong> pipelines.
+                <h2 class="text-2xl font-bold text-white mb-4">1. SQL Feature Engineering</h2>
+                <p class="text-slate-300 text-lg mb-6">
+                    Calculating "Rolling 10-Game Averages" in Python was becoming slow. I migrated the data to <strong>PostgreSQL</strong> and used Window Functions to calculate features instantly.
                 </p>
+                <div class="code-window p-6 text-sm font-mono text-slate-300 overflow-x-auto mb-8">
+<pre class="whitespace-pre text-blue-300">-- The View that powers the model
+CREATE VIEW v_team_features AS
+SELECT 
+    team_id,
+    AVG(pts) OVER (
+        PARTITION BY team_id 
+        ORDER BY game_date 
+        ROWS BETWEEN 4 PRECEDING AND CURRENT ROW
+    ) as rolling_points_5
+FROM team_stats;</pre>
+                </div>
             </section>
 
             <section>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass-panel p-6 rounded-xl">
-                        <h3 class="text-teal-400 font-bold text-lg mb-2">1. SQL-First Engineering</h3>
-                        <p class="text-slate-400 text-sm">
-                            Instead of slow Python loops, I created SQL Views. This allows me to calculate complex rolling averages and "Strength of Schedule" adjustments instantly at the database level.
-                        </p>
-                    </div>
-                    <div class="glass-panel p-6 rounded-xl">
-                        <h3 class="text-teal-400 font-bold text-lg mb-2">2. Gradient Boosting</h3>
-                        <p class="text-slate-400 text-sm">
-                            Switched to <code>HistGradientBoostingRegressor</code>. This handles non-linear relationships better than linear regression, capturing how fatigue impacts elite teams differently than average ones.
-                        </p>
+                <h2 class="text-2xl font-bold text-white mb-4">2. The Brain Transplant</h2>
+                <p class="text-slate-300 text-lg mb-6">
+                    Linear Regression assumes relationships are straight lines. Basketball is non-linear (e.g., Fatigue hurts good teams more than bad teams). I switched to <strong>Gradient Boosting</strong>.
+                </p>
+                <div class="glass-panel p-6 rounded-xl border-l-4 border-teal-500">
+                    <h3 class="text-white font-bold mb-2">Performance Jump</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <div class="text-slate-500 text-xs uppercase">v1.0 AUC</div>
+                            <div class="text-2xl font-mono text-slate-400">0.510</div>
+                        </div>
+                        <div>
+                            <div class="text-teal-500 text-xs uppercase font-bold">v2.0 AUC</div>
+                            <div class="text-2xl font-mono text-white">0.645</div>
+                        </div>
                     </div>
                 </div>
             </section>
