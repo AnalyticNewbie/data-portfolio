@@ -3,76 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v1.0: MVP - #justcurious</title>
+    <title>v1.0 MVP Launch | #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
-        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .code-window { background: #0f172a; border-radius: 0.5rem; border: 1px solid #334155; }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .code-window {
+            background: #0f172a; /* Slate-900 hex */
+            border-radius: 0.5rem;
+            border: 1px solid #334155; /* Slate-700 hex */
+            font-family: monospace;
+        }
+        .tech-pill {
+            background: rgba(45, 212, 191, 0.1);
+            color: #2dd4bf;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(45, 212, 191, 0.2);
+        }
+        .status-dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; }
+        .status-dot.live { background-color: #10b981; box-shadow: 0 0 8px #10b981; }
+        
+        /* Syntax Highlighting Colors for the Code Window */
+        .c-keyword { color: #c084fc; } /* Purple */
+        .c-func { color: #2dd4bf; }    /* Teal */
+        .c-str { color: #f472b6; }     /* Pink */
+        .c-comment { color: #64748b; } /* Slate-500 */
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-sans antialiased">
+<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
 
     <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="index.html" class="font-bold text-xl tracking-tighter text-teal-400">#justcurious</a>
-                <a href="nba-project-hub.html" class="text-slate-300 hover:text-white text-sm font-medium">Back to Hub</a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="nba-project-hub.html" class="text-white bg-slate-800 px-3 py-2 rounded-md text-sm font-medium">NBA Project</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="pt-32 pb-20 max-w-4xl mx-auto px-4">
-        <div class="border-b border-slate-700 pb-8 mb-12">
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">RELEASED: NOV 2025</div>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">v1.0: The Proof of Concept</h1>
-            <p class="text-xl text-slate-400">Can a simple script beat a random guess?</p>
-        </div>
+    <div class="relative pt-32 pb-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="nba-project-hub.html" class="inline-flex items-center text-slate-400 hover:text-white mb-8 transition-colors text-sm">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Hub
+            </a>
+            
+            <div class="flex items-center space-x-4 mb-6">
+                <span class="tech-pill border-slate-600 text-slate-300 bg-slate-800/50">Released: November 2025</span>
+                <span class="tech-pill">Legacy Version</span>
+            </div>
 
-        <div class="space-y-12">
-            <section>
-                <h2 class="text-2xl font-bold text-white mb-4">The Baseline</h2>
-                <p class="text-slate-300 text-lg mb-6">
-                    Before building complex databases, I needed to prove I could access the data. I wrote a Python script using <code>nba_api</code> to fetch game logs and save them to a local CSV file.
-                </p>
-                
-                <div class="glass-panel p-6 rounded-xl mb-8">
-                    <h3 class="text-teal-400 font-bold mb-4">Architecture v1</h3>
-                    <div class="flex items-center justify-between text-sm text-slate-400 font-mono bg-slate-800/50 p-4 rounded-lg">
-                        <span>NBA API</span>
-                        <span class="text-slate-600">---></span>
-                        <span>fetch_games.py</span>
-                        <span class="text-slate-600">---></span>
-                        <span>games.csv</span>
-                        <span class="text-slate-600">---></span>
-                        <span>Pandas Linear Reg</span>
-                    </div>
-                </div>
-
-                <div class="code-window p-6 text-sm font-mono text-slate-300 overflow-x-auto">
-<pre class="whitespace-pre text-teal-300"># The Code that started it all
-def get_season_games():
-    # Simple fetch loop
-    logs = leaguegamelog.LeagueGameLog(season='2024-25')
-    df = logs.get_data_frames()[0]
-    df.to_csv("data/raw_games.csv")
-    print("CSV Updated.")</pre>
-                </div>
-            </section>
-
-            <section>
-                <h2 class="text-2xl font-bold text-white mb-4">The Limitations</h2>
-                <ul class="space-y-4 text-slate-400">
-                    <li class="flex items-start">
-                        <span class="text-red-400 mr-2">✖</span>
-                        <strong>No Memory:</strong> The model recalculated everything from scratch every time.
-                    </li>
-                    <li class="flex items-start">
-                        <span class="text-red-400 mr-2">✖</span>
-                        <strong>Simple Math:</strong> It only looked at "Points Scored," ignoring Pace, Defense, or Injuries.
-                    </li>
-                </ul>
-            </section>
+            <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">
+                v1.0: MVP Launch
+            </h1>
+            <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">
+                The Proof of Concept. Before the databases and the complex pipelines, there was just a Python script and a folder full of CSVs.
+            </p>
         </div>
     </div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-20">
+            <div class="md:col-span-1">
+                <h2 class="text-2xl font-bold text-white mb-4">The Goal</h2>
+                <div class="h-1 w-12 bg-teal-500 rounded mb-6"></div>
+                <p class="text-slate-400 mb-6">
+                    To answer a simple question: Can I automate the collection of NBA data and identify basic value discrepancies against Vegas lines using a simple script?
+                </p>
+                <div class="glass-panel p-4 rounded-lg">
+                    <h4 class="text-teal-400 font-bold text-sm uppercase mb-2">Hypothesis</h4>
+                    <p class="text-sm text-slate-300 italic">"A basic automated system should outperform random guessing."</p>
+                </div>
+            </div>
+            
+            <div class="md:col-span-2">
+                <h2 class="text-2xl font-bold text-white mb-4">The Approach</h2>
+                <div class="h-1 w-12 bg-slate-700 rounded mb-6"></div>
+                
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="tech-pill">Python 3.12</span>
+                    <span class="tech-pill">Pandas</span>
+                    <span class="tech-pill">CSV Storage</span>
+                    <span class="tech-pill">Linear Regression</span>
+                </div>
+
+                <p class="text-slate-400 mb-6">
+                    We started with zero infrastructure. No database, no cloud hosting. Just a local script pulling data via <code class="text-teal-400 bg-slate-800 px-1 rounded">nba_api</code> and storing it in flat CSV files.
+                </p>
+
+                <div class="code-window p-4 overflow-x-auto text-sm shadow-2xl">
+                    <div class="flex items-center space-x-2 mb-4 border-b border-slate-700 pb-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <span class="ml-2 text-slate-500 text-xs">feature_engineering_v1.py</span>
+                    </div>
+                    <pre class="text-slate-300"><code><span class="c-keyword">import</span> pandas <span class="c-keyword">as</span> pd
+<span class="c-keyword">from</span> sklearn.linear_model <span class="c-keyword">import</span> LinearRegression
+
+<span class="c-comment"># 1. Load Data from flat CSV (Fragile!)</span>
+df = pd.<span class="c-func">read_csv</span>(<span class="c-str">'raw_games.csv'</span>)
+
+<span class="c-comment"># 2. Simple Feature Engineering</span>
+<span class="c-comment"># We only looked at "Points Scored" rolling average</span>
+df[<span class="c-str">'avg_points_5g'</span>] = df.<span class="c-func">groupby</span>(<span class="c-str">'team_id'</span>)[<span class="c-str">'points'</span>] \
+    .<span class="c-func">transform</span>(<span class="c-keyword">lambda</span> x: x.<span class="c-func">rolling</span>(5).<span class="c-func">mean</span>())
+
+<span class="c-comment"># 3. Basic Model</span>
+model = <span class="c-func">LinearRegression</span>()
+model.<span class="c-func">fit</span>(X_train, y_train)</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-20">
+            <h2 class="text-2xl font-bold text-white mb-8">Key Lessons & Limitations</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="glass-panel p-6 rounded-xl border-l-4 border-red-500/50">
+                    <h3 class="text-lg font-bold text-white mb-2">No Memory</h3>
+                    <p class="text-slate-400 text-sm">
+                        Without a database, the script had to recalculate every feature from scratch every time it ran. It was inefficient and slow.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl border-l-4 border-yellow-500/50">
+                    <h3 class="text-lg font-bold text-white mb-2">Too Simple</h3>
+                    <p class="text-slate-400 text-sm">
+                        Relying solely on "Points Scored" failed to account for context. 100 points against a fast team is very different than 100 points against a defensive lock.
+                    </p>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl border-l-4 border-slate-500/50">
+                    <h3 class="text-lg font-bold text-white mb-2">Data Fragility</h3>
+                    <p class="text-slate-400 text-sm">
+                        CSVs are prone to corruption. Querying complex matchups (e.g., "How do the Lakers do on Mondays?") was nearly impossible.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-800/50 rounded-2xl p-8 md:p-12 text-center border border-slate-700">
+            <h2 class="text-2xl font-bold text-white mb-4">The Evolution</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto mb-8">
+                The MVP proved the concept, but the infrastructure couldn't scale. To move forward, we needed a real database and a model that understands non-linear factors like fatigue.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                <div class="flex items-center text-emerald-400 text-sm font-bold bg-emerald-400/10 px-4 py-2 rounded-lg border border-emerald-400/20">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Goal Achieved
+                </div>
+                <div class="h-px w-12 bg-slate-600 hidden md:block"></div>
+                <a href="nba-v2.html" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-teal-600 hover:bg-teal-700 transition-colors">
+                    See v2.0: The Migration
+                    <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="border-t border-slate-800 py-12 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">&copy; 2025 #justcurious. All rights reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
