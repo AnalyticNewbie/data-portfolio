@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Predictor Hub - #justcurious</title>
+    <title>NBA Predictor Project | #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .glass-panel {
@@ -11,12 +11,16 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-        .status-dot {
-            height: 8px;
-            width: 8px;
-            border-radius: 50%;
-            display: inline-block;
+        .tech-pill {
+            background: rgba(45, 212, 191, 0.1);
+            color: #2dd4bf;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(45, 212, 191, 0.2);
         }
+        .status-dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; }
         .status-dot.live { background-color: #10b981; box-shadow: 0 0 8px #10b981; }
     </style>
 </head>
@@ -29,77 +33,116 @@
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="index.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                        <a href="nba-project-hub.html" class="bg-slate-800 text-white px-3 py-2 rounded-md text-sm font-medium">NBA Project</a>
+                        <span class="bg-slate-800 text-white px-3 py-2 rounded-md text-sm font-medium">NBA Project</span>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
 
-    <div class="relative pt-32 pb-12 overflow-hidden">
+    <div class="relative pt-32 pb-16 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col md:flex-row justify-between items-end border-b border-slate-700 pb-8">
-                <div>
-                    <div class="flex items-center space-x-2 mb-2">
-                        <span class="status-dot live"></span>
-                        <span class="text-teal-400 text-sm font-mono uppercase tracking-wider">System Operational</span>
-                    </div>
-                    <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight">
-                        NBA Predictor <span class="text-teal-500">v4.1</span>
-                    </h1>
-                    <p class="mt-4 text-xl text-slate-400 max-w-2xl">
-                        An automated machine learning pipeline for NBA game handicapping.
-                    </p>
+            <div class="border-b border-slate-700 pb-12">
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="status-dot live"></span>
+                    <span class="text-teal-400 text-sm font-mono uppercase tracking-wider">System Operational</span>
                 </div>
-                <div class="mt-6 md:mt-0 text-right">
-                    <div class="text-3xl font-bold text-white">0.725</div>
-                    <div class="text-sm text-slate-400 uppercase tracking-widest">Current AUC</div>
+                <h1 class="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
+                    NBA Predictor <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-500">v4.1</span>
+                </h1>
+                <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">
+                    An automated end-to-end Machine Learning pipeline that ingests daily NBA data, models team physics (Pace/Rebounding), and identifies value edge against Vegas betting lines.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            
+            <div class="md:col-span-2 space-y-6">
+                <h2 class="text-2xl font-bold text-white">The Hypothesis</h2>
+                <p class="text-slate-400 leading-relaxed">
+                    Most public betting models rely on simple "Points Per Game" averages. My hypothesis is that by modeling the <strong>"texture"</strong> of a game—how specific matchups (e.g., Fast Pace vs. Elite Transition Defense) interact—we can predict outcomes with higher accuracy than the market consensus.
+                </p>
+                <p class="text-slate-400 leading-relaxed">
+                    This project is a <strong>self-correcting system</strong>. It runs daily, bets "virtually," tracks its own errors, and allows me to iterate on the features (Engineering) rather than the prediction (Guessing).
+                </p>
+            </div>
+
+            <div class="glass-panel p-8 rounded-xl h-fit">
+                <h3 class="text-lg font-bold text-white mb-6">Tech Stack</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">Core Engine</div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill">Python 3.12</span>
+                            <span class="tech-pill">Pandas</span>
+                            <span class="tech-pill">NBA_API</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">Database</div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill">PostgreSQL</span>
+                            <span class="tech-pill">SQL Views</span>
+                            <span class="tech-pill">Psycopg2</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-500 uppercase tracking-wider mb-2">Machine Learning</div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tech-pill">Scikit-Learn</span>
+                            <span class="tech-pill">Gradient Boosting</span>
+                            <span class="tech-pill">Logistic Regression</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+        <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+            <svg class="w-5 h-5 text-teal-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            Current Model Performance
+        </h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
             <div class="glass-panel p-6 rounded-xl">
                 <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Win Accuracy (Test)</div>
                 <div class="flex items-baseline space-x-2">
                     <span class="text-3xl font-bold text-white">66.7%</span>
-                    <span class="text-teal-400 text-sm font-medium">+4.2% vs v1.0</span>
+                    <span class="text-teal-400 text-sm font-medium">+4.2% vs Baseline</span>
                 </div>
                 <div class="mt-3 h-1 w-full bg-slate-700 rounded-full overflow-hidden">
                     <div class="h-full bg-teal-500" style="width: 66%"></div>
                 </div>
             </div>
-
             <div class="glass-panel p-6 rounded-xl">
-                <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Avg Error (Totals)</div>
+                <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">AUC Score</div>
                 <div class="flex items-baseline space-x-2">
-                    <span class="text-3xl font-bold text-white">14.1 pts</span>
-                    <span class="text-emerald-400 text-sm font-medium">Improved via Pace</span>
+                    <span class="text-3xl font-bold text-white">0.725</span>
+                    <span class="text-emerald-400 text-sm font-medium">Elite Tier</span>
                 </div>
-                <p class="text-xs text-slate-500 mt-2">Adjusted for Tempo & Rebounding</p>
+                <p class="text-xs text-slate-500 mt-2">Probability Confidence</p>
             </div>
-
             <div class="glass-panel p-6 rounded-xl">
-                <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Latest Training</div>
+                <div class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-2">Latest Feature</div>
                 <div class="flex items-baseline space-x-2">
-                    <span class="text-3xl font-bold text-white">Dec 18</span>
-                    <span class="text-xs text-slate-400">09:00 AM</span>
+                    <span class="text-3xl font-bold text-white">Physics</span>
                 </div>
                 <div class="flex space-x-2 mt-3">
-                    <span class="px-2 py-1 bg-teal-500/10 text-teal-400 text-xs rounded border border-teal-500/20">Pace Active</span>
-                    <span class="px-2 py-1 bg-teal-500/10 text-teal-400 text-xs rounded border border-teal-500/20">Rebounding Active</span>
+                    <span class="px-2 py-1 bg-teal-500/10 text-teal-400 text-xs rounded border border-teal-500/20">Pace</span>
+                    <span class="px-2 py-1 bg-teal-500/10 text-teal-400 text-xs rounded border border-teal-500/20">Rebounding</span>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <h2 class="text-2xl font-bold text-white mb-8 border-l-4 border-teal-500 pl-4">Development Timeline</h2>
+        <h2 class="text-2xl font-bold text-white mb-12 border-l-4 border-teal-500 pl-6">Development Journey</h2>
         
-        <div class="space-y-8">
+        <div class="space-y-12">
             
             <div class="glass-panel rounded-xl p-8 border-l-4 border-teal-500 relative overflow-hidden group hover:bg-slate-800/50 transition-all duration-300">
                 <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -112,20 +155,17 @@
                             <h3 class="text-2xl font-bold text-white">v2.2: Physics & Psychology</h3>
                             <p class="text-slate-400 text-sm mt-1">December 18, 2025</p>
                         </div>
-                        <span class="text-teal-500 font-mono text-xl font-bold">AUC: 0.725</span>
                     </div>
                     <p class="text-slate-300 mb-6">
-                        A major leap forward. We identified the "Monday Anomaly" and integrated Physics engines for Pace and Rebounding to predict Total Scores with 15% greater accuracy.
+                        A major leap forward. We identified the "Monday Anomaly" (Home Court Advantage disappears on Mondays) and integrated Physics engines for Pace and Rebounding to predict Total Scores with 15% greater accuracy.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="nba-v2-2.html" class="text-white bg-teal-600 hover:bg-teal-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">Read Case Study</a>
-                    </div>
+                    <a href="nba-v2-2.html" class="text-white bg-teal-600 hover:bg-teal-500 px-6 py-2 rounded-lg text-sm font-medium transition-colors inline-block">Read Case Study</a>
                 </div>
             </div>
 
             <div class="glass-panel rounded-xl p-8 border-l-4 border-slate-700 relative overflow-hidden group hover:bg-slate-800/50 transition-all duration-300">
                 <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <svg class="w-24 h-24 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <svg class="w-24 h-24 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
                 <div class="relative z-10">
                     <div class="flex justify-between items-start mb-4">
@@ -133,66 +173,14 @@
                             <h3 class="text-2xl font-bold text-slate-300">v2.1: The Sunday Fix</h3>
                             <p class="text-slate-500 text-sm mt-1">December 14, 2025</p>
                         </div>
-                        <span class="text-slate-500 font-mono text-xl font-bold">AUC: 0.680</span>
                     </div>
                     <p class="text-slate-400 mb-6">
-                        Corrected a data ingestion error regarding "Sunday Travel" and introduced "Rest Disadvantage" features.
+                        Corrected a critical Timezone ingestion error where "Sunday Travel" games were mislabeled. Introduced the "Rest Disadvantage" feature to track player fatigue.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="nba-v2-1.html" class="text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">View Log</a>
-                    </div>
+                    <a href="nba-v2-1.html" class="text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-6 py-2 rounded-lg text-sm font-medium transition-colors inline-block">View Log</a>
                 </div>
             </div>
 
             <div class="glass-panel rounded-xl p-8 border-l-4 border-slate-700 relative overflow-hidden group hover:bg-slate-800/50 transition-all duration-300">
                 <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <svg class="w-24 h-24 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
-                </div>
-                <div class="relative z-10">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="text-2xl font-bold text-slate-300">v2.0: The Migration</h3>
-                            <p class="text-slate-500 text-sm mt-1">December 01, 2025</p>
-                        </div>
-                        <span class="text-slate-500 font-mono text-xl font-bold">AUC: 0.645</span>
-                    </div>
-                    <p class="text-slate-400 mb-6">
-                        Moved from simple linear regression to Gradient Boosting. Established PostgreSQL Schema and automated pipelines.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="nba-v2.html" class="text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">View Architecture</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="glass-panel rounded-xl p-8 border-l-4 border-slate-700 relative overflow-hidden group hover:bg-slate-800/50 transition-all duration-300 opacity-75">
-                <div class="relative z-10">
-                    <div class="flex justify-between items-start mb-4">
-                        <div>
-                            <h3 class="text-xl font-bold text-slate-400">v1.0: MVP Launch</h3>
-                            <p class="text-slate-500 text-sm mt-1">November 2025</p>
-                        </div>
-                        <span class="text-slate-600 font-mono text-lg">Baseline</span>
-                    </div>
-                    <p class="text-slate-500 mb-4">
-                        Initial proof of concept using basic rolling averages to predict game winners.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="nba-v1.html" class="text-slate-300 hover:text-white border border-slate-700 hover:border-slate-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">View Concept</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="border-t border-slate-800 py-12 mt-12 bg-slate-900">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-slate-500 text-sm">
-                &copy; 2025 #justcurious. All rights reserved.
-            </p>
-        </div>
-    </div>
-
-</body>
-</html>
+                    <svg class="w-24 h-24 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4
