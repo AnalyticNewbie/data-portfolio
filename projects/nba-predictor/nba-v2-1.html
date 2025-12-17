@@ -6,19 +6,11 @@
     <title>v2.1: The Sunday Fix - #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .code-window {
-            background: #1e1e1e;
-            border-radius: 0.5rem;
-            border: 1px solid #333;
-        }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .code-window { background: #0f172a; border-radius: 0.5rem; border: 1px solid #334155; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
+<body class="bg-slate-900 text-slate-200 font-sans antialiased">
 
     <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,43 +23,31 @@
 
     <div class="pt-32 pb-20 max-w-4xl mx-auto px-4">
         <div class="border-b border-slate-700 pb-8 mb-12">
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">
-                RELEASED: DEC 14, 2025
-            </div>
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">RELEASED: DEC 14, 2025</div>
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">v2.1: The Sunday Fix</h1>
-            <p class="text-xl text-slate-400">Correcting data ingestion errors and stabilizing volatility.</p>
+            <p class="text-xl text-slate-400">Debugging Timezones and "Rest Disadvantage."</p>
         </div>
 
         <div class="space-y-12">
             <section>
-                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
-                    <span class="w-2 h-8 bg-teal-500 mr-4 rounded-sm"></span>
-                    The Anomaly
-                </h2>
-                <p class="text-slate-300 text-lg leading-relaxed mb-6">
-                    After launching v2.0, I noticed a spike in prediction errors specifically on Mondays. The model was aggressively betting against teams playing on Sunday, assuming they were fatigued.
+                <h2 class="text-2xl font-bold text-white mb-4">The Anomaly</h2>
+                <p class="text-slate-300 text-lg mb-6">
+                    The model was performing well on Tue-Sat, but failing miserably on Sunday/Monday games. It turned out to be a <strong>Timezone Bug</strong>. Games played Sunday night in NY were being logged as Monday morning in my database, breaking the "Days of Rest" calculation.
                 </p>
-                <div class="glass-panel p-6 rounded-xl border-l-4 border-red-500/50">
-                    <h3 class="text-white font-bold mb-2">The Bug:</h3>
-                    <p class="text-slate-400">My timezone conversion logic was flawed. Games played Sunday Night in the US were being logged as Monday Morning in Australia, but the "Rest Days" calculation was off by 24 hours.</p>
+                <div class="code-window p-6 text-sm font-mono text-slate-300 overflow-x-auto">
+<pre class="whitespace-pre text-red-300"># The Fix: Forcing US/Eastern Time
+dt_utc = datetime.strptime(game_date, "%Y-%m-%dT%H:%M:%S")
+dt_et = dt_utc.astimezone(timezone('US/Eastern'))
+# Now 'Rest Days' aligns with reality</pre>
                 </div>
             </section>
 
             <section>
-                <h2 class="text-2xl font-bold text-white mb-4 flex items-center">
-                    <span class="w-2 h-8 bg-teal-500 mr-4 rounded-sm"></span>
-                    The Solution
-                </h2>
-                <p class="text-slate-300 text-lg mb-6">
-                    I rewrote the timestamp handling to enforce <code>US/Eastern</code> time for all game logic, regardless of where the script is run. I also introduced a specific feature for "Rest Disadvantage."
-                </p>
-                <div class="code-window p-6 text-sm font-mono text-slate-300 overflow-x-auto">
-<pre class="whitespace-pre"># v2.1 Logic Update
-def calculate_rest(team_id, game_date):
-    prev_game = get_last_game(team_id, game_date)
-    # Forced timezone conversion to handle Sunday night games
-    delta = (game_date - prev_game).days
-    return delta if delta < 4 else 4  # Cap rest at 4 days</pre>
+                <h2 class="text-2xl font-bold text-white mb-4">The Impact</h2>
+                <div class="glass-panel p-6 rounded-xl">
+                    <p class="text-slate-400">
+                        Once fixed, the model correctly identified teams on "Back-to-Backs" (playing 2 nights in a row). This immediately stabilized the volatility metrics and prepared the groundwork for the v2.2 "Physics" update.
+                    </p>
                 </div>
             </section>
         </div>
