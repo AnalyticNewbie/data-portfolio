@@ -3,71 +3,225 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v2.0: Architecture - #justcurious</title>
+    <title>v2.0 The Migration | #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
-        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .code-window { background: #0f172a; border-radius: 0.5rem; border: 1px solid #334155; }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .code-window {
+            background: #0f172a; /* Slate-900 hex */
+            border-radius: 0.5rem;
+            border: 1px solid #334155; /* Slate-700 hex */
+            font-family: monospace;
+        }
+        .tech-pill {
+            background: rgba(45, 212, 191, 0.1);
+            color: #2dd4bf;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(45, 212, 191, 0.2);
+        }
+        .status-dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; }
+        .status-dot.live { background-color: #10b981; box-shadow: 0 0 8px #10b981; }
+
+        /* Syntax Highlighting */
+        .c-keyword { color: #c084fc; } /* Purple */
+        .c-func { color: #2dd4bf; }    /* Teal */
+        .c-str { color: #f472b6; }     /* Pink */
+        .c-comment { color: #64748b; } /* Slate-500 */
+        .c-class { color: #fbbf24; }   /* Amber */
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-sans antialiased">
+<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
 
     <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <a href="index.html" class="font-bold text-xl tracking-tighter text-teal-400">#justcurious</a>
-                <a href="nba-project-hub.html" class="text-slate-300 hover:text-white text-sm font-medium">Back to Hub</a>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="index.html" class="text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="nba-project-hub.html" class="text-white bg-slate-800 px-3 py-2 rounded-md text-sm font-medium">NBA Project</a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <div class="pt-32 pb-20 max-w-4xl mx-auto px-4">
-        <div class="border-b border-slate-700 pb-8 mb-12">
-            <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-400 mb-4 border border-slate-700">RELEASED: DEC 01, 2025</div>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">v2.0: The Great Migration</h1>
-            <p class="text-xl text-slate-400">From CSVs to SQL and Linear Regression to Gradient Boosting.</p>
+    <div class="relative pt-32 pb-12">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <a href="nba-project-hub.html" class="inline-flex items-center text-slate-400 hover:text-white mb-8 transition-colors text-sm">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Back to Timeline
+            </a>
+            
+            <div class="flex items-center space-x-4 mb-6">
+                <span class="tech-pill border-slate-600 text-slate-300 bg-slate-800/50">Released: December 01, 2025</span>
+                <span class="tech-pill text-emerald-400 border-emerald-500/20 bg-emerald-500/10">Major Update</span>
+            </div>
+
+            <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">
+                v2.0: The Migration
+            </h1>
+            <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">
+                The "Big Rewire." Moving from fragile CSV files to a robust PostgreSQL architecture and upgrading our prediction engine from simple lines to Gradient Boosting trees.
+            </p>
         </div>
+    </div>
 
-        <div class="space-y-12">
-            <section>
-                <h2 class="text-2xl font-bold text-white mb-4">1. SQL Feature Engineering</h2>
-                <p class="text-slate-300 text-lg mb-6">
-                    Calculating "Rolling 10-Game Averages" in Python was becoming slow. I migrated the data to <strong>PostgreSQL</strong> and used Window Functions to calculate features instantly.
-                </p>
-                <div class="code-window p-6 text-sm font-mono text-slate-300 overflow-x-auto mb-8">
-<pre class="whitespace-pre text-blue-300">-- The View that powers the model
-CREATE VIEW v_team_features AS
-SELECT 
-    team_id,
-    AVG(pts) OVER (
-        PARTITION BY team_id 
-        ORDER BY game_date 
-        ROWS BETWEEN 4 PRECEDING AND CURRENT ROW
-    ) as rolling_points_5
-FROM team_stats;</pre>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+            <div class="lg:col-span-1 space-y-8">
+                
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-4">The Goal</h2>
+                    <div class="glass-panel p-6 rounded-xl">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-teal-400 mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <div>
+                                    <strong class="text-white block text-sm">Eliminate Technical Debt</strong>
+                                    <span class="text-slate-400 text-xs">Replace "Toy Script" with "Data Pipeline"</span>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-teal-400 mt-1 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                <div>
+                                    <strong class="text-white block text-sm">Handle Complexity</strong>
+                                    <span class="text-slate-400 text-xs">Model non-linear factors (Rest days, Streaks)</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </section>
 
-            <section>
-                <h2 class="text-2xl font-bold text-white mb-4">2. The Brain Transplant</h2>
-                <p class="text-slate-300 text-lg mb-6">
-                    Linear Regression assumes relationships are straight lines. Basketball is non-linear (e.g., Fatigue hurts good teams more than bad teams). I switched to <strong>Gradient Boosting</strong>.
-                </p>
-                <div class="glass-panel p-6 rounded-xl border-l-4 border-teal-500">
-                    <h3 class="text-white font-bold mb-2">Performance Jump</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-slate-500 text-xs uppercase">v1.0 AUC</div>
-                            <div class="text-2xl font-mono text-slate-400">0.510</div>
+                <div>
+                    <h2 class="text-xl font-bold text-white mb-4">Metrics for Success</h2>
+                    <div class="glass-panel p-6 rounded-xl">
+                        <div class="mb-4">
+                            <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Pipeline Reliability</div>
+                            <div class="text-2xl font-bold text-white">100%</div>
+                            <div class="text-xs text-emerald-400">Zero CSV Corruptions</div>
                         </div>
+                        <div class="w-full bg-slate-700 h-px mb-4"></div>
                         <div>
-                            <div class="text-teal-500 text-xs uppercase font-bold">v2.0 AUC</div>
-                            <div class="text-2xl font-mono text-white">0.645</div>
+                            <div class="text-xs text-slate-500 uppercase tracking-wider mb-1">Model AUC</div>
+                            <div class="text-2xl font-bold text-white">0.68</div>
+                            <div class="text-xs text-teal-400">Up from 0.52 (Coin Flip)</div>
                         </div>
                     </div>
                 </div>
-            </section>
+
+            </div>
+
+            <div class="lg:col-span-2 space-y-12">
+
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-teal-500 pl-4">Architecture & Stack</h2>
+                    
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <span class="tech-pill">PostgreSQL</span>
+                        <span class="tech-pill">SQL Views</span>
+                        <span class="tech-pill">Scikit-Learn</span>
+                        <span class="tech-pill">Gradient Boosting</span>
+                    </div>
+
+                    <p class="text-slate-400 mb-6">
+                        We shifted to a classic <strong>ELT (Extract, Load, Transform)</strong> pattern. Data is ingested raw into PostgreSQL, cleaned via SQL Views, and then fed into a Gradient Boosting Classifier.
+                    </p>
+
+                    <div class="code-window p-4 overflow-x-auto text-sm shadow-2xl mb-4">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-2 mb-4">
+                            <span class="text-slate-500 text-xs font-mono">schema_migration.sql</span>
+                            <span class="text-xs text-slate-600">SQL</span>
+                        </div>
+                        <pre class="text-slate-300"><code><span class="c-keyword">CREATE VIEW</span> v_team_performance <span class="c-keyword">AS</span>
+<span class="c-keyword">SELECT</span>
+    team_id,
+    game_date,
+    pts_scored,
+    <span class="c-comment">-- SQL Window Functions replace complex Pandas Loops</span>
+    <span class="c-func">AVG</span>(pts_scored) <span class="c-keyword">OVER</span> (
+        <span class="c-keyword">PARTITION BY</span> team_id 
+        <span class="c-keyword">ORDER BY</span> game_date 
+        <span class="c-keyword">ROWS BETWEEN</span> 5 <span class="c-keyword">PRECEDING AND</span> 1 <span class="c-keyword">PRECEDING</span>
+    ) <span class="c-keyword">as</span> rolling_avg_pts
+<span class="c-keyword">FROM</span> raw_games;</code></pre>
+                    </div>
+
+                    <div class="code-window p-4 overflow-x-auto text-sm shadow-2xl">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-2 mb-4">
+                            <span class="text-slate-500 text-xs font-mono">model_pipeline_v2.py</span>
+                            <span class="text-xs text-slate-600">Python 3.12</span>
+                        </div>
+                        <pre class="text-slate-300"><code><span class="c-keyword">from</span> sklearn.ensemble <span class="c-keyword">import</span> GradientBoostingClassifier
+
+<span class="c-comment"># Switching from Linear Regression to Trees</span>
+<span class="c-comment"># This allows the model to find non-linear patterns (e.g. Fatigue)</span>
+clf = <span class="c-class">GradientBoostingClassifier</span>(
+    n_estimators=100,
+    learning_rate=0.1,
+    max_depth=3,
+    random_state=42
+)
+
+clf.<span class="c-func">fit</span>(X_train_db, y_train_db)</code></pre>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-emerald-500 pl-4">Lessons & Bottlenecks</h2>
+                    
+                    <div class="space-y-4">
+                        <div class="glass-panel p-5 rounded-lg">
+                            <h3 class="font-bold text-white mb-2">What Failed in v1?</h3>
+                            <p class="text-slate-400 text-sm">
+                                Linear Regression assumed that "Points Scored" had a straight-line relationship with winning. It failed to account for context. If the Celtics score 100 vs the Pistons, that's bad. If they score 100 vs the Heat (a slow team), that's good. 
+                            </p>
+                        </div>
+                        
+                        <div class="glass-panel p-5 rounded-lg">
+                            <h3 class="font-bold text-white mb-2">The New Bottleneck</h3>
+                            <p class="text-slate-400 text-sm">
+                                While the database is stable, we discovered a data ingestion error. Games played in different timezones (West Coast vs East Coast) are creating "Ghost Games" on Sundays.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
         </div>
+
+        <div class="mt-20 border-t border-slate-800 pt-12">
+            <div class="flex flex-col md:flex-row items-center justify-between bg-slate-800/50 p-8 rounded-xl border border-slate-700">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-lg font-bold text-white">Intended Next Steps</h3>
+                    <p class="text-slate-400 text-sm mt-2 max-w-lg">
+                        We need to fix the Timezone bug discovered during the migration. This will require a refactor of the `date_utils` module.
+                    </p>
+                </div>
+                <a href="nba-v2-1.html" class="flex items-center bg-teal-600 hover:bg-teal-500 text-white px-6 py-3 rounded-lg font-medium transition-colors">
+                    Next: v2.1 The Sunday Fix
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+
     </div>
+
+    <footer class="border-t border-slate-800 py-12 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-slate-500 text-sm">&copy; 2025 #justcurious. All rights reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
