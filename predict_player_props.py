@@ -105,3 +105,10 @@ if __name__ == "__main__":
         # Join all arguments to allow "LeBron James" without quotes
         name_query = " ".join(sys.argv[1:])
         predict_player(name_query)
+
+        # --- NEW: SAVE TO JSON FOR PORTFOLIO ---
+    import json
+    with open("daily_projections.json", "w") as f:
+        # Convert your results list to JSON
+        json.dump(team_preds, f, indent=4) 
+    print("✅ Local Bridge: daily_projections.json updated.")

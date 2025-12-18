@@ -1,169 +1,99 @@
-import sys
 import os
+import sys
 import pandas as pd
-import joblib
 import psycopg2
-import warnings
+import json
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
-# --- CONFIGURATION ---
 load_dotenv()
 
-# Fixed: Target the specific warning message using Regex
-warnings.filterwarnings("ignore", message=".*pandas only supports SQLAlchemy connectable.*")
-
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_NAME = os.getenv("DB_NAME", "nba")
-DB_USER = os.getenv("DB_USER", "nba_user")
-DB_PASS = os.getenv("DB_PASSWORD")
-
-MODEL_PTS_PATH = "models/points_model.joblib"
-MODEL_REB_PATH = "models/rebounds_model.joblib"
-MODEL_AST_PATH = "models/assists_model.joblib"
-
 def get_db_conn():
-    return psycopg2.connect(host=DB_HOST, dbname=DB_NAME, user=DB_USER, password=DB_PASS)
+    return psycopg2.connect(
+        host=os.getenv("DB_HOST", "localhost"),
+        dbname=os.getenv("DB_NAME", "nba"),
+        user=os.getenv("DB_USER", "nba_user"),
+        password=os.getenv("DB_PASSWORD")
+    )
 
-def get_games_for_date(target_date_et):
+def predict_props(target_date_au):
+    print(f"\n=== PLAYER PROP CHEAT SHEET (AU: {target_date_au}) ===")
+    
+    # Auto-convert AU Date to US Game Date
+    target_date_dt = datetime.strptime(target_date_au, '%Y-%m-%d')
+    us_game_date = (target_date_dt - timedelta(days=1)).strftime('%Y-%m-%d')
+    print(f"US Game Date: {us_game_date}")
+
     conn = get_db_conn()
-    cur = conn.cursor()
-    # Join games to teams to get abbreviations
-    sql = """
-        SELECT g.game_id, g.home_team_id, g.away_team_id, 
-               ht.team_abbr as home_abbr, at.team_abbr as away_abbr,
-               g.game_date_et
-        FROM games g
-        JOIN teams ht ON g.home_team_id = ht.team_id
-        JOIN teams at ON g.away_team_id = at.team_id
-        WHERE g.game_date_et = %s
-    """
-    cur.execute(sql, (target_date_et,))
-    rows = cur.fetchall()
-    conn.close()
-    return rows
-
-def get_team_roster(team_id):
-    conn = get_db_conn()
-    cur = conn.cursor()
-    sql = "SELECT id, name FROM players WHERE team_id = %s AND current_status = 'Active'"
-    cur.execute(sql, (team_id,))
-    rows = cur.fetchall()
-    conn.close()
-    return rows
-
-def get_player_features(player_id):
-    conn = get_db_conn()
-    # Fetch recent logs
-    sql = """
-        SELECT pts, reb, ast, min 
-        FROM player_logs 
-        WHERE player_id = %s 
-        ORDER BY game_date DESC 
-        LIMIT 20
-    """
-    df = pd.read_sql(sql, conn, params=(player_id,))
-    conn.close()
     
-    if len(df) < 5: return None
-        
-    # Calculate Features (must match training columns: lowercase)
-    feats = {}
-    l5 = df.head(5)
-    l10 = df.head(10)
+    # 1. FETCH ALL ACTIVE GAMES FOR THE DAY
+    query_games = f"SELECT game_id, home_team_id, away_team_id FROM games WHERE game_date = '{us_game_date}'"
+    df_games = pd.read_sql(query_games, conn)
     
-    feats['pts_l5'] = l5['pts'].mean()
-    feats['reb_l5'] = l5['reb'].mean()
-    feats['ast_l5'] = l5['ast'].mean()
-    feats['min_l5'] = l5['min'].mean()
-    
-    feats['pts_l10'] = l10['pts'].mean()
-    feats['reb_l10'] = l10['reb'].mean()
-    feats['ast_l10'] = l10['ast'].mean()
-    
-    feats['pts_l20'] = df.head(20)['pts'].mean()
-    
-    return pd.DataFrame([feats])
-
-def main():
-    # 1. Handle AU Date Input
-    if len(sys.argv) > 1:
-        input_date = sys.argv[1]
-    else:
-        # Default to "Tomorrow" in US time (which is "Today" in AU)
-        input_date = datetime.now().strftime('%Y-%m-%d')
-
-    # Convert AU Date to US Game Date (Subtract 1 day)
-    try:
-        date_obj = datetime.strptime(input_date, "%Y-%m-%d")
-        target_date_et = (date_obj - timedelta(days=1)).strftime("%Y-%m-%d")
-    except ValueError:
-        print("Error: Date must be YYYY-MM-DD")
+    if df_games.empty:
+        print(f"No games found for {us_game_date}. Pipeline complete.")
         return
 
-    print(f"\n=== PLAYER PROP CHEAT SHEET ===")
-    print(f"AU Date: {input_date}")
-    print(f"US Date: {target_date_et} (Used for Database Lookup)")
+    # 2. BULK FETCH ALL PLAYER LOGS (The Speed Fix)
+    # We fetch everything once to avoid looping database queries
+    print("Pre-loading historical data into memory...")
+    query_logs = "SELECT player_id, pts, reb, ast, min, game_date FROM player_logs ORDER BY game_date DESC"
+    all_logs = pd.read_sql(query_logs, conn)
     
-    # 2. Load Models
-    try:
-        pts_model = joblib.load(MODEL_PTS_PATH)
-        reb_model = joblib.load(MODEL_REB_PATH)
-        ast_model = joblib.load(MODEL_AST_PATH)
-    except:
-        print("Error: Models not found.")
-        return
+    # 3. GET TEAM ABBREVIATIONS FOR DISPLAY
+    teams_df = pd.read_sql("SELECT team_id, team_abbr FROM teams", conn)
+    team_map = dict(zip(teams_df['team_id'], teams_df['team_abbr']))
 
-    # 3. Get Games
-    games = get_games_for_date(target_date_et)
-    if not games:
-        print(f"No games found for {target_date_et} ET.")
-        print("Tip: Run 'fetch_schedule.py' if you haven't recently.")
-        return
+    all_predictions = []
 
-    # 4. Generate Predictions
-    for g in games:
-        game_id, hid, aid, habbr, aabbr, _ = g
-        print(f"\n>>> {aabbr} @ {habbr} <<<")
-        print(f"{'PLAYER':<20} | {'PTS':<5} {'(L5)':<6} | {'REB':<5} | {'AST':<5}")
-        print("-" * 60)
+    for _, game in df_games.iterrows():
+        home_abbr = team_map.get(game['home_team_id'], "UNK")
+        away_abbr = team_map.get(game['away_team_id'], "UNK")
+        print(f"\n>>> {away_abbr} @ {home_abbr} <<<")
+        print(f"{'PLAYER':<25} | {'PTS':<6} | {'REB':<6} | {'AST':<6}")
+        print("-" * 55)
+
+        # Get all players for these two teams
+        t_ids = (game['home_team_id'], game['away_team_id'])
+        players_query = f"SELECT player_id, name, team_id FROM players WHERE team_id IN %s"
+        players_df = pd.read_sql(players_query, conn, params=(t_ids,))
+
+        for _, p in players_df.iterrows():
+            # Filter logs in memory (Instant compared to SQL)
+            p_logs = all_logs[all_logs['player_id'] == p['player_id']].head(20)
+            
+            if len(p_logs) < 3: continue # Skip bench players with no history
+
+            # Simple weighted projection logic
+            l5 = p_logs.head(5)
+            pred_pts = round((l5['pts'].mean() * 0.7) + (p_logs['pts'].mean() * 0.3), 1)
+            pred_reb = round((l5['reb'].mean() * 0.7) + (p_logs['reb'].mean() * 0.3), 1)
+            pred_ast = round((l5['ast'].mean() * 0.7) + (p_logs['ast'].mean() * 0.3), 1)
+
+            print(f"{p['name']:<25} | {pred_pts:<6} | {pred_reb:<6} | {pred_ast:<6}")
+            
+            all_predictions.append({
+                "player": p['name'],
+                "team": team_map.get(p['team_id']),
+                "pts": pred_pts,
+                "reb": pred_reb,
+                "ast": pred_ast
+            })
+
+    # --- STANDARDIZED FE BRIDGE: data.json ---
+    final_payload = {
+        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "target_date_au": target_date_au,
+        "projections": all_predictions
+    }
+
+    with open("data.json", "w") as f:
+        json.dump(final_payload, f, indent=4)
         
-        rosters = [(aid, aabbr), (hid, habbr)]
-        
-        for team_id, team_code in rosters:
-            players = get_team_roster(team_id)
-            
-            # If roster is empty, it means team_id is missing in DB
-            if not players:
-                print(f"   [!] No active players found for {team_code}. Run fetch_players.py!")
-                continue
+    print(f"\n✅ SUCCESS: Standardized data exported to data.json for Frontend.")
 
-            team_preds = []
-            
-            for pid, name in players:
-                X = get_player_features(pid)
-                if X is None: continue
-                    
-                p_pts = pts_model.predict(X)[0]
-                p_reb = reb_model.predict(X)[0]
-                p_ast = ast_model.predict(X)[0]
-                
-                # Filter: Show players projected for > 15 pts OR > 8 assists
-                if p_pts > 15.0 or p_ast > 8.0: 
-                    team_preds.append({
-                        'name': name, 'pts': p_pts, 'l5': X['pts_l5'].iloc[0],
-                        'reb': p_reb, 'ast': p_ast
-                    })
-            
-            # Sort by PTS
-            team_preds.sort(key=lambda x: x['pts'], reverse=True)
-            
-            for p in team_preds[:6]: # Top 6 per team
-                diff = p['pts'] - p['l5']
-                diff_str = f"({p['l5']:.1f})"
-                print(f"{p['name'][:18]:<20} | {p['pts']:<5.1f} {diff_str:<6} | {p['reb']:<5.1f} | {p['ast']:<5.1f}")
-            
-            print("-" * 60)
+    conn.close()
 
 if __name__ == "__main__":
-    main()
+    t_date = sys.argv[1] if len(sys.argv) > 1 else datetime.now().strftime('%Y-%m-%d')
+    predict_props(t_date)
