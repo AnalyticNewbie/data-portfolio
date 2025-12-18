@@ -1,0 +1,39 @@
+# NBA Game Prediction System — Project Snapshot v2.1 (Advanced Volatility)
+
+## Purpose
+End-to-end NBA prediction system that combines Machine Learning anchors with context-aware volatility adjustments. It moves beyond simple "win/loss" to provide "Score Ranges" and "Risk Factors" based on team form and matchup styles.
+
+## Key Upgrades in v2.1
+* **Composite Sigma:** Volatility is no longer just a standard deviation. It is now modified by:
+    * **Pace:** Faster games = Wider score ranges.
+    * **Defense:** Elite opponents (Low DRTG) = Tighter score ranges.
+* **Contextual Risk Flags:**
+    * **OT Risk:** Automatically flags games predicted within 3 points.
+    * **Form Check:** Displays the margin of the last 3 games (Heating Up vs. Slumping) to spot momentum mismatches.
+* **Future-Proof Views:** SQL logic updated to anchor stats to the *Schedule*, ensuring "Tomorrow's Games" can successfully look backward at history.
+
+## Tech Stack
+* **Language:** Python 3.13 (scikit-learn, scipy, pandas)
+* **Database:** PostgreSQL 16 (Docker)
+* **Inputs:** NBA API (games, team_game_stats)
+* **Logic:** SQL Views for Feature Engineering -> Python for Prediction & Post-Processing
+
+## Core Files
+1.  `ingest_schedule.py`: Pulls upcoming games.
+2.  `ingest_results_et.py`: Pulls scores and grades past predictions.
+3.  `train_score_models.py`: Trains Gradient Boosting regressors on v2 features (SOS, Rest).
+4.  `predict_scores_v2.1.py`: The main daily driver.
+    * Fetches game data + Advanced Stats (Pace, ORTG, DRTG).
+    * Predicts "Anchor" Score.
+    * Calculates "Composite Sigma" based on matchup style.
+    * Outputs "Likely Range" (50% Confidence) and Risk Flags.
+
+## Database Views (v2.1)
+* `v_team_features`: Base rolling stats (Win %, PD).
+* `v_strength_of_schedule`: Adjusts for opponent quality.
+* `v_team_advanced_stats`: **(New)** Calculates Rolling Pace, ORTG, DRTG, and Recency (Form) using a Schedule-First approach to handle future dates.
+
+## The Prediction Loop
+1.  **Ingest:** `python ingest_schedule.py` (Get games)
+2.  **Predict:** `python predict_scores_v2.1.py YYYY-MM-DD` (Generate insights)
+3.  **Grade:** `python ingest_results_et.py` (Close the loop next day)

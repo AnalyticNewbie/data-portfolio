@@ -1,0 +1,293 @@
+NBA Game Prediction System — Project Snapshot
+Purpose
+
+End-to-end NBA game prediction system that:
+
+Ingests official NBA data
+
+Engineers time-aware team features in SQL
+
+Trains probabilistic win and score models
+
+Produces daily game predictions with uncertainty bounds
+
+Is designed as a production-style analytics pipeline, not a one-off notebook
+
+Focus is on interpretability, temporal correctness, and model evaluation, not betting optimisation.
+
+Tech Stack
+
+Language: Python 3.13
+
+Database: PostgreSQL 16 (Docker)
+
+Data Source: nba_api
+
+ML: scikit-learn (LogisticRegression, Gradient Boosting, HistGradientBoosting)
+
+Data: SQL-first feature engineering
+
+Environment: Windows + PowerShell, Docker for Postgres
+
+Timezones: ET is canonical; AEDT supported for user input/output
+
+Database Schema (Core)
+Tables
+
+teams
+
+games
+
+features_team_game
+
+Key Columns
+
+games
+
+game_id (text, PK)
+
+game_date_et (date, ET-correct)
+
+home_team_id, away_team_id
+
+home_pts, away_pts
+
+status (scheduled, final)
+
+season_type (regular, playoffs)
+
+features_team_game
+
+game_id
+
+team_id
+
+as_of_date
+
+feature_json
+
+rest_days
+
+rest_days_missing
+
+is_home
+
+Data Ingestion
+Schedule
+
+ingest_schedule.py
+
+Pulls upcoming games
+
+Stores ET dates (canonical)
+
+Safe to re-run (UPSERT)
+
+Results (ET-correct)
+
+ingest_results_et.py
+
+Explicit ET window ingestion
+
+Fixes earlier AEDT/UTC drift issues
+
+Groups team boxscores into single game rows
+
+Only ingests FINAL games
+
+Historical Backfill
+
+backfill_finals.py
+
+Backfills regular season only
+
+Seasons: 2022-23, 2023-24, 2024-25
+
+Result: ~3,600 historical games
+
+Feature Engineering (SQL-First)
+Core Views
+
+v_final_games
+
+v_team_games
+
+v_team_features
+
+v_rest_days_scheduled
+
+v_training_baseline
+
+v_training_baseline_weighted_3y
+
+Key Features
+
+Rolling point differential (last 5, last 10)
+
+Rest days (NBA definition: days off between games)
+
+Back-to-back indicator
+
+Home advantage flag
+
+Time-decay sample weights (last 3 seasons)
+
+Weighting
+
+Exponential decay based on age_days
+
+Recent games weighted highest
+
+Older seasons still informative but discounted
+
+Models
+1. Win Probability Model
+
+File: train_baseline_win.py
+
+Model: Weighted Logistic Regression
+
+Target: Home win (binary)
+
+Features:
+
+rolling_pd_10_diff
+
+rolling_pd_5_diff
+
+rest_days_diff
+
+home_back_to_back
+
+home_advantage
+
+Metrics (approx):
+
+AUC ≈ 0.70
+
+Accuracy ≈ 65%
+
+Interpretable coefficients retained
+
+Secondary model tested:
+
+HistGradientBoosting (kept for comparison)
+
+2. Score Prediction Models
+
+File: train_score_models.py
+
+Two separate regressors:
+
+Margin model (home – away)
+
+Total points model
+
+Outputs:
+
+MAE / RMSE
+
+Residual distributions
+
+Empirical 95% prediction intervals
+
+Uncertainty stored in:
+
+models/score_uncertainty.json
+
+Daily Prediction
+
+File: predict_scores_for_date.py
+
+Input:
+
+Date in AEDT
+
+Process:
+
+Convert AEDT → ET
+
+Fetch scheduled games
+
+Join latest engineered features
+
+Predict:
+
+Home win probability
+
+Home & away scores
+
+95% prediction intervals
+
+Output example:
+
+game_date_et home away  home_win_prob_pct  pred_home  pred_away  home_95pi  away_95pi
+2025-12-15    DEN  HOU               55.8      114.8      111.6  88.9–140.7  86.0–137.2
+
+Project Structure
+nba-predictor/
+├── ingest_schedule.py
+├── ingest_results_et.py
+├── backfill_finals.py
+├── train_baseline_win.py
+├── train_score_models.py
+├── predict_scores_for_date.py
+├── sql/
+│   ├── features/
+│   └── materialise/
+├── models/
+│   ├── win_model.joblib
+│   ├── margin_model.joblib
+│   ├── total_model.joblib
+│   └── score_uncertainty.json
+├── projects/nba-predictor/
+│   ├── index.html
+│   └── README.md
+
+Design Principles
+
+SQL does feature logic (auditable, reproducible)
+
+Python handles modelling only
+
+Time is explicit and correct (ET canonical)
+
+Features are causal (no leakage)
+
+Model evolution tracked, not hidden
+
+Known Limitations (Intentional)
+
+No player-level features yet
+
+No odds / betting market data
+
+No live injury tracking
+
+Regular season only (playoffs separated by design)
+
+Intended Next Iterations
+
+Player availability & injury signals
+
+Pace / possession-based features
+
+Rolling recalibration & backtesting
+
+Model monitoring dashboards
+
+Versioned model comparisons
+
+Portfolio Positioning
+
+This project demonstrates:
+
+Systems thinking
+
+Feature engineering maturity
+
+ML lifecycle management
+
+Production-style analytics
+
+Model interpretability over hype
