@@ -164,36 +164,36 @@
 
     <script>
     async function updateLiveMetrics() {
-        try {
-            // 1. Fetch the JSON file created by your GitHub Action
-            const response = await fetch('./data.json');
-            if (!response.ok) return; // If file isn't there yet, keep hardcoded defaults
-            
-            const data = await response.json();
-
-            // 2. Update the Accuracy Badge
-            const accuracyEl = document.querySelector('.text-3xl.font-bold.text-white');
-            if (data.metrics && data.metrics.accuracy) {
-                accuracyEl.innerText = data.metrics.accuracy;
-            }
-
-            // 3. Update the MAE (Mean Absolute Error)
-            // This targets the second metric card in your grid
-            const maeEl = document.querySelectorAll('.text-3xl.font-bold.text-white')[1];
-            if (data.metrics && data.metrics.mae) {
-                maeEl.innerText = data.metrics.mae;
-            }
-
-            // 4. Update the "Last Updated" text if you want to show freshness
-            console.log("Hub synchronized with latest model data:", data.last_updated);
-            
-        } catch (error) {
-            console.log("Data sync pending: Using baseline metrics.");
+    try {
+        // Updated path to include your repository name
+        const response = await fetch('/data-portfolio/data.json'); 
+        
+        if (!response.ok) {
+            console.log("data.json not found at root. Checking local path...");
+            const fallbackResponse = await fetch('./data.json');
+            if (!fallbackResponse.ok) return;
+            var data = await fallbackResponse.json();
+        } else {
+            var data = await response.json();
         }
-    }
 
-    // Run the update when the page loads
-    window.onload = updateLiveMetrics;
+        // Update the Accuracy (First Card)
+        const accuracyEl = document.querySelector('.text-3xl.font-bold.text-white');
+        if (data.metrics && data.metrics.accuracy) {
+            accuracyEl.innerText = data.metrics.accuracy;
+        }
+
+        // Update the MAE (Second Card)
+        const maeEl = document.querySelectorAll('.text-3xl.font-bold.text-white')[1];
+        if (data.metrics && data.metrics.mae) {
+            maeEl.innerText = data.metrics.mae;
+        }
+        
+    } catch (error) {
+        console.error("Fetch error:", error);
+    }
+}
+window.onload = updateLiveMetrics;
 </script>
     
 </body>
