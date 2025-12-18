@@ -63,6 +63,12 @@ def main():
     if os.path.exists("predict_daily_props.py"):
         run_script("predict_daily_props.py", [target_date])
 
+    from logger_utils import log_prediction_to_db
+
+    # ... (at the end after your predictions run)
+    send_to_db(team_results, 'Team')
+    send_to_db(prop_results, 'Player')
+
     print("\n========================================")
     print("   PIPELINE COMPLETE")
     print("========================================")
