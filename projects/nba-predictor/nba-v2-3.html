@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v2.3: Engineering Brief | #justcurious</title>
+    <title>v2.3: Engineering Handover | #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
     
     <style>
@@ -36,6 +36,7 @@
         .c-comment { color: #64748b; }
         .c-json-key { color: #94a3b8; }
         .c-json-val { color: #2dd4bf; }
+        .c-json-num { color: #fbbf24; }
     </style>
 </head>
 <body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
@@ -62,84 +63,76 @@
             </a>
             
             <div class="flex items-center space-x-4 mb-6">
-                <span class="tech-pill border-slate-600 text-slate-300 bg-slate-800/50">Phase: Full Stack Handover</span>
-                <span class="tech-pill text-teal-400 border-teal-500/20 bg-teal-500/10">v2.3 Integration</span>
+                <span class="tech-pill border-slate-600 text-slate-300 bg-slate-800/50">Production Ready</span>
+                <span class="tech-pill text-teal-400 border-teal-500/20 bg-teal-500/10">v2.3 Handover</span>
             </div>
 
             <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">
-                Engineering Brief: The Oracle
+                The Engineering Contract
             </h1>
             <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">
-                Transitioning from a Back-End Data Product to a Full-Stack Intelligence Dashboard. This document outlines the data contracts and UI requirements for the "Daily Edge" interface.
+                Decoupling the Python inference engine from the Front-End. This brief defines the exact JSON schema, Ridge Regression architecture, and performance benchmarks for the v2.3 release.
             </p>
         </div>
     </div>
 
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-            <div class="glass-panel p-8 rounded-2xl">
-                <h2 class="text-teal-400 text-xs font-bold uppercase tracking-widest mb-4">Core Engine Status</h2>
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <span class="text-slate-400">Target Accuracy</span>
-                        <span class="text-white font-mono">~57.6%</span>
-                    </div>
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <span class="text-slate-400">ML Model</span>
-                        <span class="text-white font-mono">Ridge Regression</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">Update Frequency</span>
-                        <span class="text-emerald-400 font-mono flex items-center">
-                            <span class="status-dot live mr-2"></span> Daily
-                        </span>
-                    </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+            <div class="glass-panel p-6 rounded-xl">
+                <h3 class="text-xs font-bold text-teal-400 uppercase tracking-widest mb-4">Algorithm</h3>
+                <p class="text-lg font-bold text-white mb-2">Ridge Regression</p>
+                <p class="text-slate-400 text-xs">Utilizing L2 Regularization to prevent overfitting on volatile daily box scores.</p>
+            </div>
+            <div class="glass-panel p-6 rounded-xl">
+                <h3 class="text-xs font-bold text-teal-400 uppercase tracking-widest mb-4">Feature Set</h3>
+                <p class="text-lg font-bold text-white mb-2">Rolling Windows</p>
+                <div class="flex gap-2">
+                    <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-300">L5</span>
+                    <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-300">L10</span>
+                    <span class="text-[10px] bg-slate-800 px-2 py-0.5 rounded text-slate-300">L20</span>
                 </div>
             </div>
-
-            <div class="glass-panel p-8 rounded-2xl">
-                <h2 class="text-teal-400 text-xs font-bold uppercase tracking-widest mb-4">The Stack</h2>
-                <div class="flex flex-wrap gap-2">
-                    <span class="tech-pill">Python 3.12</span>
-                    <span class="tech-pill">PostgreSQL</span>
-                    <span class="tech-pill">scikit-learn</span>
-                    <span class="tech-pill">GitHub Actions</span>
-                    <span class="tech-pill">JSON Exports</span>
-                </div>
-                <p class="mt-4 text-slate-400 text-sm italic">
-                    The backend is now fully autonomous, handling ETL, Retraining, and Inference via a single entry-point script.
-                </p>
+            <div class="glass-panel p-6 rounded-xl">
+                <h3 class="text-xs font-bold text-teal-400 uppercase tracking-widest mb-4">Weighting Factor</h3>
+                <p class="text-lg font-bold text-white mb-2">Minutes Played</p>
+                <p class="text-slate-400 text-xs">Inference is instantly adjusted based on L5 average time on court.</p>
             </div>
         </div>
 
         <div class="mb-20">
-            <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-teal-500 pl-4">The Data Contract</h2>
-            <p class="text-slate-400 mb-8">
-                To decouple the Python model from the Portfolio UI, the backend generates a static <code class="text-teal-400 bg-slate-800 px-1 rounded">daily_predictions.json</code>.
-            </p>
-
+            <h2 class="text-2xl font-bold text-white mb-8 border-l-4 border-teal-500 pl-4">Production Schema</h2>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div class="space-y-4">
-                    <h3 class="text-lg font-bold text-slate-200">Matchup Schema</h3>
-                    <div class="code-window p-4 text-xs">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-tight">Team Projections</h3>
+                        <span class="text-[10px] font-mono text-slate-500">predict_scores_for_date.py</span>
+                    </div>
+                    <div class="code-window p-4 text-[12px] leading-relaxed">
                         <pre class="text-slate-300"><code>{
-  <span class="c-json-key">"matchup"</span>: <span class="c-json-val">"CLE @ CHI"</span>,
-  <span class="c-json-key">"predicted_winner"</span>: <span class="c-json-val">"CLE"</span>,
-  <span class="c-json-key">"win_probability"</span>: <span class="c-json-val">77.1</span>,
-  <span class="c-json-key">"risk_level"</span>: <span class="c-json-val">"LOW"</span>,
-  <span class="c-json-key">"edge"</span>: <span class="c-json-val">"Model favors CLE vs Vegas"</span>
+  <span class="c-json-key">"home_team"</span>: <span class="c-json-val">"CHI"</span>,
+  <span class="c-json-key">"away_team"</span>: <span class="c-json-val">"CLE"</span>,
+  <span class="c-json-key">"prediction"</span>: {
+    <span class="c-json-key">"home_score"</span>: <span class="c-json-num">111</span>,
+    <span class="c-json-key">"away_score"</span>: <span class="c-json-num">116</span>,
+    <span class="c-json-key">"win_probability"</span>: <span class="c-json-num">0.771</span>
+  }
 }</code></pre>
                     </div>
                 </div>
                 <div class="space-y-4">
-                    <h3 class="text-lg font-bold text-slate-200">Player Props Schema</h3>
-                    <div class="code-window p-4 text-xs">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-tight">Player Props</h3>
+                        <span class="text-[10px] font-mono text-slate-500">predict_daily_props.py</span>
+                    </div>
+                    <div class="code-window p-4 text-[12px] leading-relaxed">
                         <pre class="text-slate-300"><code>{
-  <span class="c-json-key">"player_name"</span>: <span class="c-json-val">"Josh Giddey"</span>,
-  <span class="c-json-key">"market"</span>: <span class="c-json-val">"Points"</span>,
-  <span class="c-json-key">"prediction"</span>: <span class="c-json-val">17.9</span>,
-  <span class="c-json-key">"diff"</span>: <span class="c-json-val">+3.5</span>,
+  <span class="c-json-key">"player"</span>: <span class="c-json-val">"Josh Giddey"</span>,
+  <span class="c-json-key">"markets"</span>: {
+    <span class="c-json-key">"points"</span>: <span class="c-json-num">17.9</span>,
+    <span class="c-json-key">"rebounds"</span>: <span class="c-json-num">6.7</span>,
+    <span class="c-json-key">"assists"</span>: <span class="c-json-num">5.9</span>
+  },
   <span class="c-json-key">"recommendation"</span>: <span class="c-json-val">"OVER"</span>
 }</code></pre>
                     </div>
@@ -148,70 +141,43 @@
         </div>
 
         <div class="mb-20">
-            <h2 class="text-2xl font-bold text-white mb-10">UI/UX Components</h2>
-            <div class="space-y-8">
-                <div class="flex flex-col md:flex-row gap-8 items-start">
-                    <div class="md:w-1/2">
-                        <h3 class="text-teal-400 font-bold mb-2">1. The "Lock of the Day"</h3>
-                        <p class="text-slate-400 text-sm">Large-scale card highlighting the highest confidence prediction. Requires a circular "Confidence Ring" and bold score projections.</p>
+            <h2 class="text-2xl font-bold text-white mb-8 border-l-4 border-emerald-500 pl-4">Validated Benchmarks</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <svg class="w-16 h-16 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"></path></svg>
                     </div>
-                    <div class="md:w-1/2 glass-panel p-6 rounded-xl border border-teal-500/30 flex justify-between items-center">
-                        <div>
-                            <div class="text-xs text-slate-500 uppercase">Top Edge</div>
-                            <div class="text-2xl font-bold text-white">CLE @ CHI</div>
-                            <div class="text-sm text-teal-400 font-mono">CLE 116 - CHI 111</div>
-                        </div>
-                        <div class="w-16 h-16 rounded-full border-4 border-teal-500 flex items-center justify-center text-xs font-bold">77%</div>
-                    </div>
+                    <h3 class="text-slate-400 text-sm font-bold mb-1 uppercase">Moneyline Accuracy</h3>
+                    <div class="text-4xl font-bold text-white mb-2">57.6%</div>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Surpassing the <span class="text-emerald-400">52.4%</span> profitability threshold for ATS (Against the Spread) simulated logic.
+                    </p>
                 </div>
-                <div class="flex flex-col md:flex-row gap-8 items-start">
-                    <div class="md:w-1/2">
-                        <h3 class="text-teal-400 font-bold mb-2">2. Player Prop Cheat Sheet</h3>
-                        <p class="text-slate-400 text-sm">A sortable data table highlighting significant deviations between the model and the Last 5 Game average.</p>
+                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 p-4 opacity-10">
+                        <svg class="w-16 h-16 text-teal-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12 7a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0V8.414l-4.293 4.293a1 1 0 01-1.414 0L8 10.414l-4.293 4.293a1 1 0 01-1.414-1.414l5-5a1 1 0 011.414 0L11 10.586 14.586 7H12z" clip-rule="evenodd"></path></svg>
                     </div>
-                    <div class="md:w-1/2 w-full overflow-hidden rounded-lg border border-slate-800">
-                        <table class="w-full text-xs text-left bg-slate-900/50">
-                            <thead class="bg-slate-800 text-slate-400 uppercase">
-                                <tr>
-                                    <th class="px-4 py-2">Player</th>
-                                    <th class="px-4 py-2">Edge</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="border-b border-slate-800">
-                                    <td class="px-4 py-2 text-slate-300">J. Giddey</td>
-                                    <td class="px-4 py-2 text-emerald-400">+3.5</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-4 py-2 text-slate-300">L. James</td>
-                                    <td class="px-4 py-2 text-red-400">-1.2</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                    <h3 class="text-slate-400 text-sm font-bold mb-1 uppercase">Margin MAE</h3>
+                    <div class="text-4xl font-bold text-white mb-2">10.13</div>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Mean Absolute Error: On average, the predicted score falls within <span class="text-teal-400">~10 points</span> of the actual result.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <div class="mb-20">
-            <h2 class="text-2xl font-bold text-white mb-6 border-l-4 border-emerald-500 pl-4">The Bridge</h2>
-            <p class="text-slate-400 mb-6">Add this function to the prediction script to bridge the gap between Python and the Portfolio UI.</p>
-            <div class="code-window p-6">
-                <pre class="text-sm text-slate-300"><code><span class="c-keyword">import</span> json
-
-<span class="c-keyword">def</span> <span class="c-func">save_to_json</span>(games_data, filename=<span class="c-str">"public/data.json"</span>):
-    <span class="c-comment">"""Exports predictions for the Portfolio Website."""</span>
-    <span class="c-keyword">with</span> <span class="c-func">open</span>(filename, <span class="c-str">"w"</span>) <span class="c-keyword">as</span> f:
-        json.<span class="c-func">dump</span>(games_data, f, indent=<span class="c-val">4</span>)
-    <span class="c-func">print</span>(<span class="c-str">f"Oracle Exported to {filename}"</span>)</code></pre>
+        <div class="border border-slate-700 bg-slate-800/30 rounded-2xl p-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div>
+                    <h3 class="text-white font-bold text-lg">Next Step: Visualization</h3>
+                    <p class="text-slate-400 text-sm mt-1">The back-end is stabilized. The data is structured. The Oracle is ready for deployment.</p>
+                </div>
+                <a href="nba-project-hub.html" class="mt-6 md:mt-0 px-6 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-lg transition-colors text-sm">
+                    Back to Project Hub
+                </a>
             </div>
         </div>
 
-        <div class="bg-teal-600 rounded-2xl p-8 text-center">
-            <h2 class="text-2xl font-bold text-white mb-4">Pipeline Complete.</h2>
-            <p class="text-teal-100 mb-8 max-w-xl mx-auto">The backend is ready. The data is structured. The Oracle is operational.</p>
-            <a href="nba-project-hub.html" class="inline-block bg-white text-teal-600 font-bold px-8 py-3 rounded-lg hover:bg-teal-50 transition-colors">Return to Timeline</a>
-        </div>
     </div>
 
     <footer class="border-t border-slate-800 py-12 bg-slate-900">
