@@ -162,5 +162,39 @@
         </div>
     </footer>
 
+    <script>
+    async function updateLiveMetrics() {
+        try {
+            // 1. Fetch the JSON file created by your GitHub Action
+            const response = await fetch('./data.json');
+            if (!response.ok) return; // If file isn't there yet, keep hardcoded defaults
+            
+            const data = await response.json();
+
+            // 2. Update the Accuracy Badge
+            const accuracyEl = document.querySelector('.text-3xl.font-bold.text-white');
+            if (data.metrics && data.metrics.accuracy) {
+                accuracyEl.innerText = data.metrics.accuracy;
+            }
+
+            // 3. Update the MAE (Mean Absolute Error)
+            // This targets the second metric card in your grid
+            const maeEl = document.querySelectorAll('.text-3xl.font-bold.text-white')[1];
+            if (data.metrics && data.metrics.mae) {
+                maeEl.innerText = data.metrics.mae;
+            }
+
+            // 4. Update the "Last Updated" text if you want to show freshness
+            console.log("Hub synchronized with latest model data:", data.last_updated);
+            
+        } catch (error) {
+            console.log("Data sync pending: Using baseline metrics.");
+        }
+    }
+
+    // Run the update when the page loads
+    window.onload = updateLiveMetrics;
+</script>
+    
 </body>
 </html>
