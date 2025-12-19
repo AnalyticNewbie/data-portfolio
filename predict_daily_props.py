@@ -5,6 +5,7 @@ import joblib
 import psycopg2
 import json
 from datetime import datetime
+from psycopg2.extras import RealDictCursor
 from dotenv import load_dotenv
 
 load_dotenv()
