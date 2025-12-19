@@ -1,8 +1,17 @@
 {
-    "target_date_au": "2025-12-20",
-    "last_updated": "2025-12-20 09:59",
+    "target_date_et": "2025-12-20",
+    "last_updated_au": "2025-12-20 10:04",
     "games": [],
     "top_props": [
+        {
+            "name": "Giannis Antetokounmpo",
+            "proj_pts": 24.5,
+            "proj_reb": 7.6,
+            "proj_ast": 5.4,
+            "avg_pts": 28.8,
+            "home_abbr": "MIN",
+            "away_abbr": "MIL"
+        },
         {
             "name": "Jalen Green",
             "proj_pts": 16.2,
@@ -18,8 +27,8 @@
             "proj_reb": 3.6,
             "proj_ast": 4.6,
             "avg_pts": 8.6,
-            "home_abbr": "MEM",
-            "away_abbr": "WAS"
+            "home_abbr": "WAS",
+            "away_abbr": "SAS"
         },
         {
             "name": "Devin Booker",
@@ -38,15 +47,6 @@
             "avg_pts": 18.9,
             "home_abbr": "DET",
             "away_abbr": "CHA"
-        },
-        {
-            "name": "Luka Dončić",
-            "proj_pts": 31.7,
-            "proj_reb": 7.6,
-            "proj_ast": 8.3,
-            "avg_pts": 34.2,
-            "home_abbr": "LAC",
-            "away_abbr": "LAL"
         }
     ]
 }
