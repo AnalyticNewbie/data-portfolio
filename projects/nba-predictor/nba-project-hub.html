@@ -14,7 +14,11 @@
         .version-card:hover {
             transform: translateY(-5px);
             border-color: #2dd4bf;
-            background: rgba(30, 41, 59, 0.8);
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
@@ -32,33 +36,53 @@
         </div>
     </nav>
 
-    <main class="max-w-5xl mx-auto pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+    <main class="max-w-6xl mx-auto pt-32 pb-24 px-4 sm:px-6 lg:px-8">
         
-        <header class="mb-16 text-center md:text-left">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">NBA Prediction Timeline</h1>
+        <header class="mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">NBA Prediction Engine</h1>
             <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">
-                Documenting the evolution from basic spreadsheets to a production-grade inference engine.
+                An end-to-end automated forecasting system. Below is the active production dashboard, followed by the evolution of the model's architecture.
             </p>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section class="mb-24">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-2xl font-bold text-white border-l-4 border-teal-500 pl-4">Live Projections (v2.3)</h2>
+                <div class="flex items-center gap-2">
+                    <span class="h-2 w-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
+                    <span class="text-emerald-400 font-bold text-xs uppercase tracking-widest">System Online</span>
+                </div>
+            </div>
+
+            <div id="projection-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass-panel p-8 rounded-2xl text-center md:col-span-3">
+                    <p class="text-slate-400 italic">Syncing with PostgreSQL database...</p>
+                    <a href="./nba-v2-3.html" class="mt-4 inline-block text-teal-400 hover:underline font-bold">View Full Performance Metrics →</a>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-800 mb-20">
+
+        <h2 class="text-2xl font-bold text-white mb-8">Development Timeline</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
             <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
                 <div>
                     <div class="text-teal-400 font-mono text-xs mb-2 uppercase tracking-widest">Active Production</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v2.3: Production & Sync</h3>
-                    <p class="text-slate-400 text-sm mb-8">Full cloud orchestration with PostgreSQL, GitHub Actions, and 58.7% accuracy metrics.</p>
+                    <p class="text-slate-400 text-sm mb-8">Full cloud orchestration with 58.7% accuracy metrics.</p>
                 </div>
                 <a href="./nba-v2-3.html" class="w-full py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold rounded-lg text-center transition">
-                    View Live Hub
+                    Read Case Study
                 </a>
             </div>
 
             <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
                 <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Iterative Optimization</div>
+                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Optimization</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v2.2: The Weighting Pivot</h3>
-                    <p class="text-slate-400 text-sm mb-8">Refining the model's 'memory' using 70/30 weighted rolling windows to prioritize recent form.</p>
+                    <p class="text-slate-400 text-sm mb-8">Refining model memory using 70/30 weighted rolling windows.</p>
                 </div>
                 <a href="./nba-v2-2.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
                     Read Case Study
@@ -67,9 +91,9 @@
 
             <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
                 <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Bug Fix & Refactor</div>
+                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Bug Fix</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v2.1: The Sunday Fix</h3>
-                    <p class="text-slate-400 text-sm mb-8">Solving the timezone "Ghost Games" bug and hardening the date-handling utility module.</p>
+                    <p class="text-slate-400 text-sm mb-8">Solving the timezone "Ghost Games" bug in the date-handling module.</p>
                 </div>
                 <a href="./nba-v2-1.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
                     View Log
@@ -78,9 +102,9 @@
 
             <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
                 <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Infrastructure Update</div>
+                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Infrastructure</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v2.0: The Migration</h3>
-                    <p class="text-slate-400 text-sm mb-8">Transition from CSV files to a SQL-driven ETL pipeline using Gradient Boosting Trees.</p>
+                    <p class="text-slate-400 text-sm mb-8">Transition to a SQL-driven ETL pipeline and Gradient Boosting Trees.</p>
                 </div>
                 <a href="./nba-v2-0.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
                     Architecture Overview
@@ -89,9 +113,9 @@
 
             <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
                 <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Project Genesis</div>
+                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Genesis</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v1.0: Statistical Baseline</h3>
-                    <p class="text-slate-400 text-sm mb-8">The initial proof-of-concept using simple linear regressions and local Pandas dataframes.</p>
+                    <p class="text-slate-400 text-sm mb-8">Initial proof-of-concept using simple linear regressions.</p>
                 </div>
                 <a href="./nba-v1-0.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
                     View Legacy Concept
