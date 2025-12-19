@@ -94,6 +94,42 @@ def save_prediction(conn, game_id, date, model_ver, prob, h_score, a_score, s_h,
     conn.commit()
 
 def main():
+
+    # At the top of main() or near the end where you process results:
+    import json
+    results_for_json = []
+
+    # Inside the loop 'for g in games:', after calculating predictions:
+    results_for_json.append({
+        "game_id": g['game_id'],
+        "home_abbr": h_abbr,
+        "away_abbr": a_abbr,
+        "pred_home_score": int(pred_home_score),
+        "pred_away_score": int(pred_away_score),
+        "home_prob": f"{prob_home:.1%}",
+        "away_prob": f"{(1-prob_home):.1%}",
+        "risks": risks
+    })
+
+    # At the very end of main(), after the loop finishes:
+    json_path = "projects/nba-predictor/data.json"
+    
+    # We load existing data first so we don't overwrite player props if they exist
+    final_output = {"matchups": results_for_json}
+    
+    if os.path.exists(json_path):
+        with open(json_path, "r") as f:
+            try:
+                existing_data = json.load(f)
+                # Merge: keep existing props, update matchups
+                existing_data["matchups"] = results_for_json
+                final_output = existing_data
+            except json.JSONDecodeError:
+                pass
+
+    with open(json_path, "w") as f:
+        json.dump(final_output, f, indent=4)
+    print(f"✅ Portfolio Hub: {json_path} updated.")
     if len(sys.argv) < 2:
         print("Usage: python predict_scores_for_date.py YYYY-MM-DD (AEDT)")
         sys.exit(1)

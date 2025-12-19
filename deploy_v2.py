@@ -12,22 +12,19 @@ def run_command(command, description):
 def main():
     print("🚀 STARTING FULL V2.3 DEPLOYMENT 🚀")
 
-    # 1. Run the Data Pipeline
+    # 1. Run the Data Engine & Sync (Prep the new data first)
     run_command("python daily_update.py", "Running NBA Data Engine")
+    run_command("python sync_portfolio.py", "Syncing Cloud Data to Local Website")
 
-   # 1. Run the Data Pipeline (Generates new data)
-    run_command("python daily_update.py", "Running NBA Data Engine")
-    run_command("python sync_portfolio.py", "Syncing Database to Local JSON")
-
-    # 2. Stage and Commit LOCAL changes first
+    # 2. Stage and Commit local changes (Clears the 'unstaged changes' error)
     run_command("git add .", "Staging all changes")
-    commit_msg = "Automated daily update"
-    run_command(f'git commit -m "{commit_msg}"', "Committing local changes")
+    # Using a generic message; Git needs a commit to allow a rebase
+    run_command('git commit -m "Daily update and path fixes"', "Committing changes locally")
 
-    # 3. NOW Pull/Rebase (Your changes are safe in a commit, so rebase will work)
+    # 3. NOW Pull/Rebase (This will work because your workspace is now clean)
     run_command("git pull origin main --rebase", "Syncing with GitHub")
 
-    # 4. Push everything
+    # 4. Final Push
     run_command("git push origin main", "Pushing to GitHub")
 
     print("\n========================================")

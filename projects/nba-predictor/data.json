@@ -1,0 +1,19 @@
+{
+    "last_updated": "2025-12-19 16:28:00",
+    "metrics": {
+        "accuracy": "58.7%",
+        "mae": "10.13"
+    },
+    "matchups": [],
+    "props": [
+        {
+            "name": "LeBron James",
+            "proj_ast": 8.1,
+            "proj_pts": 24.5,
+            "proj_reb": 7.2,
+            "away_abbr": "LAL",
+            "edge_type": "High",
+            "home_abbr": "CLE"
+        }
+    ]
+}
