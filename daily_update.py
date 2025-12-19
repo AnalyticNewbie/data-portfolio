@@ -1,6 +1,8 @@
 import subprocess
 import sys
 import os
+import psycopg2
+import json
 from datetime import datetime
 try:
     import pytz
@@ -8,6 +10,30 @@ except ImportError:
     print("Installing missing package: pytz...")
     subprocess.check_call([sys.executable, "-m", "pip", "install", "pytz"])
     import pytz
+
+def send_to_db(payload, category):
+    """Pushes the model output to the PostgreSQL cloud database."""
+    db_url = os.getenv('DB_URL')
+    if not db_url:
+        print(f"⚠️ Warning: DB_URL not found. Skipping database upload for {category}.")
+        return
+
+    try:
+        conn = psycopg2.connect(db_url)
+        cur = conn.cursor()
+        
+        # We use json.dumps to convert the list/dict into a format Postgres understands
+        cur.execute("""
+            INSERT INTO daily_intelligence (prediction_date, category, payload)
+            VALUES (CURRENT_DATE, %s, %s)
+        """, (category, json.dumps(payload)))
+        
+        conn.commit()
+        print(f"✅ Cloud Sync: {category} data successfully pushed to database.")
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print(f"❌ Database Error: {e}")
 
 def run_script(script_name, args=[]):
     print(f"\n>>> Running {script_name}...")
@@ -63,11 +89,24 @@ def main():
     if os.path.exists("predict_daily_props.py"):
         run_script("predict_daily_props.py", [target_date])
 
-    from logger_utils import log_prediction_to_db
+    # --- NEW LOGIC TO FETCH THE DATA ---
+    print("\n>>> Collecting results for Cloud Sync...")
+    
+    # Load the team data that predict_scores_for_date.py just created
+    team_results = []
+    if os.path.exists("data.json"):
+        with open("data.json", "r") as f:
+            full_data = json.load(f)
+            # Adjust these keys based on your actual data.json structure
+            team_results = full_data.get("matchups", [])
+            prop_results = full_data.get("props", [])
 
-    # ... (at the end after your predictions run)
-    send_to_db(team_results, 'Team')
-    send_to_db(prop_results, 'Player')
+    # Now the variables exist, so we can send them!
+    if team_results:
+        send_to_db(team_results, 'Team')
+    
+    if prop_results:
+        send_to_db(prop_results, 'Player')
 
     print("\n========================================")
     print("   PIPELINE COMPLETE")
