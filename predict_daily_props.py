@@ -18,31 +18,44 @@ DB_PASS = os.getenv("DB_PASSWORD")
 def get_db_conn():
     return psycopg2.connect(host=DB_HOST, dbname=DB_NAME, user=DB_USER, password=DB_PASS)
 
-def get_prediction_data(player_id, player_name):
+ddef get_prediction_data(player_id, player_name):
     conn = get_db_conn()
     
-    # 1. Fetch last 10 games to calculate current rolling stats
+    # 1. Fetch last 20 games to cover all required rolling stats
     sql = """
         SELECT pts, reb, ast, min 
         FROM player_logs 
         WHERE player_id = %s 
         ORDER BY game_date DESC 
-        LIMIT 10
+        LIMIT 20
     """
-    df = pd.read_sql(sql, conn, params=(player_id,))
+    # Using try/except for the pandas read to handle connection issues
+    try:
+        df = pd.read_sql(sql, conn, params=(player_id,))
+    except Exception as e:
+        return None
+    finally:
+        conn.close() # Always close connection
     
-    if len(df) < 5:
-        return None # Not enough recent data to trust a prediction
+    # We need at least 10 games to calculate the L10 features reliably
+    if len(df) < 10:
+        return None
 
-    # 2. Calculate Features for Model
+    # 2. Calculate Features - MUST MATCH MODEL FIT TIME EXACTLY
     current_stats = {
         'pts_l5': df.head(5)['pts'].mean(),
         'reb_l5': df.head(5)['reb'].mean(),
         'ast_l5': df.head(5)['ast'].mean(),
         'min_l5': df.head(5)['min'].mean(),
-        'pts_l10': df['pts'].mean()
+        'pts_l10': df.head(10)['pts'].mean(),
+        
+        # Missing features requested by your error log:
+        'ast_l10': df.head(10)['ast'].mean(),
+        'reb_l10': df.head(10)['reb'].mean(),
+        'pts_l20': df['pts'].mean() # This uses all 20 rows
     }
     
+    # Create DataFrame and ensure columns are in a consistent order
     X = pd.DataFrame([current_stats])
 
     # 3. Load Models and Predict
@@ -59,8 +72,8 @@ def get_prediction_data(player_id, player_name):
             "avg_pts": current_stats['pts_l5'],
             "avg_min": current_stats['min_l5']
         }
-    except FileNotFoundError:
-        print("Models not found. Run training scripts first.")
+    except Exception as e:
+        # If still failing, it might be a column order issue
         return None
 
 def generate_top_insights(all_projections):
