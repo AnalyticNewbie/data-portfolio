@@ -1,99 +1,46 @@
-import os
-import sys
-import pandas as pd
-import psycopg2
 import json
-from datetime import datetime, timedelta
-from dotenv import load_dotenv
+import os
 
-load_dotenv()
-
-def get_db_conn():
-    return psycopg2.connect(
-        host=os.getenv("DB_HOST", "localhost"),
-        dbname=os.getenv("DB_NAME", "nba"),
-        user=os.getenv("DB_USER", "nba_user"),
-        password=os.getenv("DB_PASSWORD")
-    )
-
-def predict_props(target_date_au):
-    print(f"\n=== PLAYER PROP CHEAT SHEET (AU: {target_date_au}) ===")
+def generate_top_insights(all_projections):
+    """
+    Filters and sorts all player projections to find the top 5 'High Confidence' edges.
+    """
+    insights = []
     
-    # Auto-convert AU Date to US Game Date
-    target_date_dt = datetime.strptime(target_date_au, '%Y-%m-%d')
-    us_game_date = (target_date_dt - timedelta(days=1)).strftime('%Y-%m-%d')
-    print(f"US Game Date: {us_game_date}")
-
-    conn = get_db_conn()
-    
-    # 1. FETCH ALL ACTIVE GAMES FOR THE DAY
-    query_games = f"SELECT game_id, home_team_id, away_team_id FROM games WHERE game_date = '{us_game_date}'"
-    df_games = pd.read_sql(query_games, conn)
-    
-    if df_games.empty:
-        print(f"No games found for {us_game_date}. Pipeline complete.")
-        return
-
-    # 2. BULK FETCH ALL PLAYER LOGS (The Speed Fix)
-    # We fetch everything once to avoid looping database queries
-    print("Pre-loading historical data into memory...")
-    query_logs = "SELECT player_id, pts, reb, ast, min, game_date FROM player_logs ORDER BY game_date DESC"
-    all_logs = pd.read_sql(query_logs, conn)
-    
-    # 3. GET TEAM ABBREVIATIONS FOR DISPLAY
-    teams_df = pd.read_sql("SELECT team_id, team_abbr FROM teams", conn)
-    team_map = dict(zip(teams_df['team_id'], teams_df['team_abbr']))
-
-    all_predictions = []
-
-    for _, game in df_games.iterrows():
-        home_abbr = team_map.get(game['home_team_id'], "UNK")
-        away_abbr = team_map.get(game['away_team_id'], "UNK")
-        print(f"\n>>> {away_abbr} @ {home_abbr} <<<")
-        print(f"{'PLAYER':<25} | {'PTS':<6} | {'REB':<6} | {'AST':<6}")
-        print("-" * 55)
-
-        # Get all players for these two teams
-        t_ids = (game['home_team_id'], game['away_team_id'])
-        players_query = f"SELECT player_id, name, team_id FROM players WHERE team_id IN %s"
-        players_df = pd.read_sql(players_query, conn, params=(t_ids,))
-
-        for _, p in players_df.iterrows():
-            # Filter logs in memory (Instant compared to SQL)
-            p_logs = all_logs[all_logs['player_id'] == p['player_id']].head(20)
-            
-            if len(p_logs) < 3: continue # Skip bench players with no history
-
-            # Simple weighted projection logic
-            l5 = p_logs.head(5)
-            pred_pts = round((l5['pts'].mean() * 0.7) + (p_logs['pts'].mean() * 0.3), 1)
-            pred_reb = round((l5['reb'].mean() * 0.7) + (p_logs['reb'].mean() * 0.3), 1)
-            pred_ast = round((l5['ast'].mean() * 0.7) + (p_logs['ast'].mean() * 0.3), 1)
-
-            print(f"{p['name']:<25} | {pred_pts:<6} | {pred_reb:<6} | {pred_ast:<6}")
-            
-            all_predictions.append({
-                "player": p['name'],
-                "team": team_map.get(p['team_id']),
-                "pts": pred_pts,
-                "reb": pred_reb,
-                "ast": pred_ast
+    for p in all_projections:
+        # Calculate 'Edge' percentage vs. their recent average
+        # Using PTS as the primary filter for this example
+        pts_diff = abs(p['proj_pts'] - p['avg_pts'])
+        edge_pct = pts_diff / p['avg_pts'] if p['avg_pts'] > 0 else 0
+        
+        # Only consider players with significant playing time (>20 mins avg)
+        if p['avg_min'] > 20:
+            insights.append({
+                "name": p['name'],
+                "proj_pts": round(p['proj_pts'], 1),
+                "proj_reb": round(p['proj_reb'], 1),
+                "proj_ast": round(p['proj_ast'], 1),
+                "away_abbr": p['away_abbr'],
+                "home_abbr": p['home_abbr'],
+                "edge_score": edge_pct,
+                "edge_type": "High" if edge_pct > 0.15 else "Normal"
             })
 
-    # --- STANDARDIZED FE BRIDGE: data.json ---
-    final_payload = {
-        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "target_date_au": target_date_au,
-        "projections": all_predictions
-    }
+    # Sort by the highest Edge Score and take the top 5
+    top_5 = sorted(insights, key=lambda x: x['edge_score'], reverse=True)[:5]
+    return top_5
 
-    with open("data.json", "w") as f:
-        json.dump(final_payload, f, indent=4)
-        
-    print(f"\n✅ SUCCESS: Standardized data exported to data.json for Frontend.")
+# --- DATA EXPORT ---
+# This part runs at the very end of your script
+top_5_insights = generate_top_insights(all_calculated_player_data)
 
-    conn.close()
+json_path = "projects/nba-predictor/data.json"
+output_data = {
+    "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    "props": top_5_insights
+}
 
-if __name__ == "__main__":
-    t_date = sys.argv[1] if len(sys.argv) > 1 else datetime.now().strftime('%Y-%m-%d')
-    predict_props(t_date)
+with open(json_path, "w") as f:
+    json.dump(output_data, f, indent=4)
+
+print(f"✅ Successfully exported top {len(top_5_insights)} insights to {json_path}")
