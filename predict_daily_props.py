@@ -18,7 +18,7 @@ DB_PASS = os.getenv("DB_PASSWORD")
 def get_db_conn():
     return psycopg2.connect(host=DB_HOST, dbname=DB_NAME, user=DB_USER, password=DB_PASS)
 
-ddef get_prediction_data(player_id, player_name):
+def get_prediction_data(player_id, player_name):
     conn = get_db_conn()
     
     # 1. Fetch last 20 games to cover all required rolling stats
