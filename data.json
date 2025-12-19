@@ -1,6 +1,52 @@
 {
     "target_date_au": "2025-12-20",
-    "last_updated": "2025-12-20 09:56",
+    "last_updated": "2025-12-20 09:59",
     "games": [],
-    "top_props": []
+    "top_props": [
+        {
+            "name": "Jalen Green",
+            "proj_pts": 16.2,
+            "proj_reb": 3.1,
+            "proj_ast": 3.0,
+            "avg_pts": 20.2,
+            "home_abbr": "GSW",
+            "away_abbr": "PHX"
+        },
+        {
+            "name": "Bub Carrington",
+            "proj_pts": 11.4,
+            "proj_reb": 3.6,
+            "proj_ast": 4.6,
+            "avg_pts": 8.6,
+            "home_abbr": "MEM",
+            "away_abbr": "WAS"
+        },
+        {
+            "name": "Devin Booker",
+            "proj_pts": 20.8,
+            "proj_reb": 4.7,
+            "proj_ast": 5.6,
+            "avg_pts": 23.5,
+            "home_abbr": "GSW",
+            "away_abbr": "PHX"
+        },
+        {
+            "name": "Jalen Duren",
+            "proj_pts": 16.3,
+            "proj_reb": 9.1,
+            "proj_ast": 1.4,
+            "avg_pts": 18.9,
+            "home_abbr": "DET",
+            "away_abbr": "CHA"
+        },
+        {
+            "name": "Luka Dončić",
+            "proj_pts": 31.7,
+            "proj_reb": 7.6,
+            "proj_ast": 8.3,
+            "avg_pts": 34.2,
+            "home_abbr": "LAC",
+            "away_abbr": "LAL"
+        }
+    ]
 }
