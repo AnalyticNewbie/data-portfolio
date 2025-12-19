@@ -22,7 +22,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-sans antialiased">
+<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
 
     <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -47,7 +47,7 @@
 
         <section class="mb-24">
             <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-bold text-white border-l-4 border-teal-500 pl-4">Live Projections (v2.3)</h2>
+                <h2 class="text-2xl font-bold text-white border-l-4 border-teal-500 pl-4">Live Projections (v2.4)</h2>
                 <div class="flex items-center gap-2">
                     <span class="h-2 w-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
                     <span class="text-emerald-400 font-bold text-xs uppercase tracking-widest">System Online</span>
@@ -57,7 +57,7 @@
             <div id="projection-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="glass-panel p-8 rounded-2xl text-center md:col-span-3">
                     <p class="text-slate-400 italic">Syncing with PostgreSQL database...</p>
-                    <a href="./nba-v2-3.html" class="mt-4 inline-block text-teal-400 hover:underline font-bold">View Full Performance Metrics →</a>
+                    <a href="./nba-v2-4.html" class="mt-4 inline-block text-teal-400 hover:underline font-bold">View Production Build Docs →</a>
                 </div>
             </div>
         </section>
@@ -67,18 +67,29 @@
         <h2 class="text-2xl font-bold text-white mb-8">Development Timeline</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
+            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-teal-500">
                 <div>
                     <div class="text-teal-400 font-mono text-xs mb-2 uppercase tracking-widest">Active Production</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">v2.3: Production & Sync</h3>
-                    <p class="text-slate-400 text-sm mb-8">Full cloud orchestration with 58.7% accuracy metrics.</p>
+                    <h3 class="text-2xl font-bold text-white mb-4">v2.4: The Production Build</h3>
+                    <p class="text-slate-400 text-sm mb-8">Hardening the modular pipeline and optimizing data ingestion for sub-5 second processing.</p>
                 </div>
-                <a href="./nba-v2-3.html" class="w-full py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold rounded-lg text-center transition">
+                <a href="./nba-v2-4.html" class="w-full py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold rounded-lg text-center transition">
                     Read Case Study
                 </a>
             </div>
 
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
+            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
+                <div>
+                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Archived Production</div>
+                    <h3 class="text-2xl font-bold text-white mb-4">v2.3: Cloud Sync</h3>
+                    <p class="text-slate-400 text-sm mb-8">Full cloud orchestration with the first iteration of 58.7% accuracy metrics.</p>
+                </div>
+                <a href="./nba-v2-3.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
+                    Read Case Study
+                </a>
+            </div>
+
+            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
                 <div>
                     <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Optimization</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v2.2: The Weighting Pivot</h3>
@@ -89,7 +100,7 @@
                 </a>
             </div>
 
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
+            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
                 <div>
                     <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Bug Fix</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v2.1: The Sunday Fix</h3>
@@ -100,7 +111,7 @@
                 </a>
             </div>
 
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
+            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
                 <div>
                     <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Infrastructure</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v2.0: The Migration</h3>
@@ -111,7 +122,7 @@
                 </a>
             </div>
 
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between">
+            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
                 <div>
                     <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Genesis</div>
                     <h3 class="text-2xl font-bold text-white mb-4">v1.0: Statistical Baseline</h3>
@@ -128,32 +139,38 @@
     <footer class="border-t border-slate-800 py-12 bg-slate-900 text-center">
         <p class="text-slate-500 text-sm">&copy; 2025 #justcurious</p>
     </footer>
+
 <script>
     async function loadHubProjections() {
         const grid = document.getElementById('projection-grid');
         try {
-            // Relative path works if data.json is in the same folder
             const response = await fetch('data.json'); 
             if (!response.ok) throw new Error("File not found");
             
             const data = await response.json();
 
-            // Check if there are players in the 'props' array
             if (data.props && data.props.length > 0) {
-                grid.innerHTML = ''; // Clear "Syncing" message
+                grid.innerHTML = ''; 
 
                 data.props.forEach(player => {
                     const card = document.createElement('div');
-                    card.className = 'glass-panel p-6 rounded-2xl border border-slate-700 hover:border-teal-500 transition-all';
+                    card.className = 'glass-panel p-6 rounded-2xl border border-slate-700 hover:border-teal-500 transition-all relative overflow-hidden';
+                    
+                    // Logic for Confidence Badge
+                    const badgeText = player.edge_type === "High" ? "High Confidence" : "Standard";
+                    
                     card.innerHTML = `
+                        <div class="absolute top-0 right-0 bg-teal-500 text-slate-900 text-[10px] font-bold px-2 py-1 rounded-bl-lg uppercase tracking-tighter">
+                            ${badgeText}
+                        </div>
                         <div class="flex justify-between items-start mb-4">
                             <h3 class="text-white font-bold">${player.name}</h3>
                             <span class="text-teal-400 text-xs font-mono">${player.away_abbr} @ ${player.home_abbr}</span>
                         </div>
                         <div class="grid grid-cols-3 gap-2 text-center">
-                            <div><div class="text-xs text-slate-500">PTS</div><div class="text-white font-bold">${player.proj_pts}</div></div>
-                            <div><div class="text-xs text-slate-500">REB</div><div class="text-white font-bold">${player.proj_reb}</div></div>
-                            <div><div class="text-xs text-slate-500">AST</div><div class="text-white font-bold">${player.proj_ast}</div></div>
+                            <div><div class="text-xs text-slate-500 font-mono uppercase tracking-tighter">PTS</div><div class="text-white font-bold">${player.proj_pts}</div></div>
+                            <div><div class="text-xs text-slate-500 font-mono uppercase tracking-tighter">REB</div><div class="text-white font-bold">${player.proj_reb}</div></div>
+                            <div><div class="text-xs text-slate-500 font-mono uppercase tracking-tighter">AST</div><div class="text-white font-bold">${player.proj_ast}</div></div>
                         </div>
                     `;
                     grid.appendChild(card);
