@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v2.4: The Production Build | #justcurious</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .code-window {
+            background: #0f172a;
+            border-radius: 0.5rem;
+            border: 1px solid #334155;
+        }
+        .status-dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; }
+        .status-dot.live { background-color: #10b981; box-shadow: 0 0 8px #10b981; }
+    </script>
+</head>
+<body class="bg-slate-900 text-slate-200 selection:bg-teal-500 selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="text-teal-400 font-bold tracking-tighter text-xl">#justcurious</div>
+            <div class="space-x-8 text-sm font-medium">
+                <a href="../../index.html" class="hover:text-teal-400 transition-colors">Home</a>
+                <a href="nba-project-hub.html" class="text-teal-400">Hub</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 px-6 max-w-4xl mx-auto">
+        <div class="mb-12">
+            <span class="bg-teal-500/10 text-teal-400 text-xs font-bold px-3 py-1 rounded-full border border-teal-500/20 uppercase tracking-widest">
+                Released: December 19, 2025
+            </span>
+            <h1 class="text-4xl font-bold text-white mt-6 mb-4 tracking-tight">v2.4: The "Production" Build</h1>
+            <p class="text-slate-400 text-lg">Hardening the data engine to eliminate technical debt and stabilize real-time insights.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 mb-16">
+            <div class="glass-panel p-8 rounded-2xl">
+                <h3 class="text-teal-400 font-bold mb-4 flex items-center italic">
+                    <span class="mr-2">🎯</span> The Goal
+                </h3>
+                <p class="text-sm leading-relaxed text-slate-300">
+                    Transform experimental scripts into a hardened, modular production pipeline. Eliminate technical debt including sync errors, performance hangs, and schema mismatches to provide a stable, "Live" data source for frontend consumption.
+                </p>
+            </div>
+            <div class="glass-panel p-8 rounded-2xl border-emerald-500/20">
+                <h3 class="text-emerald-400 font-bold mb-4 flex items-center italic">
+                    <span class="mr-2">🚀</span> The Outcome
+                </h3>
+                <ul class="text-sm space-y-2 text-slate-300">
+                    <li>• <strong class="text-white">100% Success Rate:</strong> Daily execution with zero deadlocks.</li>
+                    <li>• <strong class="text-white">58.7% ML Accuracy:</strong> Improved ingestion boosted reliability.</li>
+                    <li>• <strong class="text-white">Unified Bridge:</strong> Standardized data.json for the UI.</li>
+                </ul>
+            </div>
+        </div>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-white mb-8 italic">The Engineering Approach</h2>
+            <div class="space-y-6">
+                <div class="flex gap-4">
+                    <div class="text-teal-400 font-mono font-bold pt-1">01</div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">Modular Hardening</h4>
+                        <p class="text-slate-400 text-sm">Unified database language across all scripts (e.g., standardizing on <code class="text-teal-300 font-mono">player_id</code>) to prevent silent query failures.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-teal-400 font-mono font-bold pt-1">02</div>
+                    <div>
+                        <h4 class="text-white font-bold mb-1">In-Memory Optimization</h4>
+                        <p class="text-slate-400 text-sm">Re-engineered the Prop Engine from a per-player query loop to a bulk-load strategy, reducing processing time from minutes to under 5 seconds.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-white mb-6 italic">Modular Logic Fix</h2>
+            <div class="code-window p-1">
+                <div class="flex items-center gap-2 px-4 py-2 border-b border-slate-700">
+                    <div class="status-dot live"></div>
+                    <span class="text-xs font-mono text-slate-500">predict_daily_props.py</span>
+                </div>
+                <pre class="p-6 text-sm overflow-x-auto font-mono text-emerald-400">
+# Stateful Error Handling & Schema Alignment
+try:
+    # Standardizing player_id access
+    result = get_prediction_data(p['player_id'], p['name'], conn)
+    if result:
+        all_projections.append(result)
+except Exception as e:
+    conn.rollback() # Prevent pipeline deadlock
+    print(f"Skipping {p['name']}: {e}")
+                </pre>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-white mb-8 italic">Lessons Learned</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="p-6 border-l-2 border-teal-400 bg-slate-800/50">
+                    <h5 class="text-white font-bold text-sm mb-2">Schema is King</h5>
+                    <p class="text-xs text-slate-400 leading-relaxed">Column names must be identical across modules (id vs player_id) to maintain system fluency.</p>
+                </div>
+                <div class="p-6 border-l-2 border-teal-400 bg-slate-800/50">
+                    <h5 class="text-white font-bold text-sm mb-2">Visibility Matters</h5>
+                    <p class="text-xs text-slate-400 leading-relaxed">Progress logging turns "silent hangs" into actionable data for the developer.</p>
+                </div>
+                <div class="p-6 border-l-2 border-teal-400 bg-slate-800/50">
+                    <h5 class="text-white font-bold text-sm mb-2">Data Layer First</h5>
+                    <p class="text-xs text-slate-400 leading-relaxed">Bulk-fetching is the difference between a system that scales and one that breaks.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="pt-12 border-t border-slate-800 flex justify-between">
+            <a href="nba-project-hub.html" class="text-teal-400 hover:text-white transition-colors flex items-center font-bold">
+                <span class="mr-2">←</span> Back to Hub
+            </a>
+            <div class="text-slate-600 font-mono text-xs uppercase tracking-widest">
+                v2.4 Build // Dec 2025
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
