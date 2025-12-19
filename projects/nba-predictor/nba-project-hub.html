@@ -128,6 +128,41 @@
     <footer class="border-t border-slate-800 py-12 bg-slate-900 text-center">
         <p class="text-slate-500 text-sm">&copy; 2025 #justcurious</p>
     </footer>
+<script>
+    async function loadHubProjections() {
+        const grid = document.getElementById('projection-grid');
+        try {
+            const response = await fetch('data.json');
+            const data = await response.json();
 
+            // Clear the 'Syncing' placeholder
+            grid.innerHTML = '';
+
+            // We will display up to 3 'Featured' player projections on the Hub
+            const players = data.filter(item => item.category === 'Player');
+            const topPlayers = JSON.parse(players[0].payload).slice(0, 3);
+
+            topPlayers.forEach(player => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel p-6 rounded-2xl border border-slate-700 hover:border-teal-500 transition-all';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-white font-bold">${player.name}</h3>
+                        <span class="text-teal-400 text-xs font-mono">${player.away_abbr} @ ${player.home_abbr}</span>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div><div class="text-xs text-slate-500">PTS</div><div class="text-white font-bold">${player.proj_pts}</div></div>
+                        <div><div class="text-xs text-slate-500">REB</div><div class="text-white font-bold">${player.proj_reb}</div></div>
+                        <div><div class="text-xs text-slate-500">AST</div><div class="text-white font-bold">${player.proj_ast}</div></div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        } catch (error) {
+            grid.innerHTML = '<p class="text-red-400 italic md:col-span-3 text-center">No active data found. Run daily_update.py to sync.</p>';
+        }
+    }
+    loadHubProjections();
+</script>
 </body>
 </html>
