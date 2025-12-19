@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joe Chen | Data Analytics Portfolio</title>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -12,126 +11,76 @@
                 extend: {
                     colors: {
                         'primary-dark': '#4b5563',
-                        'primary-light': '#6b7280',
                         'accent-green': '#10b981',
                         'background-light': '#ffffff',
                     },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                 }
             }
         }
     </script>
-
-    <style>
-        .analysis-entry {
-            transition: all 0.2s ease-in-out;
-        }
-        .analysis-entry:hover {
-            background-color: #f9fafb;
-            transform: translateY(-1px);
-            border-color: #10b981;
-        }
-    </style>
 </head>
-
 <body class="font-sans text-gray-800 bg-background-light min-h-screen p-4 sm:p-8">
 
-    <header class="max-w-4xl mx-auto py-8 border-b border-gray-200">
-        <a href="https://analyticnewbie.github.io/data-portfolio/index.html" class="inline-block hover:opacity-75 transition-opacity">
-            <h1 class="text-3xl font-extrabold text-primary-dark tracking-wide">
-                Joe Chen — Data Analytics Portfolio
-            </h1>
+    <header class="max-w-4xl mx-auto py-8 border-b border-gray-200 flex justify-between items-center">
+        <a href="https://analyticnewbie.github.io/data-portfolio/index.html" class="text-2xl font-bold text-accent-green hover:opacity-75 transition">
+            #justcurious
         </a>
+        <h1 class="text-xl font-bold text-primary-dark sm:block hidden">
+            Joe Chen — Data Portfolio
+        </h1>
     </header>
 
     <main class="max-w-4xl mx-auto mt-8">
-
         <section id="about" class="mb-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-l-4 border-accent-green pl-3">
-                About
-            </h2>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 border-l-4 border-accent-green pl-3">About</h2>
             <p class="text-lg text-gray-700 leading-relaxed">
-                This portfolio documents my hands-on work in data analysis, with a focus on building
-                robust models and learning through real projects. I prioritise
-                generalisation, interpretability, and understanding <em>why</em> models succeed or fail.
+                This portfolio documents my hands-on work in data analysis, focusing on building robust, 
+                well-validated models. I prioritize generalization and understanding the <em>why</em> 
+                behind model performance.
             </p>
         </section>
 
         <section id="analyses" class="mb-12">
             <h2 class="text-2xl font-bold text-gray-900 mb-6 border-l-4 border-accent-green pl-3">
-                Selected Analyses & Projects
+                Selected Work
             </h2>
 
             <div class="space-y-6">
-                
-                <div class="analysis-entry bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                <div class="p-6 bg-white rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                     <div class="flex-1">
-                        <div class="flex items-center gap-2 mb-2">
-                            <h3 class="text-xl font-bold text-gray-900">NBA Live Prediction Engine</h3>
-                            <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">v2.3 Stable</span>
-                        </div>
-                        <p class="text-sm text-gray-500 mb-3 leading-snug">
-                            An automated end-to-end forecasting system with daily inference. Features include PostgreSQL integration, 
-                            dynamic pace/defense adjustments, and automated accuracy grading ("The Truth Loop").
+                        <h3 class="text-xl font-bold text-gray-900">NBA Live Prediction Engine</h3>
+                        <p class="text-sm text-gray-500 mt-1">
+                            A live automated forecasting system spanning multiple iterations from simple 
+                            statistical baselines to a productionized ML pipeline.
                         </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">Python</span>
-                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">PostgreSQL</span>
-                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">GitHub Actions</span>
-                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">scikit-learn</span>
-                        </div>
                     </div>
-                    <a href="./projects/nba-predictor/nba-v2-3.html"
-                       class="flex-shrink-0 min-w-[160px] text-center px-4 py-2.5 bg-accent-green text-white font-bold rounded-lg text-sm hover:bg-green-600 transition shadow-sm">
-                        View Live Hub &rarr;
+                    <a href="./projects/nba-predictor/nba-project-hub.html"
+                       class="flex-shrink-0 px-6 py-2 bg-accent-green text-white font-bold rounded-lg text-sm hover:bg-green-600 transition">
+                        Enter Project Hub &rarr;
                     </a>
                 </div>
 
-                <div class="analysis-entry bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                <div class="p-6 bg-white rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
                     <div class="flex-1">
-                        <h3 class="text-xl font-bold text-gray-900 mb-1">Ames Housing Price Prediction</h3>
-                        <p class="text-sm text-gray-500 mb-3">
-                            Top 12% Kaggle ranking (0.12425 score). Developed a robust regression model using 
-                            disciplined cross-validation, residual analysis, and Optuna-tuned CatBoost.
-                        </p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">Regression</span>
-                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">CatBoost</span>
-                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">Feature Engineering</span>
-                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Ames Housing Price Prediction</h3>
+                        <p class="text-sm text-gray-500 mt-1">Kaggle regression analysis utilizing CatBoost and Optuna tuning.</p>
                     </div>
                     <a href="./projects/ames-house-prices/index.html"
-                       class="flex-shrink-0 min-w-[160px] text-center px-4 py-2.5 bg-accent-green text-white font-bold rounded-lg text-sm hover:bg-green-600 transition shadow-sm">
-                        View Case Study &rarr;
+                       class="flex-shrink-0 px-6 py-2 bg-accent-green text-white font-bold rounded-lg text-sm hover:bg-green-600 transition">
+                        View Project &rarr;
                     </a>
                 </div>
 
-                <div class="analysis-entry bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold text-gray-900 mb-1">NBA ContenderScore Analysis</h3>
-                        <p class="text-sm text-gray-500 mb-3">
-                            Designed and validated a custom weighted metric to rank championship contenders 
-                            using statistical modeling and assuming structural bias testing.
-                        </p>
-                        <div class="space-x-4">
-                            <a href="./projects/nba-contender-score/nba_summary.html" class="text-xs font-bold text-accent-green hover:underline uppercase tracking-tight">Part 1: Metric Design</a>
-                            <a href="./projects/nba-contender-score/nba_summary_part2.html" class="text-xs font-bold text-accent-green hover:underline uppercase tracking-tight">Part 2: Model Validation</a>
-                        </div>
+                <div class="p-6 bg-white rounded-lg border border-gray-200 shadow-sm">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">NBA ContenderScore Analysis</h3>
+                    <div class="flex gap-4">
+                        <a href="./projects/nba-contender-score/nba_summary.html" class="text-sm font-bold text-accent-green hover:underline">Part 1: Metric Design</a>
+                        <a href="./projects/nba-contender-score/nba_summary_part2.html" class="text-sm font-bold text-accent-green hover:underline">Part 2: Validation</a>
                     </div>
                 </div>
-
             </div>
         </section>
-
-        <footer class="text-center py-10 border-t border-gray-200 mt-12">
-            <p class="text-gray-500 text-sm">
-                Connect with me: 
-                <a href="mailto:analyticsnewbie@gmail.com" class="text-primary-dark hover:text-accent-green font-bold">analyticsnewbie@gmail.com</a>
-            </p>
-        </footer>
-
     </main>
 </body>
 </html>
