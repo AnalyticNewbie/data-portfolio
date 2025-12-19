@@ -19,13 +19,49 @@ def get_db_conn():
     return psycopg2.connect(host=DB_HOST, dbname=DB_NAME, user=DB_USER, password=DB_PASS)
 
 def get_prediction_data(player_id, player_name):
+    conn = get_db_conn()
+    
+    # 1. Fetch last 10 games to calculate current rolling stats
+    sql = """
+        SELECT pts, reb, ast, min 
+        FROM player_logs 
+        WHERE player_id = %s 
+        ORDER BY game_date DESC 
+        LIMIT 10
     """
-    Placeholder: Replace this with your actual model prediction logic.
-    It should return a dictionary with proj_pts, proj_reb, proj_ast, and avg_pts.
-    """
-    # This is where you'd normally load your .joblib models 
-    # and fetch player_logs for features.
-    return None 
+    df = pd.read_sql(sql, conn, params=(player_id,))
+    
+    if len(df) < 5:
+        return None # Not enough recent data to trust a prediction
+
+    # 2. Calculate Features for Model
+    current_stats = {
+        'pts_l5': df.head(5)['pts'].mean(),
+        'reb_l5': df.head(5)['reb'].mean(),
+        'ast_l5': df.head(5)['ast'].mean(),
+        'min_l5': df.head(5)['min'].mean(),
+        'pts_l10': df['pts'].mean()
+    }
+    
+    X = pd.DataFrame([current_stats])
+
+    # 3. Load Models and Predict
+    try:
+        pts_model = joblib.load("models/points_model.joblib")
+        reb_model = joblib.load("models/rebounds_model.joblib")
+        ast_model = joblib.load("models/assists_model.joblib")
+        
+        return {
+            "name": player_name,
+            "proj_pts": float(pts_model.predict(X)[0]),
+            "proj_reb": float(reb_model.predict(X)[0]),
+            "proj_ast": float(ast_model.predict(X)[0]),
+            "avg_pts": current_stats['pts_l5'],
+            "avg_min": current_stats['min_l5']
+        }
+    except FileNotFoundError:
+        print("Models not found. Run training scripts first.")
+        return None
 
 def generate_top_insights(all_projections):
     insights = []
