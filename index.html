@@ -26,10 +26,12 @@
 
     <style>
         .analysis-entry {
-            transition: background-color 0.2s;
+            transition: all 0.2s ease-in-out;
         }
         .analysis-entry:hover {
-            background-color: #f3f4f6;
+            background-color: #f9fafb;
+            transform: translateY(-1px);
+            border-color: #10b981;
         }
     </style>
 </head>
@@ -37,9 +39,11 @@
 <body class="font-sans text-gray-800 bg-background-light min-h-screen p-4 sm:p-8">
 
     <header class="max-w-4xl mx-auto py-8 border-b border-gray-200">
-        <h1 class="text-3xl font-extrabold text-primary-dark tracking-wide">
-            Joe Chen — Data Analytics Portfolio
-        </h1>
+        <a href="https://analyticnewbie.github.io/data-portfolio/index.html" class="inline-block hover:opacity-75 transition-opacity">
+            <h1 class="text-3xl font-extrabold text-primary-dark tracking-wide">
+                Joe Chen — Data Analytics Portfolio
+            </h1>
+        </a>
     </header>
 
     <main class="max-w-4xl mx-auto mt-8">
@@ -48,11 +52,10 @@
             <h2 class="text-2xl font-bold text-gray-900 mb-4 border-l-4 border-accent-green pl-3">
                 About
             </h2>
-            <p class="text-lg text-gray-700">
+            <p class="text-lg text-gray-700 leading-relaxed">
                 This portfolio documents my hands-on work in data analysis, with a focus on building
-                robust, well-validated models and learning through real projects. I prioritise
-                generalisation, interpretability, and understanding <em>why</em> models succeed or fail,
-                rather than chasing surface-level metrics.
+                robust models and learning through real projects. I prioritise
+                generalisation, interpretability, and understanding <em>why</em> models succeed or fail.
             </p>
         </section>
 
@@ -61,124 +64,71 @@
                 Selected Analyses & Projects
             </h2>
 
-            <div class="space-y-4">
-            
-                <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
-                            NBA Game Prediction System
-                        </h3>
-                        <p class="text-sm text-gray-500">
-                            Goal: Built an end-to-end forecasting system that evolved from a simple statistical baseline (v1) 
-                            to a complex Machine Learning pipeline (v2.1). Features include SQL-based feature engineering, 
-                            context-aware volatility (Pace/Defense adjustments), and automated risk flagging.
-                        </p>
-                        <p class="text-xs mt-1 text-gray-600">
-                            Tools:
-                            <span class="font-medium text-accent-green">
-                                Python, PostgreSQL, Docker, SQL Window Functions, scikit-learn, nba_api
-                            </span>
-                        </p>
-                        <p class="text-xs mt-1 text-gray-600">
-                            Focus:
-                            <span class="font-medium text-gray-800">
-                                Dynamic Uncertainty, Data Engineering, "The Truth Loop" (Auto-grading)
-                            </span>
-                        </p>
-                    </div>
+            <div class="space-y-6">
                 
-                    <a href="./projects/nba-predictor/nba-project-hub.html"
-                       class="flex-shrink-0 min-w-[160px] text-center px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
-                        View Project Evolution &rarr;
+                <div class="analysis-entry bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <h3 class="text-xl font-bold text-gray-900">NBA Live Prediction Engine</h3>
+                            <span class="bg-green-100 text-green-700 text-xs px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">v2.3 Stable</span>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-3 leading-snug">
+                            An automated end-to-end forecasting system with daily inference. Features include PostgreSQL integration, 
+                            dynamic pace/defense adjustments, and automated accuracy grading ("The Truth Loop").
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">Python</span>
+                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">PostgreSQL</span>
+                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">GitHub Actions</span>
+                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">scikit-learn</span>
+                        </div>
+                    </div>
+                    <a href="./projects/nba-predictor/nba-v2-3.html"
+                       class="flex-shrink-0 min-w-[160px] text-center px-4 py-2.5 bg-accent-green text-white font-bold rounded-lg text-sm hover:bg-green-600 transition shadow-sm">
+                        View Live Hub &rarr;
                     </a>
                 </div>
 
-                <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
-                            Ames Housing Price Prediction (Kaggle)
-                        </h3>
-                        <p class="text-sm text-gray-500">
-                            Goal: Developed a robust regression model for housing prices using disciplined
-                            cross-validation, residual analysis, and Optuna-tuned CatBoost. Emphasis was placed
-                            on generalisation over leaderboard-driven feature churn.
+                <div class="analysis-entry bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Ames Housing Price Prediction</h3>
+                        <p class="text-sm text-gray-500 mb-3">
+                            Top 12% Kaggle ranking (0.12425 score). Developed a robust regression model using 
+                            disciplined cross-validation, residual analysis, and Optuna-tuned CatBoost.
                         </p>
-                        <p class="text-xs mt-1 text-gray-600">
-                            Tools:
-                            <span class="font-medium text-accent-green">
-                                Python (Pandas, NumPy, scikit-learn, CatBoost, Optuna)
-                            </span>
-                        </p>
-                        <p class="text-xs mt-1 text-gray-600">
-                            Result:
-                            <span class="font-medium text-gray-800">
-                                Public score 0.12425 (Top ~10–15%)
-                            </span>
-                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">Regression</span>
+                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">CatBoost</span>
+                            <span class="text-xs px-2 py-1 bg-gray-100 rounded text-gray-600 font-medium">Feature Engineering</span>
+                        </div>
                     </div>
-                    <a href="./projects/ames-house-prices/"
-                       class="mt-3 sm:mt-0 flex-shrink-0 min-w-[160px] text-center px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
-                        View Project &rarr;
+                    <a href="./projects/ames-house-prices/index.html"
+                       class="flex-shrink-0 min-w-[160px] text-center px-4 py-2.5 bg-accent-green text-white font-bold rounded-lg text-sm hover:bg-green-600 transition shadow-sm">
+                        View Case Study &rarr;
                     </a>
                 </div>
 
-                <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
-                            NBA ContenderScore Analysis
-                        </h3>
-                        <p class="text-sm text-gray-500">
-                            Goal: Designed and evaluated a custom weighted metric (ContenderScore) to rank NBA
-                            teams using efficiency metrics and advanced statistics, with a focus on interpretability.
+                <div class="analysis-entry bg-white p-6 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                    <div class="flex-1">
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">NBA ContenderScore Analysis</h3>
+                        <p class="text-sm text-gray-500 mb-3">
+                            Designed and validated a custom weighted metric to rank championship contenders 
+                            using statistical modeling and assuming structural bias testing.
                         </p>
-                        <p class="text-xs mt-1 text-gray-600">
-                            Tools:
-                            <span class="font-medium text-accent-green">
-                                Python (Pandas, NumPy, Matplotlib)
-                            </span>
-                        </p>
+                        <div class="space-x-4">
+                            <a href="./projects/nba-contender-score/nba_summary.html" class="text-xs font-bold text-accent-green hover:underline uppercase tracking-tight">Part 1: Metric Design</a>
+                            <a href="./projects/nba-contender-score/nba_summary_part2.html" class="text-xs font-bold text-accent-green hover:underline uppercase tracking-tight">Part 2: Model Validation</a>
+                        </div>
                     </div>
-                    <a href="./projects/nba-contender-score/nba_summary.html"
-                       target="_blank"
-                       class="mt-3 sm:mt-0 flex-shrink-0 min-w-[160px] text-center px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
-                        View Analysis &rarr;
-                    </a>
-                </div>
-
-                <div class="analysis-entry bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                    <div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-1">
-                            NBA ContenderScore Analysis — Model Validation
-                        </h3>
-                        <p class="text-sm text-gray-500">
-                            Goal: Extended the ContenderScore analysis by testing structural assumptions,
-                            addressing model bias, and evaluating predictive stability using statistical
-                            modelling techniques.
-                        </p>
-                        <p class="text-xs mt-1 text-gray-600">
-                            Tools:
-                            <span class="font-medium text-accent-green">
-                                Python (Pandas, NumPy, statsmodels, scikit-learn)
-                            </span>
-                        </p>
-                    </div>
-                    <a href="./projects/nba-contender-score/nba_summary_part2.html"
-                       target="_blank"
-                       class="mt-3 sm:mt-0 flex-shrink-0 min-w-[160px] text-center px-4 py-2 bg-accent-green text-white font-medium rounded-full text-sm hover:bg-green-600 transition duration-200">
-                        View Analysis &rarr;
-                    </a>
                 </div>
 
             </div>
         </section>
 
-        <footer class="text-center py-6 border-t border-gray-200 mt-10">
-            <p class="text-gray-600 text-sm">
-                Get in touch:
-                <a href="mailto:analyticsnewbie@gmail.com"
-                   class="text-primary-dark hover:text-accent-green font-medium">
-                    analyticsnewbie@gmail.com
-                </a>
+        <footer class="text-center py-10 border-t border-gray-200 mt-12">
+            <p class="text-gray-500 text-sm">
+                Connect with me: 
+                <a href="mailto:analyticsnewbie@gmail.com" class="text-primary-dark hover:text-accent-green font-bold">analyticsnewbie@gmail.com</a>
             </p>
         </footer>
 
