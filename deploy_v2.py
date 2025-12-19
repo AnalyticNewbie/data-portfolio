@@ -15,17 +15,19 @@ def main():
     # 1. Run the Data Pipeline
     run_command("python daily_update.py", "Running NBA Data Engine")
 
-    # 2. Run the Sync Script (to ensure data.json is perfectly aligned with DB)
+   # 1. Run the Data Pipeline (Generates new data)
+    run_command("python daily_update.py", "Running NBA Data Engine")
     run_command("python sync_portfolio.py", "Syncing Database to Local JSON")
 
-    # 3. Git Maintenance (The 'Clear Sidebar' Logic)
+    # 2. Stage and Commit LOCAL changes first
     run_command("git add .", "Staging all changes")
-    
-    # We use a generic message or you can customize it
-    commit_msg = "Automated daily update and portfolio sync"
-    run_command(f'git commit -m "{commit_msg}"', "Committing to local Git")
+    commit_msg = "Automated daily update"
+    run_command(f'git commit -m "{commit_msg}"', "Committing local changes")
 
-    # 4. Push to GitHub
+    # 3. NOW Pull/Rebase (Your changes are safe in a commit, so rebase will work)
+    run_command("git pull origin main --rebase", "Syncing with GitHub")
+
+    # 4. Push everything
     run_command("git push origin main", "Pushing to GitHub")
 
     print("\n========================================")
