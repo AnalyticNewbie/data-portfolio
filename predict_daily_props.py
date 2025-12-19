@@ -50,7 +50,7 @@ def main():
     for game in todays_games:
         # 3. Get all players for both teams in this game
         team_ids = (game['home_team_id'], game['away_team_id'])
-        query_players = "SELECT id, name, team_id FROM players WHERE team_id IN %s"
+        query_players = "SELECT player_id, name, team_id FROM players WHERE team_id IN %s"
         
         with conn.cursor(cursor_factory=RealDictCursor) as cur:
             cur.execute(query_players, (team_ids,))
@@ -59,12 +59,11 @@ def main():
         # 4. Run the model for every player found
         for p in players:
             try:
-                # This calls your existing prediction logic
-                # Ensure 'predict_player' is modified to RETURN data instead of just printing it
-                result = get_prediction_data(p['id'], p['name']) 
+                # Use the updated 'player_id' key
+                result = get_prediction_data(p['player_id'], p['name'])
                 if result:
                     all_projections.append(result)
-            except Exception as e:
+                except Exception as e:
                 continue # Skip players with errors or no data
 
     # 5. GENERATE THE TOP 5 FROM THE FULL LIST
