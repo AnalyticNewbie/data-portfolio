@@ -1,19 +1,108 @@
 {
-    "last_updated": "2025-12-19 17:15:25",
-    "metrics": {
-        "accuracy": "58.7%",
-        "mae": "10.13"
-    },
-    "matchups": [],
-    "props": [
+    "target_date_et": "2025-12-20",
+    "last_updated": "2025-12-20 19:16",
+    "games": [
         {
-            "name": "LeBron James",
-            "proj_ast": 8.1,
-            "proj_pts": 24.5,
-            "proj_reb": 7.2,
-            "away_abbr": "LAL",
-            "edge_type": "High",
-            "home_abbr": "CLE"
+            "game_date": "2025-12-19",
+            "home_abbr": "CLE",
+            "away_abbr": "CHI",
+            "pred_home_score": 116,
+            "pred_away_score": 112,
+            "home_prob": "61.6%",
+            "away_prob": "38.4%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-19",
+            "home_abbr": "BOS",
+            "away_abbr": "MIA",
+            "pred_home_score": 118,
+            "pred_away_score": 110,
+            "home_prob": "73.1%",
+            "away_prob": "26.9%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-19",
+            "home_abbr": "NYK",
+            "away_abbr": "PHI",
+            "pred_home_score": 117,
+            "pred_away_score": 112,
+            "home_prob": "65.7%",
+            "away_prob": "34.3%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-19",
+            "home_abbr": "ATL",
+            "away_abbr": "SAS",
+            "pred_home_score": 109,
+            "pred_away_score": 117,
+            "home_prob": "20.5%",
+            "away_prob": "79.5%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-19",
+            "home_abbr": "MIN",
+            "away_abbr": "OKC",
+            "pred_home_score": 111,
+            "pred_away_score": 120,
+            "home_prob": "23.2%",
+            "away_prob": "76.8%",
+            "risks": []
+        }
+    ],
+    "top_props": [
+        {
+            "name": "Jalen Green",
+            "proj_pts": 16.2,
+            "proj_reb": 3.1,
+            "proj_ast": 3.0,
+            "avg_pts": 20.2,
+            "game_date": "2025-12-20",
+            "home_abbr": "GSW",
+            "away_abbr": "PHX"
+        },
+        {
+            "name": "Bub Carrington",
+            "proj_pts": 11.4,
+            "proj_reb": 3.6,
+            "proj_ast": 4.6,
+            "avg_pts": 8.6,
+            "game_date": "2025-12-20",
+            "home_abbr": "MEM",
+            "away_abbr": "WAS"
+        },
+        {
+            "name": "Devin Booker",
+            "proj_pts": 20.8,
+            "proj_reb": 4.7,
+            "proj_ast": 5.6,
+            "avg_pts": 23.5,
+            "game_date": "2025-12-20",
+            "home_abbr": "GSW",
+            "away_abbr": "PHX"
+        },
+        {
+            "name": "Jalen Duren",
+            "proj_pts": 16.3,
+            "proj_reb": 9.1,
+            "proj_ast": 1.4,
+            "avg_pts": 18.9,
+            "game_date": "2025-12-20",
+            "home_abbr": "DET",
+            "away_abbr": "CHA"
+        },
+        {
+            "name": "Luka Dončić",
+            "proj_pts": 31.7,
+            "proj_reb": 7.6,
+            "proj_ast": 8.3,
+            "avg_pts": 34.2,
+            "game_date": "2025-12-20",
+            "home_abbr": "LAC",
+            "away_abbr": "LAL"
         }
     ]
 }
