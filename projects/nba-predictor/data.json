@@ -1,58 +1,7 @@
 {
     "target_date_et": "2025-12-20",
-    "last_updated": "2025-12-20 19:16",
-    "games": [
-        {
-            "game_date": "2025-12-19",
-            "home_abbr": "CLE",
-            "away_abbr": "CHI",
-            "pred_home_score": 116,
-            "pred_away_score": 112,
-            "home_prob": "61.6%",
-            "away_prob": "38.4%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-19",
-            "home_abbr": "BOS",
-            "away_abbr": "MIA",
-            "pred_home_score": 118,
-            "pred_away_score": 110,
-            "home_prob": "73.1%",
-            "away_prob": "26.9%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-19",
-            "home_abbr": "NYK",
-            "away_abbr": "PHI",
-            "pred_home_score": 117,
-            "pred_away_score": 112,
-            "home_prob": "65.7%",
-            "away_prob": "34.3%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-19",
-            "home_abbr": "ATL",
-            "away_abbr": "SAS",
-            "pred_home_score": 109,
-            "pred_away_score": 117,
-            "home_prob": "20.5%",
-            "away_prob": "79.5%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-19",
-            "home_abbr": "MIN",
-            "away_abbr": "OKC",
-            "pred_home_score": 111,
-            "pred_away_score": 120,
-            "home_prob": "23.2%",
-            "away_prob": "76.8%",
-            "risks": []
-        }
-    ],
+    "last_updated": "2025-12-20 20:06",
+    "games": [],
     "top_props": [
         {
             "name": "Jalen Green",
