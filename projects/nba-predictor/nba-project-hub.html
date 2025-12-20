@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA Predictor Hub | #justcurious</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
         .version-card {
             transition: all 0.3s ease;
             background: rgba(30, 41, 59, 0.5);
@@ -15,175 +19,144 @@
             transform: translateY(-5px);
             border-color: #2dd4bf;
         }
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        .status-dot { height: 8px; width: 8px; border-radius: 50%; display: inline-block; }
+        .status-dot.live { background-color: #10b981; box-shadow: 0 0 8px #10b981; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-200 font-sans antialiased selection:bg-teal-500 selection:text-white">
+<body class="bg-slate-900 text-slate-200 selection:bg-teal-500 selection:text-white">
 
-    <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <a href="../../index.html" class="font-bold text-xl tracking-tighter text-teal-400">#justcurious</a>
-                <div class="flex space-x-4">
-                    <a href="../../index.html" class="text-slate-300 hover:text-white px-3 py-2 text-sm font-medium transition">Home</a>
-                    <span class="bg-teal-500/10 text-teal-400 px-3 py-2 rounded-md text-sm font-medium border border-teal-500/20">NBA Project Hub</span>
-                </div>
+    <nav class="fixed w-full z-50 bg-slate-900/80 backdrop-blur-md border-b border-slate-700 font-sans">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="text-teal-400 font-bold tracking-tighter text-xl">#justcurious</div>
+            <div class="flex space-x-6 text-sm font-medium">
+                <a href="../../index.html" class="hover:text-teal-400 transition-colors">Home</a>
+                <span class="text-teal-400 border-b-2 border-teal-400 pb-1">Hub</span>
             </div>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+    <main class="max-w-6xl mx-auto pt-32 pb-24 px-6">
         
-        <header class="mb-12">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">NBA Prediction Engine</h1>
-            <p class="text-xl text-slate-400 max-w-3xl leading-relaxed">
-                An end-to-end automated forecasting system. Below is the active production dashboard, followed by the evolution of the model's architecture.
-            </p>
+        <header class="mb-16">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <h1 class="text-5xl font-extrabold text-white mb-4 tracking-tight uppercase italic">NBA Engine</h1>
+                    <p class="text-slate-400 max-w-2xl leading-relaxed">
+                        Production-grade automated forecasting. Updated daily at 10:00 AM AEDT.
+                    </p>
+                </div>
+                <div class="glass-panel px-6 py-4 rounded-xl border-l-4 border-emerald-500">
+                    <div class="flex items-center gap-3 mb-1">
+                        <span class="status-dot live animate-pulse"></span>
+                        <span class="text-[10px] font-bold text-emerald-400 uppercase tracking-[0.2em]">System Status</span>
+                    </div>
+                    <div class="text-xs text-slate-500 font-mono" id="last-sync">Syncing...</div>
+                </div>
+            </div>
         </header>
 
-        <section class="mb-24">
-            <div class="flex items-center justify-between mb-8">
-                <h2 class="text-2xl font-bold text-white border-l-4 border-teal-500 pl-4">Live Projections (v2.4)</h2>
-                <div class="flex items-center gap-2">
-                    <span class="h-2 w-2 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
-                    <span class="text-emerald-400 font-bold text-xs uppercase tracking-widest">System Online</span>
-                </div>
+        <section class="mb-20">
+            <div class="flex items-center gap-4 mb-8">
+                <h2 class="text-xl font-bold text-white uppercase tracking-widest">Player Prop Insights</h2>
+                <div class="h-px flex-grow bg-slate-800"></div>
+                <span class="text-[10px] text-slate-500 font-mono" id="et-date-props"></span>
             </div>
+            <div id="prop-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                </div>
+        </section>
 
-            <div id="projection-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-panel p-8 rounded-2xl text-center md:col-span-3">
-                    <p class="text-slate-400 italic">Syncing with PostgreSQL database...</p>
-                    <a href="./nba-v2-4.html" class="mt-4 inline-block text-teal-400 hover:underline font-bold">View Production Build Docs →</a>
-                </div>
+        <section class="mb-24">
+            <div class="flex items-center gap-4 mb-8">
+                <h2 class="text-xl font-bold text-white uppercase tracking-widest text-teal-400">Matchup Forecasts</h2>
+                <div class="h-px flex-grow bg-slate-800"></div>
             </div>
+            <div id="game-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                </div>
         </section>
 
         <hr class="border-slate-800 mb-20">
 
-        <h2 class="text-2xl font-bold text-white mb-8">Development Timeline</h2>
+        <h2 class="text-2xl font-bold text-white mb-8 italic">Development Timeline</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
             <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-teal-500">
                 <div>
-                    <div class="text-teal-400 font-mono text-xs mb-2 uppercase tracking-widest">Active Production</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">v2.4: The Production Build</h3>
-                    <p class="text-slate-400 text-sm mb-8">Hardening the modular pipeline and optimizing data ingestion for sub-5 second processing.</p>
+                    <div class="text-teal-400 font-mono text-[10px] mb-2 uppercase tracking-widest font-bold">Latest Release</div>
+                    <h3 class="text-xl font-bold text-white mb-3">v2.4: Production Build</h3>
+                    <p class="text-slate-400 text-xs mb-8 leading-relaxed">Hardening the pipeline with optimized in-memory processing and bulk data ingestion.</p>
                 </div>
-                <a href="./nba-v2-4.html" class="w-full py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold rounded-lg text-center transition">
-                    Read Case Study
-                </a>
+                <a href="nba-v2-4.html" class="w-full py-3 bg-teal-500 hover:bg-teal-400 text-slate-900 font-bold rounded-lg text-center transition text-sm">Case Study</a>
             </div>
-
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
-                <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Archived Production</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">v2.3: Cloud Sync</h3>
-                    <p class="text-slate-400 text-sm mb-8">Full cloud orchestration with the first iteration of 58.7% accuracy metrics.</p>
-                </div>
-                <a href="./nba-v2-3.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
-                    Read Case Study
-                </a>
             </div>
-
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
-                <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Optimization</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">v2.2: The Weighting Pivot</h3>
-                    <p class="text-slate-400 text-sm mb-8">Refining model memory using 70/30 weighted rolling windows.</p>
-                </div>
-                <a href="./nba-v2-2.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
-                    Read Case Study
-                </a>
-            </div>
-
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
-                <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Bug Fix</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">v2.1: The Sunday Fix</h3>
-                    <p class="text-slate-400 text-sm mb-8">Solving the timezone "Ghost Games" bug in the date-handling module.</p>
-                </div>
-                <a href="./nba-v2-1.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
-                    View Log
-                </a>
-            </div>
-
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
-                <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Infrastructure</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">v2.0: The Migration</h3>
-                    <p class="text-slate-400 text-sm mb-8">Transition to a SQL-driven ETL pipeline and Gradient Boosting Trees.</p>
-                </div>
-                <a href="./nba-v2-0.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
-                    Architecture Overview
-                </a>
-            </div>
-
-            <div class="version-card p-8 rounded-2xl flex flex-col justify-between border-l-4 border-slate-700">
-                <div>
-                    <div class="text-slate-500 font-mono text-xs mb-2 uppercase tracking-widest">Genesis</div>
-                    <h3 class="text-2xl font-bold text-white mb-4">v1.0: Statistical Baseline</h3>
-                    <p class="text-slate-400 text-sm mb-8">Initial proof-of-concept using simple linear regressions.</p>
-                </div>
-                <a href="./nba-v1-0.html" class="w-full py-3 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-lg text-center transition">
-                    View Legacy Concept
-                </a>
-            </div>
-
-        </div>
     </main>
 
-    <footer class="border-t border-slate-800 py-12 bg-slate-900 text-center">
-        <p class="text-slate-500 text-sm">&copy; 2025 #justcurious</p>
-    </footer>
-
 <script>
-    async function loadHubProjections() {
-        const grid = document.getElementById('projection-grid');
+    async function loadHub() {
         try {
             const response = await fetch('data.json'); 
-            if (!response.ok) throw new Error("File not found");
-            
             const data = await response.json();
 
-            if (data.props && data.props.length > 0) {
-                grid.innerHTML = ''; 
+            // 1. Metadata Update
+            document.getElementById('last-sync').innerText = `LAST UPDATE: ${data.last_updated}`;
+            document.getElementById('et-date-props').innerText = `US SLATE: ${data.target_date_et}`;
 
-                data.props.forEach(player => {
-                    const card = document.createElement('div');
-                    card.className = 'glass-panel p-6 rounded-2xl border border-slate-700 hover:border-teal-500 transition-all relative overflow-hidden';
-                    
-                    // Logic for Confidence Badge
-                    const badgeText = player.edge_type === "High" ? "High Confidence" : "Standard";
-                    
-                    card.innerHTML = `
-                        <div class="absolute top-0 right-0 bg-teal-500 text-slate-900 text-[10px] font-bold px-2 py-1 rounded-bl-lg uppercase tracking-tighter">
-                            ${badgeText}
+            // 2. Render Props (top_props)
+            const propGrid = document.getElementById('prop-grid');
+            propGrid.innerHTML = '';
+            data.top_props.forEach(p => {
+                const isUp = p.proj_pts > p.avg_pts;
+                const edge = Math.abs(p.proj_pts - p.avg_pts).toFixed(1);
+                
+                const card = document.createElement('div');
+                card.className = 'glass-panel p-6 rounded-2xl border border-slate-700 hover:border-teal-500 transition-all';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-6 font-mono text-[10px]">
+                        <span class="text-slate-500 uppercase">${p.away_abbr} @ ${p.home_abbr}</span>
+                        <span class="${isUp ? 'text-emerald-400' : 'text-blue-400'} font-bold">${isUp ? '🔥 UP' : '🧊 DOWN'} ${edge}</span>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-4">${p.name}</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                            <div class="text-[10px] text-slate-500 uppercase mb-1">Projected</div>
+                            <div class="text-teal-400 font-bold text-xl">${p.proj_pts}</div>
                         </div>
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-white font-bold">${player.name}</h3>
-                            <span class="text-teal-400 text-xs font-mono">${player.away_abbr} @ ${player.home_abbr}</span>
+                        <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-800">
+                            <div class="text-[10px] text-slate-500 uppercase mb-1">Season Avg</div>
+                            <div class="text-white font-medium text-xl">${p.avg_pts}</div>
                         </div>
-                        <div class="grid grid-cols-3 gap-2 text-center">
-                            <div><div class="text-xs text-slate-500 font-mono uppercase tracking-tighter">PTS</div><div class="text-white font-bold">${player.proj_pts}</div></div>
-                            <div><div class="text-xs text-slate-500 font-mono uppercase tracking-tighter">REB</div><div class="text-white font-bold">${player.proj_reb}</div></div>
-                            <div><div class="text-xs text-slate-500 font-mono uppercase tracking-tighter">AST</div><div class="text-white font-bold">${player.proj_ast}</div></div>
-                        </div>
-                    `;
-                    grid.appendChild(card);
-                });
-            } else {
-                grid.innerHTML = '<p class="text-slate-400 italic md:col-span-3 text-center">No active projections found for today.</p>';
-            }
-        } catch (error) {
-            console.error("Fetch error:", error);
-            grid.innerHTML = '<p class="text-red-400 italic md:col-span-3 text-center">Connection error. Run deploy_v2.py to sync.</p>';
+                    </div>
+                `;
+                propGrid.appendChild(card);
+            });
+
+            // 3. Render Games (games)
+            const gameGrid = document.getElementById('game-grid');
+            gameGrid.innerHTML = '';
+            data.games.forEach(g => {
+                const card = document.createElement('div');
+                card.className = 'glass-panel p-6 rounded-2xl border border-slate-700 flex justify-between items-center';
+                card.innerHTML = `
+                    <div class="text-center w-1/3">
+                        <div class="text-2xl font-black text-white">${g.away_abbr}</div>
+                        <div class="text-[10px] text-slate-500">${g.away_prob} Win</div>
+                    </div>
+                    <div class="text-center flex-grow">
+                        <div class="text-teal-400 font-mono text-lg font-bold">${g.pred_away_score} - ${g.pred_home_score}</div>
+                        <div class="text-[10px] text-slate-600 mt-1 uppercase">${g.risks.join(' ') || 'Standard Model'}</div>
+                    </div>
+                    <div class="text-center w-1/3">
+                        <div class="text-2xl font-black text-white">${g.home_abbr}</div>
+                        <div class="text-[10px] text-slate-500">${g.home_prob} Win</div>
+                    </div>
+                `;
+                gameGrid.appendChild(card);
+            });
+
+        } catch (e) {
+            console.error(e);
+            document.getElementById('prop-grid').innerHTML = '<p class="text-red-400 italic">Sync Error. Check deploy_v2.py log.</p>';
         }
     }
-    loadHubProjections();
+    loadHub();
 </script>
 </body>
 </html>
