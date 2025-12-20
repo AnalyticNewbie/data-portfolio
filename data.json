@@ -1,7 +1,136 @@
 {
     "target_date_et": "2025-12-20",
-    "last_updated_au": "2025-12-20 10:48",
-    "games": [],
+    "last_updated": "2025-12-20 11:07",
+    "games": [
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "CHA",
+            "away_abbr": "ATL",
+            "pred_home_score": 116,
+            "pred_away_score": 112,
+            "home_prob": "55.5%",
+            "away_prob": "44.5%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "PHX",
+            "away_abbr": "GSW",
+            "pred_home_score": 114,
+            "pred_away_score": 117,
+            "home_prob": "36.3%",
+            "away_prob": "63.7%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "NOP",
+            "away_abbr": "HOU",
+            "pred_home_score": 113,
+            "pred_away_score": 116,
+            "home_prob": "32.2%",
+            "away_prob": "67.8%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "OKC",
+            "away_abbr": "LAC",
+            "pred_home_score": 120,
+            "pred_away_score": 104,
+            "home_prob": "85.9%",
+            "away_prob": "14.1%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "UTA",
+            "away_abbr": "LAL",
+            "pred_home_score": 114,
+            "pred_away_score": 115,
+            "home_prob": "40.8%",
+            "away_prob": "59.2%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "BKN",
+            "away_abbr": "MIA",
+            "pred_home_score": 116,
+            "pred_away_score": 111,
+            "home_prob": "54.6%",
+            "away_prob": "45.4%",
+            "risks": [
+                "COIN FLIP"
+            ]
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "IND",
+            "away_abbr": "NYK",
+            "pred_home_score": 111,
+            "pred_away_score": 118,
+            "home_prob": "23.5%",
+            "away_prob": "76.5%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "DEN",
+            "away_abbr": "ORL",
+            "pred_home_score": 113,
+            "pred_away_score": 112,
+            "home_prob": "47.4%",
+            "away_prob": "52.6%",
+            "risks": [
+                "COIN FLIP"
+            ]
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "POR",
+            "away_abbr": "SAC",
+            "pred_home_score": 115,
+            "pred_away_score": 112,
+            "home_prob": "51.9%",
+            "away_prob": "48.1%",
+            "risks": [
+                "COIN FLIP"
+            ]
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "MIL",
+            "away_abbr": "TOR",
+            "pred_home_score": 114,
+            "pred_away_score": 113,
+            "home_prob": "46.8%",
+            "away_prob": "53.2%",
+            "risks": [
+                "COIN FLIP"
+            ]
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "SAS",
+            "away_abbr": "WAS",
+            "pred_home_score": 120,
+            "pred_away_score": 108,
+            "home_prob": "77.8%",
+            "away_prob": "22.2%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-18",
+            "home_abbr": "DAL",
+            "away_abbr": "DET",
+            "pred_home_score": 114,
+            "pred_away_score": 115,
+            "home_prob": "40.5%",
+            "away_prob": "59.5%",
+            "risks": []
+        }
+    ],
     "top_props": [
         {
             "name": "Donovan Mitchell",
