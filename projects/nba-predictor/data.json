@@ -1,132 +1,78 @@
 {
-    "target_date_et": "2025-12-20",
-    "last_updated": "2025-12-21 19:46",
+    "target_date_et": "2025-12-21",
+    "last_updated": "2025-12-22 05:58",
     "games": [
         {
-            "game_date": "2025-12-20",
-            "home_abbr": "TOR",
-            "away_abbr": "BOS",
-            "pred_home_score": 110,
-            "pred_away_score": 118,
-            "home_prob": "19.6%",
-            "away_prob": "80.4%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-20",
-            "home_abbr": "PHI",
-            "away_abbr": "DAL",
-            "pred_home_score": 114,
+            "game_date": "2025-12-21",
+            "home_abbr": "ATL",
+            "away_abbr": "CHI",
+            "pred_home_score": 115,
             "pred_away_score": 113,
-            "home_prob": "45.9%",
-            "away_prob": "54.1%",
-            "risks": [
-                "COIN FLIP"
-            ]
-        },
-        {
-            "game_date": "2025-12-20",
-            "home_abbr": "DEN",
-            "away_abbr": "HOU",
-            "pred_home_score": 115,
-            "pred_away_score": 112,
-            "home_prob": "55.3%",
-            "away_prob": "44.7%",
+            "home_prob": "57.2%",
+            "away_prob": "42.8%",
             "risks": []
         },
         {
-            "game_date": "2025-12-20",
-            "home_abbr": "LAC",
-            "away_abbr": "LAL",
-            "pred_home_score": 114,
-            "pred_away_score": 116,
-            "home_prob": "40.7%",
-            "away_prob": "59.3%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-20",
-            "home_abbr": "UTA",
-            "away_abbr": "ORL",
-            "pred_home_score": 112,
-            "pred_away_score": 117,
-            "home_prob": "26.6%",
-            "away_prob": "73.4%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-20",
-            "home_abbr": "NOP",
-            "away_abbr": "IND",
-            "pred_home_score": 114,
-            "pred_away_score": 114,
-            "home_prob": "47.6%",
-            "away_prob": "52.4%",
-            "risks": [
-                "COIN FLIP"
-            ]
-        },
-        {
-            "game_date": "2025-12-20",
-            "home_abbr": "GSW",
-            "away_abbr": "PHX",
-            "pred_home_score": 115,
-            "pred_away_score": 110,
-            "home_prob": "61.3%",
-            "away_prob": "38.7%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-20",
+            "game_date": "2025-12-21",
             "home_abbr": "SAC",
-            "away_abbr": "POR",
-            "pred_home_score": 113,
-            "pred_away_score": 115,
-            "home_prob": "40.3%",
-            "away_prob": "59.7%",
+            "away_abbr": "HOU",
+            "pred_home_score": 111,
+            "pred_away_score": 117,
+            "home_prob": "33.0%",
+            "away_prob": "67.0%",
             "risks": []
         },
         {
-            "game_date": "2025-12-20",
-            "home_abbr": "MEM",
-            "away_abbr": "WAS",
-            "pred_home_score": 118,
+            "game_date": "2025-12-21",
+            "home_abbr": "NYK",
+            "away_abbr": "MIA",
+            "pred_home_score": 119,
             "pred_away_score": 107,
-            "home_prob": "78.6%",
-            "away_prob": "21.4%",
+            "home_prob": "79.5%",
+            "away_prob": "20.5%",
             "risks": []
         },
         {
-            "game_date": "2025-12-20",
-            "home_abbr": "DET",
-            "away_abbr": "CHA",
+            "game_date": "2025-12-21",
+            "home_abbr": "MIN",
+            "away_abbr": "MIL",
             "pred_home_score": 117,
-            "pred_away_score": 111,
-            "home_prob": "64.1%",
-            "away_prob": "35.9%",
+            "pred_away_score": 108,
+            "home_prob": "74.6%",
+            "away_prob": "25.4%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-21",
+            "home_abbr": "WAS",
+            "away_abbr": "SAS",
+            "pred_home_score": 110,
+            "pred_away_score": 117,
+            "home_prob": "24.8%",
+            "away_prob": "75.2%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-21",
+            "home_abbr": "BKN",
+            "away_abbr": "TOR",
+            "pred_home_score": 115,
+            "pred_away_score": 109,
+            "home_prob": "61.9%",
+            "away_prob": "38.1%",
             "risks": []
         }
     ],
     "top_props": [
         {
-            "name": "Jalen Green",
-            "proj_pts": 16.2,
-            "proj_reb": 3.1,
-            "proj_ast": 3.0,
-            "avg_pts": 20.2,
-            "game_date": "2025-12-20",
-            "home_abbr": "GSW",
-            "away_abbr": "PHX"
-        },
-        {
-            "name": "Luka Dončić",
-            "proj_pts": 29.4,
-            "proj_reb": 7.3,
-            "proj_ast": 7.4,
-            "avg_pts": 32.6,
-            "game_date": "2025-12-20",
-            "home_abbr": "LAC",
-            "away_abbr": "LAL"
+            "name": "Giannis Antetokounmpo",
+            "proj_pts": 24.5,
+            "proj_reb": 7.6,
+            "proj_ast": 5.4,
+            "avg_pts": 28.8,
+            "game_date": "2025-12-21",
+            "home_abbr": "MIN",
+            "away_abbr": "MIL"
         },
         {
             "name": "Bub Carrington",
@@ -134,29 +80,39 @@
             "proj_reb": 4.0,
             "proj_ast": 4.7,
             "avg_pts": 8.9,
-            "game_date": "2025-12-20",
-            "home_abbr": "MEM",
-            "away_abbr": "WAS"
+            "game_date": "2025-12-21",
+            "home_abbr": "WAS",
+            "away_abbr": "SAS"
         },
         {
-            "name": "Deni Avdija",
-            "proj_pts": 22.3,
-            "proj_reb": 6.8,
-            "proj_ast": 7.1,
-            "avg_pts": 24.8,
-            "game_date": "2025-12-20",
-            "home_abbr": "SAC",
-            "away_abbr": "POR"
+            "name": "De'Aaron Fox",
+            "proj_pts": 19.8,
+            "proj_reb": 3.6,
+            "proj_ast": 5.5,
+            "avg_pts": 22.6,
+            "game_date": "2025-12-21",
+            "home_abbr": "WAS",
+            "away_abbr": "SAS"
         },
         {
-            "name": "Jalen Duren",
-            "proj_pts": 16.4,
-            "proj_reb": 9.1,
-            "proj_ast": 1.5,
-            "avg_pts": 18.9,
-            "game_date": "2025-12-20",
-            "home_abbr": "DET",
-            "away_abbr": "CHA"
+            "name": "Cam Thomas",
+            "proj_pts": 19.6,
+            "proj_reb": 2.0,
+            "proj_ast": 3.3,
+            "avg_pts": 22.1,
+            "game_date": "2025-12-21",
+            "home_abbr": "BKN",
+            "away_abbr": "TOR"
+        },
+        {
+            "name": "Jamal Shead",
+            "proj_pts": 8.8,
+            "proj_reb": 2.9,
+            "proj_ast": 5.0,
+            "avg_pts": 6.5,
+            "game_date": "2025-12-21",
+            "home_abbr": "BKN",
+            "away_abbr": "TOR"
         }
     ]
 }
