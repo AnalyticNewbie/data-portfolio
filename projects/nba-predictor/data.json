@@ -1,118 +1,132 @@
 {
-    "target_date_et": "2025-12-21",
-    "last_updated": "2025-12-22 05:58",
+    "target_date_et": "2025-12-22",
+    "last_updated": "2025-12-23 06:09",
     "games": [
         {
-            "game_date": "2025-12-21",
-            "home_abbr": "ATL",
-            "away_abbr": "CHI",
-            "pred_home_score": 115,
-            "pred_away_score": 113,
-            "home_prob": "57.2%",
-            "away_prob": "42.8%",
-            "risks": []
+            "game_date": "2025-12-22",
+            "home_abbr": "NOP",
+            "away_abbr": "DAL",
+            "pred_home_score": 113,
+            "pred_away_score": 111,
+            "home_prob": "51.0%",
+            "away_prob": "49.0%",
+            "risks": [
+                "COIN FLIP"
+            ]
         },
         {
-            "game_date": "2025-12-21",
-            "home_abbr": "SAC",
-            "away_abbr": "HOU",
+            "game_date": "2025-12-22",
+            "home_abbr": "GSW",
+            "away_abbr": "ORL",
             "pred_home_score": 111,
-            "pred_away_score": 117,
-            "home_prob": "33.0%",
-            "away_prob": "67.0%",
+            "pred_away_score": 111,
+            "home_prob": "46.0%",
+            "away_prob": "54.0%",
+            "risks": [
+                "COIN FLIP"
+            ]
+        },
+        {
+            "game_date": "2025-12-22",
+            "home_abbr": "BOS",
+            "away_abbr": "IND",
+            "pred_home_score": 120,
+            "pred_away_score": 110,
+            "home_prob": "76.0%",
+            "away_prob": "24.0%",
             "risks": []
         },
         {
-            "game_date": "2025-12-21",
-            "home_abbr": "NYK",
-            "away_abbr": "MIA",
-            "pred_home_score": 119,
-            "pred_away_score": 107,
-            "home_prob": "79.5%",
-            "away_prob": "20.5%",
-            "risks": []
-        },
-        {
-            "game_date": "2025-12-21",
-            "home_abbr": "MIN",
-            "away_abbr": "MIL",
-            "pred_home_score": 117,
+            "game_date": "2025-12-22",
+            "home_abbr": "DEN",
+            "away_abbr": "UTA",
+            "pred_home_score": 116,
             "pred_away_score": 108,
-            "home_prob": "74.6%",
-            "away_prob": "25.4%",
+            "home_prob": "70.1%",
+            "away_prob": "29.9%",
             "risks": []
         },
         {
-            "game_date": "2025-12-21",
-            "home_abbr": "WAS",
-            "away_abbr": "SAS",
-            "pred_home_score": 110,
-            "pred_away_score": 117,
-            "home_prob": "24.8%",
-            "away_prob": "75.2%",
+            "game_date": "2025-12-22",
+            "home_abbr": "OKC",
+            "away_abbr": "MEM",
+            "pred_home_score": 121,
+            "pred_away_score": 110,
+            "home_prob": "77.5%",
+            "away_prob": "22.5%",
             "risks": []
         },
         {
-            "game_date": "2025-12-21",
-            "home_abbr": "BKN",
-            "away_abbr": "TOR",
-            "pred_home_score": 115,
-            "pred_away_score": 109,
-            "home_prob": "61.9%",
-            "away_prob": "38.1%",
+            "game_date": "2025-12-22",
+            "home_abbr": "POR",
+            "away_abbr": "DET",
+            "pred_home_score": 112,
+            "pred_away_score": 118,
+            "home_prob": "26.2%",
+            "away_prob": "73.8%",
+            "risks": []
+        },
+        {
+            "game_date": "2025-12-22",
+            "home_abbr": "CLE",
+            "away_abbr": "CHA",
+            "pred_home_score": 113,
+            "pred_away_score": 113,
+            "home_prob": "43.0%",
+            "away_prob": "57.0%",
             "risks": []
         }
     ],
     "top_props": [
         {
-            "name": "Giannis Antetokounmpo",
-            "proj_pts": 24.5,
-            "proj_reb": 7.6,
+            "name": "Donovan Mitchell",
+            "proj_pts": 27.0,
+            "proj_reb": 3.8,
             "proj_ast": 5.4,
-            "avg_pts": 28.8,
-            "game_date": "2025-12-21",
-            "home_abbr": "MIN",
-            "away_abbr": "MIL"
+            "avg_pts": 29.9,
+            "game_date": "2025-12-22",
+            "home_abbr": "CLE",
+            "away_abbr": "CHA"
         },
         {
-            "name": "Bub Carrington",
-            "proj_pts": 12.0,
-            "proj_reb": 4.0,
-            "proj_ast": 4.7,
-            "avg_pts": 8.9,
-            "game_date": "2025-12-21",
-            "home_abbr": "WAS",
-            "away_abbr": "SAS"
+            "name": "Deni Avdija",
+            "proj_pts": 22.3,
+            "proj_reb": 6.8,
+            "proj_ast": 7.1,
+            "avg_pts": 24.8,
+            "game_date": "2025-12-22",
+            "home_abbr": "POR",
+            "away_abbr": "DET"
         },
         {
-            "name": "De'Aaron Fox",
-            "proj_pts": 19.8,
-            "proj_reb": 3.6,
-            "proj_ast": 5.5,
-            "avg_pts": 22.6,
-            "game_date": "2025-12-21",
-            "home_abbr": "WAS",
-            "away_abbr": "SAS"
+            "name": "Jalen Duren",
+            "proj_pts": 16.4,
+            "proj_reb": 9.1,
+            "proj_ast": 1.5,
+            "avg_pts": 18.9,
+            "game_date": "2025-12-22",
+            "home_abbr": "POR",
+            "away_abbr": "DET"
         },
         {
-            "name": "Cam Thomas",
-            "proj_pts": 19.6,
-            "proj_reb": 2.0,
-            "proj_ast": 3.3,
-            "avg_pts": 22.1,
-            "game_date": "2025-12-21",
-            "home_abbr": "BKN",
-            "away_abbr": "TOR"
+            "name": "Cade Cunningham",
+            "proj_pts": 25.4,
+            "proj_reb": 5.9,
+            "proj_ast": 8.4,
+            "avg_pts": 27.6,
+            "game_date": "2025-12-22",
+            "home_abbr": "POR",
+            "away_abbr": "DET"
         },
         {
-            "name": "Jamal Shead",
-            "proj_pts": 8.8,
-            "proj_reb": 2.9,
-            "proj_ast": 5.0,
-            "avg_pts": 6.5,
-            "game_date": "2025-12-21",
-            "home_abbr": "BKN",
-            "away_abbr": "TOR"
+            "name": "Nikola Jokić",
+            "proj_pts": 29.0,
+            "proj_reb": 9.7,
+            "proj_ast": 9.1,
+            "avg_pts": 31.1,
+            "game_date": "2025-12-22",
+            "home_abbr": "DEN",
+            "away_abbr": "UTA"
         }
     ]
 }
