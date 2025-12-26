@@ -110,8 +110,16 @@ if __name__ == "__main__":
     import json
     # Update path to the project subdirectory
     json_path = "projects/nba-predictor/data.json" 
-    
-    with open(json_path, "w") as f:
-        # Note: Ensure team_preds is defined or use the specific player results
-        json.dump(team_preds, f, indent=4) 
+   # Create the data object to save
+    save_data = {
+        "player_name": full_name,
+        "projections": {
+            "points": pred_pts,
+            "rebounds": pred_reb,
+            "assists": pred_ast
+        }
+    }
+
+    with open(json_path, "w", encoding='utf-8') as f:
+        json.dump(save_data, f, indent=4, ensure_ascii=False)
     print(f"✅ Local Bridge: {json_path} updated.")
